@@ -39,6 +39,9 @@
     <ClCompile Include="src\Shaders\Shader_Loader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Shaders\Simple_Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Display.h">
@@ -62,5 +65,15 @@
     <ClInclude Include="src\Shaders\Shader_Loader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Shaders\Simple_Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Texture\Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\Shaders\Simple_Fragment.glsl" />
+    <None Include="Data\Shaders\Simple_Vertex.glsl" />
   </ItemGroup>
 </Project>

@@ -44,10 +44,33 @@ namespace Shader
 		return source;
 	}
 
-	GLuint LoadShader(const std::string& vertexShaderFile, const std::string& fragmentShaderFile)
+	GLuint createProgram(GLuint vertexShaderID, GLuint fragementShaderID)
+	{
+		auto id = glCreateProgram();
+
+		glAttachShader(id, vertexShaderID);
+		glAttachShader(id, fragementShaderID);
+
+		glLinkProgram(id);
+
+		return id;
+
+	}
+
+
+	GLuint loadShader(const std::string& vertexShaderFile, const std::string& fragmentShaderFile)
 	{
 		auto vertexSource   = getSource(vertexShaderFile);
 		auto fragmentSource = getSource(fragmentShaderFile);
 
+		auto vertexShaderID   = compileShader(vertexSource.c_str(), GL_VERTEX_SHADER);
+		auto fragmentShaderID = compileShader(fragmentSource.c_str(), GL_FRAGMENT_SHADER);
+
+		auto programID = createProgram(vertexShaderID, fragmentShaderID);
+
+		glDeleteShader(vertexShaderID);
+		glDeleteShader(fragmentShaderID);
+
+		return programID;
 	}
 }

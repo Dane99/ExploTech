@@ -8,13 +8,16 @@ namespace Shader
 	{
 		public:
 			Shader_Program(const std::string& vertexShaderFile, const std::string& fragmentShaderFile);
-
+			~Shader_Program();
 			void bind();
 			void unbind();
 
+		protected:
+			void bindAttribute(GLuint location, const GLchar* name);
+
+			virtual void bindAttributes() = 0;
+
 		private:
 			GLuint m_programID;
-			GLuint m_vertexShaderID;
-			GLuint m_fragmentShaderID;
 	};
 }

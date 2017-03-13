@@ -24,9 +24,12 @@ namespace State {
 
 	void Playing::draw()
 	{
-
+		m_shader.bind();
 		m_model.bind();
+
 		glDrawArrays(GL_TRIANGLES, 0, 6);
+
 		m_model.unbind();
+		m_shader.unbind();
 	}
 }
