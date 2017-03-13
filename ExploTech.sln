@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Battlecraft", "Battlecraft\Battlecraft.vcxproj", "{321004F4-8ED3-4733-9852-0BD75BFD465A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExploTech", "ExploTech\ExploTech.vcxproj", "{321004F4-8ED3-4733-9852-0BD75BFD465A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

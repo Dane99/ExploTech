@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{321004F4-8ED3-4733-9852-0BD75BFD465A}</ProjectGuid>
-    <RootNamespace>Battlecraft</RootNamespace>
+    <RootNamespace>ExploTech</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
     <ProjectName>ExploTech</ProjectName>
   </PropertyGroup>
