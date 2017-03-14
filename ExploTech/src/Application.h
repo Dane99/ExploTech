@@ -4,6 +4,8 @@
 #include <memory>
 #include "States/Game_State.h"
 
+#include "Renderer/Master.h"
+
 class Application {
 	public:
 		Application();
@@ -15,4 +17,6 @@ class Application {
 
 	private:
 		std::stack<std::unique_ptr<State::Game_State>> m_states;
+
+		Renderer::Master m_renderer;
 };

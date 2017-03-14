@@ -11,8 +11,8 @@ class Model
 			  const std::vector<GLuint>& indices);
 
 		~Model();
-		void bind();
-		void unbind();
+		void bind() const;
+		void unbind() const;
 
 		GLuint getIndicesCount() const;
 

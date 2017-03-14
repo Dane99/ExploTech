@@ -146,6 +146,8 @@
     <ClCompile Include="src\Display.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Model.cpp" />
+    <ClCompile Include="src\Renderer\Master.cpp" />
+    <ClCompile Include="src\Renderer\Simple.cpp" />
     <ClCompile Include="src\Shaders\Shader_Loader.cpp" />
     <ClCompile Include="src\Shaders\Shader_Program.cpp" />
     <ClCompile Include="src\Shaders\Simple_Shader.cpp" />
@@ -157,6 +159,8 @@
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Display.h" />
     <ClInclude Include="src\Model.h" />
+    <ClInclude Include="src\Renderer\Master.h" />
+    <ClInclude Include="src\Renderer\Simple.h" />
     <ClInclude Include="src\Shaders\Shader_Loader.h" />
     <ClInclude Include="src\Shaders\Shader_Program.h" />
     <ClInclude Include="src\Shaders\Simple_Shader.h" />
