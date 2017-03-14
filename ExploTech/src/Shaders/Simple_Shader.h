@@ -9,7 +9,11 @@ namespace Shader
 		public:
 			Simple_Shader();
 
+			void setTime(float time);
+
 		private:
-			void bindAttributes() override;
+			void getUniformLocations() override;
+
+			GLuint m_locationTime = 0;
 	};
 }

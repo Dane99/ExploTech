@@ -42,6 +42,9 @@
     <ClCompile Include="src\Shaders\Simple_Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Texture\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Display.h">
@@ -75,5 +78,10 @@
   <ItemGroup>
     <None Include="Data\Shaders\Simple_Fragment.glsl" />
     <None Include="Data\Shaders\Simple_Vertex.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Data\Textures\grass.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

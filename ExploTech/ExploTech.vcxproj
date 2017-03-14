@@ -151,6 +151,7 @@
     <ClCompile Include="src\Shaders\Simple_Shader.cpp" />
     <ClCompile Include="src\States\Game_State.cpp" />
     <ClCompile Include="src\States\Playing.cpp" />
+    <ClCompile Include="src\Texture\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
@@ -166,6 +167,9 @@
   <ItemGroup>
     <None Include="Data\Shaders\Simple_Fragment.glsl" />
     <None Include="Data\Shaders\Simple_Vertex.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Data\Textures\grass.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
