@@ -6,9 +6,6 @@
 
 namespace Display {
 	
-	constexpr static int WIDTH = 1280;
-	constexpr static int HEIGHT = 720;
-
 	std::unique_ptr<sf::RenderWindow> window;
 
 	void init()
@@ -31,7 +28,7 @@ namespace Display {
 
 	void clear()
 	{
-		glClearColor(0.0, 0.0, 0.0, 1.0); // Good, but defaults to black anyway so far.
+		glClearColor(0.0, 0.0, 0.0, 1.0); // Good, but defaults to black anyway.
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 	}
 

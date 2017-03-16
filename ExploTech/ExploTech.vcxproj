@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Math\Matrix.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Display.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -153,11 +154,15 @@
     <ClCompile Include="src\Shaders\Simple_Shader.cpp" />
     <ClCompile Include="src\States\Game_State.cpp" />
     <ClCompile Include="src\States\Playing.cpp" />
+    <ClCompile Include="src\Temp\Quad.cpp" />
     <ClCompile Include="src\Texture\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Math\Matrix.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Display.h" />
+    <ClInclude Include="src\Entity.h" />
+    <ClInclude Include="src\Glm_Common.h" />
     <ClInclude Include="src\Model.h" />
     <ClInclude Include="src\Renderer\Master.h" />
     <ClInclude Include="src\Renderer\Simple.h" />
@@ -166,6 +171,7 @@
     <ClInclude Include="src\Shaders\Simple_Shader.h" />
     <ClInclude Include="src\States\Game_State.h" />
     <ClInclude Include="src\States\Playing.h" />
+    <ClInclude Include="src\Temp\Quad.h" />
     <ClInclude Include="src\Texture\Texture.h" />
   </ItemGroup>
   <ItemGroup>

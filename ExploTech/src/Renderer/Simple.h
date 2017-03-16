@@ -5,7 +5,8 @@
 
 #include "../Shaders/Simple_Shader.h"
 
-class Model;
+class Quad;
+struct Entity;
 
 namespace Renderer
 {
@@ -13,15 +14,15 @@ namespace Renderer
 	{
 		public:
 			// adds a model to the m_models vector.
-			void draw(const Model& model);
+			void draw(const Quad& quad);
 
 			// draws all the models in m_models.
-			void update();
+			void update(const Entity& camera);
 
 		private:
-			void prepare(const Model& model);
+			void prepare(const Quad& quad);
 
-			std::vector<const Model*> m_models;
+			std::vector<const Quad*> m_quads;
 			Shader::Simple_Shader m_shader;
 
 			sf::Clock m_clock;
