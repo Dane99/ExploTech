@@ -2,20 +2,36 @@
 
 #include <memory>
 #include <SFML/Graphics.hpp>
-#include "GL/glew.h"
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+#include <stdexcept>
 
 namespace Display {
 	
-	std::unique_ptr<sf::RenderWindow> window;
+	GLFWwindow* window;
 
 	void init()
 	{
-		sf::ContextSettings settings;
-		settings.depthBits = 24;
-		settings.majorVersion = 3;
-		settings.minorVersion = 3; // OpenGL 3.3
+		if (!glfwInit())
+		{
+			fprintf(stderr, "Failed to initialize GLFW\n");
+			getchar();
+			throw std::runtime_error("Error initializing GLFW.");
+		}
 
-		window = std::make_unique<sf::RenderWindow>(sf::VideoMode(WIDTH, HEIGHT), "Window",	sf::Style::Close, settings);
+		glfwWindowHint(GLFW_SAMPLES, 4);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+		//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+		window = glfwCreateWindow(WIDTH, HEIGHT, "ExploTech", nullptr, nullptr);
+		glfwMakeContextCurrent(window);
+
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+		// Ensure we can capture the escape key being pressed below
+		glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
 		glewInit();
 		glViewport(0, 0, WIDTH, HEIGHT);
@@ -23,33 +39,28 @@ namespace Display {
 
 	void close()
 	{
-		window->close();
+		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
 
 	void clear()
 	{
-		glClearColor(0.0, 0.0, 0.0, 1.0); // Good, but defaults to black anyway.
+		glClearColor(0.0, 0.0, 0.0, 1.0);
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 	}
 
 	void update()
 	{
-		window->display();
-	}
-
-	void checkForClose()
-	{
-		sf::Event e;
-		while (window->pollEvent(e)) {
-			if (e.type == sf::Event::Closed) {
-				close();
-			}
-		}
+		glfwPollEvents();
+		glfwSwapBuffers(window);
 	}
 
 	bool isOpen()
 	{
-		return window->isOpen();
+		return !glfwWindowShouldClose(window);
 	}
 
+	GLFWwindow* get()
+	{
+		return window;
+	}
 }

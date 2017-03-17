@@ -3,6 +3,9 @@
 #include <SFML/System/Clock.hpp>
 #include "../Renderer/Master.h"
 
+#include "../Camera.h"
+#include <iostream>
+
 namespace State {
 
 	sf::Clock clock;
@@ -16,12 +19,13 @@ namespace State {
 		m_quad.position.z  = -3;
 	}
 
-	void Playing::input(Entity& camera)
+	void Playing::input(Camera& camera)
 	{
 	}
 
-	void Playing::update(Entity& camera)
+	void Playing::update(Camera& camera, float dt)
 	{
+		//camera.input(dt);
 		//m_quad.position.x = cos(clock.getElapsedTime().asSeconds());
 		//m_quad.rotation.x = clock.getElapsedTime().asSeconds() * 100;
 		//m_quad.rotation.z = clock.getElapsedTime().asSeconds() * 100;
@@ -30,5 +34,13 @@ namespace State {
 	void Playing::draw(Renderer::Master& renderer)
 	{
 		renderer.draw(m_quad);
+	}
+	void Playing::updateMouseInput(Camera& camera, double xpos, double ypos)
+	{
+		camera.mouseInput(xpos, ypos);
+	}
+	void Playing::updateKeyboardInput(Camera& camera, float dt)
+	{
+		camera.keyboardInput(dt);
 	}
 }

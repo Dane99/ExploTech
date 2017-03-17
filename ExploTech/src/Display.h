@@ -1,5 +1,7 @@
 #pragma once
 
+class GLFWwindow;
+
 namespace Display {
 
 	constexpr static int WIDTH = 1280;
@@ -11,7 +13,7 @@ namespace Display {
 	void clear();
 	void update();
 
-	void checkForClose();
-
 	bool isOpen();
+
+	GLFWwindow* get();
 }

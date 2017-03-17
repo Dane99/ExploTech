@@ -7,6 +7,8 @@
 #include "Renderer/Master.h"
 
 #include "Entity.h"
+#include "Camera.h"
+#include "Input/Input_Manager.h"
 
 class Application {
 	public:
@@ -22,5 +24,5 @@ class Application {
 
 		Renderer::Master m_renderer;
 
-		Entity camera;
+		Camera camera;
 };

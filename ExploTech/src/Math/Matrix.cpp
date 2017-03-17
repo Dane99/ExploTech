@@ -2,20 +2,13 @@
 
 #include "../Entity.h"
 #include "../Display.h"
+#include "../Camera.h"
 
 namespace Math
 {
-	Matrix4 createViewMatrix(const Entity& entity)
+	Matrix4 createViewMatrix(const Camera& entity)
 	{
-		Matrix4 matrix;
-
-		matrix = glm::rotate(matrix, glm::radians(entity.rotation.x), { 1, 0, 0 });
-		matrix = glm::rotate(matrix, glm::radians(entity.rotation.y), { 0, 1, 0 });
-		matrix = glm::rotate(matrix, glm::radians(entity.rotation.z), { 0, 0, 1 });
-
-		matrix = glm::translate(matrix, -entity.position);
-
-		return matrix;
+		return glm::lookAt(entity.position, entity.position + entity.m_front, entity.m_up);
 	}
 	
 	Matrix4 createModelMatrix(const Entity& entity)
