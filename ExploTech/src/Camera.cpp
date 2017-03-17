@@ -13,6 +13,12 @@
 
 
 
+Camera::Camera()
+{
+	rotation.y = -90.0f;
+	updateCameraVectors();
+}
+
 void Camera::keyboardInput(float dt)
 {
 	Vector3 change;

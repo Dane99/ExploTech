@@ -4,19 +4,19 @@
 class Camera : public Entity
 {
 	public:
-		
+		Camera();
 
 		void keyboardInput(float dt);
 		void mouseInput(double xpos, double ypos);
 
-		Vector3 m_front = Vector3(0.0f, 0.0f, 1.0f);
+		Vector3 m_front = Vector3(0.0f, 0.0f, -1.0f);
 		Vector3 m_worldUp = Vector3(0.0f, 1.0f, 0.0f);
 		Vector3 m_up;
 		Vector3 m_right;
 
 
 	private:
-		// Calculates the front vector from the Camera's (updated) Eular Angles
+		// Calculates the front vector from the Camera's (updated) Euler Angles
 		void updateCameraVectors();
 
 		const float mouseSensitivity = 0.25f;

@@ -158,8 +158,15 @@
     <ClCompile Include="src\States\Playing.cpp" />
     <ClCompile Include="src\Temp\Quad.cpp" />
     <ClCompile Include="src\Texture\Texture.cpp" />
+    <ClCompile Include="src\Texture\Texture_Atlas.cpp" />
+    <ClCompile Include="src\World\Block\Block_Data.cpp" />
+    <ClCompile Include="src\World\Block\Block_Database.cpp" />
+    <ClCompile Include="src\World\Block\Block_Types\Air.cpp" />
+    <ClCompile Include="src\World\Block\Block_Types\Block_Type.cpp" />
+    <ClCompile Include="src\World\Block\Block_Types\Grass.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Texture\Texture_Atlas.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Input\Input_Manager.h" />
     <ClInclude Include="src\Math\Matrix.h" />
@@ -177,6 +184,12 @@
     <ClInclude Include="src\States\Playing.h" />
     <ClInclude Include="src\Temp\Quad.h" />
     <ClInclude Include="src\Texture\Texture.h" />
+    <ClInclude Include="src\World\Block\Block_Data.h" />
+    <ClInclude Include="src\World\Block\Block_Database.h" />
+    <ClInclude Include="src\World\Block\Block_ID.h" />
+    <ClInclude Include="src\World\Block\Block_Types\Air.h" />
+    <ClInclude Include="src\World\Block\Block_Types\Block_Type.h" />
+    <ClInclude Include="src\World\Block\Block_Types\Grass.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Shaders\Simple_Fragment.glsl" />
