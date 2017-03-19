@@ -190,13 +190,17 @@
     <ClInclude Include="src\World\Block\Block_Types\Air.h" />
     <ClInclude Include="src\World\Block\Block_Types\Block_Type.h" />
     <ClInclude Include="src\World\Block\Block_Types\Grass.h" />
+    <ClInclude Include="src\World\Chunk.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Data\Blocks\Air.block" />
+    <None Include="Data\Blocks\Grass.block" />
     <None Include="Data\Shaders\Simple_Fragment.glsl" />
     <None Include="Data\Shaders\Simple_Vertex.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Data\Textures\grass.png" />
+    <Image Include="Data\Textures\Texture_Atlas.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -155,13 +155,21 @@
     <ClInclude Include="src\World\Block\Block_Types\Grass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\World\Chunk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Shaders\Simple_Fragment.glsl" />
     <None Include="Data\Shaders\Simple_Vertex.glsl" />
+    <None Include="Data\Blocks\Air.block" />
+    <None Include="Data\Blocks\Grass.block" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Data\Textures\grass.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Data\Textures\Texture_Atlas.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
