@@ -190,7 +190,8 @@
     <ClInclude Include="src\World\Block\Block_Types\Air.h" />
     <ClInclude Include="src\World\Block\Block_Types\Block_Type.h" />
     <ClInclude Include="src\World\Block\Block_Types\Grass.h" />
-    <ClInclude Include="src\World\Chunk.h" />
+    <ClInclude Include="src\World\Chunk\Chunk.h" />
+    <ClInclude Include="src\World\Chunk\Mesh.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Blocks\Air.block" />

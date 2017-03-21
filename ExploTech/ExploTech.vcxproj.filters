@@ -155,7 +155,10 @@
     <ClInclude Include="src\World\Block\Block_Types\Grass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\World\Chunk.h">
+    <ClInclude Include="src\World\Chunk\Chunk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\World\Chunk\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
