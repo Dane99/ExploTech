@@ -4,6 +4,8 @@
 
 #include "../Math/Matrix.h"
 
+#include "../Camera.h"
+
 namespace Renderer
 {
 	void Simple::draw(const Quad& quad)
@@ -16,7 +18,8 @@ namespace Renderer
 		m_shader.bind();
 		m_shader.setTime(m_clock.getElapsedTime().asSeconds());
 
-		m_shader.setViewMatrix(Math::createViewMatrix(camera));
+		m_shader.setViewMatrix(camera.getViewMatrix());
+		m_shader.setProjMatrix(camera.getProjectionMatrix());
 
 		for (auto& quad : m_quads) 
 		{

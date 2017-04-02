@@ -8,10 +8,6 @@ namespace Shader
 	:	Shader_Program("Simple_Vertex", "Simple_Fragment")
 	{
 		getUniformLocations();
-
-		bind();
-		loadMatrix4(m_locationProjMatrix, Math::createProjMatrix());
-		unbind();
 	}
 
 	void Simple_Shader::setTime(float time)

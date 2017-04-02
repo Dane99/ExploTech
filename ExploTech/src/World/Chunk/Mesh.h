@@ -7,15 +7,17 @@
 #include <SFML/System/Vector2.hpp>
 
 #include "../../Model.h"
+#include "PositionTypes.h"
 
 class Mesh
 {
 public:
 	void reset();
 
-	void addMeshData(const std::vector<GLfloat>& vertices);
-
-	void addTexCoords(const std::vector<GLfloat>& texCoords);
+	void Mesh::addFace( const std::vector<GLfloat>&    templateFace,
+						const std::vector<GLfloat>&    texCoords,
+						const PositionTypes::Large_Position& chunkPos,
+						const PositionTypes::Small_Position& blockPos);
 
 	void buffer();
 
@@ -32,10 +34,5 @@ private:
 	Model m_model;
 
 	uint32_t m_indicesIndex = 0;
-};
-
-struct Meshes
-{
-	Mesh solidMesh;
-	Mesh liquidMesh;
+	uint32_t m_facesCount = 0;
 };

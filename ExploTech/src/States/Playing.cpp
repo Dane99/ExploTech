@@ -4,6 +4,8 @@
 #include "../Renderer/Master.h"
 
 #include "../Camera.h"
+#include "../World/Chunk/Chunk.h"
+#include "../World/Block/Block_Database.h"
 #include <iostream>
 
 namespace State {
@@ -12,11 +14,9 @@ namespace State {
 
 	Playing::Playing(Application &application)
 		: Game_State (application)
-		, m_texture  ("Texture_Atlas", 512, 16)
-		, m_quad     (m_texture)
+		, m_quad(Block::Database::get().textures)
 	{
-		m_texture.bind();
-
+		chunk.Generate();
 		m_quad.position.z  = -3;
 	}
 
@@ -34,7 +34,9 @@ namespace State {
 
 	void Playing::draw(Renderer::Master& renderer)
 	{
+		renderer.draw(chunk);
 		renderer.draw(m_quad);
+
 	}
 	void Playing::updateMouseInput(Camera& camera, double xpos, double ypos)
 	{

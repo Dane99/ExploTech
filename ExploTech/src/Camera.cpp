@@ -8,15 +8,22 @@
 #include "Input/Input_Manager.h"
 #include <GLFW/glfw3.h>
 
+#include "Math/Matrix.h"
 // pitch is rotation.x
 // yaw is rotation.y
 
 
 
 Camera::Camera()
+:	m_projectionMatrix(Math::createProjMatrix())
 {
 	rotation.y = -90.0f;
 	updateCameraVectors();
+}
+
+void Camera::updateViewMatrix()
+{
+	m_viewMatrix = Math::createViewMatrix(*this);
 }
 
 void Camera::keyboardInput(float dt)
@@ -92,6 +99,16 @@ void Camera::mouseInput(double xpos, double ypos)
 
 
 	updateCameraVectors();
+}
+
+const Matrix4 & Camera::getViewMatrix() const
+{
+	return m_viewMatrix;
+}
+
+const Matrix4 & Camera::getProjectionMatrix() const
+{
+	return m_projectionMatrix;
 }
 
 void Camera::updateCameraVectors()

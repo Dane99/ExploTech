@@ -6,20 +6,29 @@
 
 namespace Block
 {
+
+	struct Data_Holder
+	{
+		Data_Holder() = default;
+		Data_Holder(Data_Holder& other) = delete;
+
+		ID          blockID;
+		std::string name;
+		bool        isOpaque = true;
+		//bool        isObstacle = true;
+		Vector2     topTextureCoords;
+		Vector2     sideTextureCoords;
+		Vector2     bottomTextureCoords;
+	};
+
 	class Data
 	{
 		public:
 			Data(const std::string fileName);
 
+			const Data_Holder& getDataHolder() const { return m_holder; }
+
 		private:
-			ID m_blockID;
-
-			std::string m_name;
-
-			bool m_isOpaque;
-
-			Vector2 m_topTextureCoords;
-			Vector2 m_sideTextureCoords;
-			Vector2 m_bottomTextureCoords;
+			Data_Holder m_holder;;
 	};
 }

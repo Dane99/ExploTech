@@ -23,8 +23,11 @@ void Application::runMainGameLoop()
 		m_renderer.clear();
 
 		m_states.top()->input(camera);
-		m_states.top()->update(camera, dt);
+
 		m_states.top()->updateKeyboardInput(camera, dt);
+		camera.updateViewMatrix();
+
+		m_states.top()->update(camera, dt);
 		m_states.top()->draw(m_renderer);
 
 		m_renderer.update(camera);

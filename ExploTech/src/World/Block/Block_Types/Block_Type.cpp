@@ -6,4 +6,9 @@ namespace Block
 		: m_data(fileName)
 	{
 	}
+
+	const Data& Type::getData() const
+	{
+		return m_data;
+	}
 }

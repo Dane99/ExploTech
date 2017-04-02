@@ -6,6 +6,7 @@
 #include "../Shaders/Simple_Shader.h"
 #include "../Texture/Texture_Atlas.h"
 
+#include "../World/Chunk/Chunk.h"
 #include "../Temp/Quad.h"
 
 namespace State 
@@ -23,9 +24,10 @@ namespace State
 
 		private:
 			Shader::Simple_Shader m_shader;
-			Texture::Atlas m_texture;
+			//Texture::Atlas m_texture;
 
 			Quad m_quad;
+			Full_Chunk chunk;
 	};
 
 
