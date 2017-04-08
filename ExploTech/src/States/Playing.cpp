@@ -1,7 +1,7 @@
 #include "Playing.h"
 
 #include <SFML/System/Clock.hpp>
-#include "../Renderer/Master.h"
+#include "../Renderer/Master_Renderer.h"
 
 #include "../Camera.h"
 #include "../World/Chunk/Chunk.h"
@@ -34,8 +34,8 @@ namespace State {
 
 	void Playing::draw(Renderer::Master& renderer)
 	{
-		renderer.draw(chunk);
-		renderer.draw(m_quad);
+		renderer.addToMasterRenderList(chunk);
+		renderer.addToMasterRenderList(m_quad);
 
 	}
 	void Playing::updateMouseInput(Camera& camera, double xpos, double ypos)

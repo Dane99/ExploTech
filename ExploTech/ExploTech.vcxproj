@@ -149,9 +149,9 @@
     <ClCompile Include="src\Display.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Model.cpp" />
-    <ClCompile Include="src\Renderer\Master.cpp" />
-    <ClCompile Include="src\Renderer\Simple.cpp" />
-    <ClCompile Include="src\Renderer\Solid.cpp" />
+    <ClCompile Include="src\Renderer\Master_Renderer.cpp" />
+    <ClCompile Include="src\Renderer\Simple_Renderer.cpp" />
+    <ClCompile Include="src\Renderer\Chunk_Renderer.cpp" />
     <ClCompile Include="src\Shaders\Shader_Loader.cpp" />
     <ClCompile Include="src\Shaders\Shader_Program.cpp" />
     <ClCompile Include="src\Shaders\Simple_Shader.cpp" />
@@ -169,7 +169,7 @@
     <ClCompile Include="src\World\Chunk\Mesh.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Renderer\Solid.h" />
+    <ClInclude Include="src\Renderer\Chunk_Renderer.h" />
     <ClInclude Include="src\Texture\Texture_Atlas.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Input\Input_Manager.h" />
@@ -179,8 +179,8 @@
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\Glm_Common.h" />
     <ClInclude Include="src\Model.h" />
-    <ClInclude Include="src\Renderer\Master.h" />
-    <ClInclude Include="src\Renderer\Simple.h" />
+    <ClInclude Include="src\Renderer\Master_Renderer.h" />
+    <ClInclude Include="src\Renderer\Simple_Renderer.h" />
     <ClInclude Include="src\Shaders\Shader_Loader.h" />
     <ClInclude Include="src\Shaders\Shader_Program.h" />
     <ClInclude Include="src\Shaders\Simple_Shader.h" />

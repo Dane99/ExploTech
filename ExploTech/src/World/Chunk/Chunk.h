@@ -4,9 +4,9 @@
 
 #include "Mesh.h"
 
-class Full_Chunk{
+class Chunk{
 	public:
-		Full_Chunk();
+		Chunk();
 
 		void Generate();
 		const Mesh& getMesh() const;

@@ -65,11 +65,11 @@ namespace
 	constexpr GLfloat BOTTOM_LIGHT = 0.6f;
 }
 
-Full_Chunk::Full_Chunk()
+Chunk::Chunk()
 {
 }
 
-void Full_Chunk::Generate()
+void Chunk::Generate()
 {
 	mesh.reset();
 
@@ -124,7 +124,7 @@ void Full_Chunk::Generate()
 	mesh.buffer();
 }
 
-const Mesh& Full_Chunk::getMesh() const
+const Mesh& Chunk::getMesh() const
 {
 	return mesh;
 }

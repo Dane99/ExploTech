@@ -1,4 +1,4 @@
-#include "Master.h"
+#include "Master_Renderer.h"
 #include "../Display.h"
 
 #include "../World/Block/Block_Database.h"
@@ -20,13 +20,13 @@ namespace Renderer
 		Display::update();
 	}
 
-	void Master::draw(const Full_Chunk& section)
+	void Master::addToMasterRenderList(const Chunk& chunk)
 	{
-		m_chunkRenderer.draw(section);
+		m_chunkRenderer.addToMasterRenderList(chunk);
 	}
 
-	void Master::draw(const Quad& model)
+	void Master::addToMasterRenderList(const Quad& model)
 	{
-		m_simpleRenderer.draw(model);
+		m_simpleRenderer.addToMasterRenderList(model);
 	}
 }

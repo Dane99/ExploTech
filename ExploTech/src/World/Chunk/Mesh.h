@@ -14,17 +14,16 @@ class Mesh
 public:
 	void reset();
 
-	void Mesh::addFace( const std::vector<GLfloat>&    templateFace,
-						const std::vector<GLfloat>&    texCoords,
-						const PositionTypes::Large_Position& chunkPos,
-						const PositionTypes::Small_Position& blockPos);
+	void Mesh::addFace(const std::vector<GLfloat>&    templateFace,
+		const std::vector<GLfloat>&    texCoords,
+		const PositionTypes::Large_Position& chunkPos,
+		const PositionTypes::Small_Position& blockPos);
 
 	void buffer();
 
-	const Model& getModel() const
-	{
-		return m_model;
-	}
+	const Model& getModel() const;
+
+	uint32_t getFaces();
 
 private:
 	std::vector<GLfloat> m_verticies;

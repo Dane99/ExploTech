@@ -48,3 +48,12 @@ void Mesh::buffer()
 	m_texCoords.shrink_to_fit();
 	m_indices.shrink_to_fit();
 }
+
+const Model & Mesh::getModel() const
+{
+	return m_model;
+}
+uint32_t Mesh::getFaces()
+{
+	return m_facesCount;
+}

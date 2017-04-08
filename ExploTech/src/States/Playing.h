@@ -27,7 +27,7 @@ namespace State
 			//Texture::Atlas m_texture;
 
 			Quad m_quad;
-			Full_Chunk chunk;
+			Chunk chunk;
 	};
 
 

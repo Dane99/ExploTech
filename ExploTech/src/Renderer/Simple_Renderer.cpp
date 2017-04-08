@@ -1,4 +1,4 @@
-#include "Simple.h"
+#include "Simple_Renderer.h"
 
 #include "../Temp/Quad.h"
 
@@ -8,7 +8,7 @@
 
 namespace Renderer
 {
-	void Simple::draw(const Quad& quad)
+	void Simple::addToMasterRenderList(const Quad& quad)
 	{
 		m_quads.push_back(&quad);
 	}

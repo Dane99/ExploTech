@@ -1,4 +1,4 @@
-#include "Solid.h"
+#include "Chunk_Renderer.h"
 
 #include "../Math/Matrix.h"
 
@@ -10,14 +10,14 @@
 
 namespace Renderer
 {
-	void RChunk::draw(const Full_Chunk& section)
+	void ChunkRenderer::addToMasterRenderList(const Chunk& section)
 	{
 		m_chunks.push_back(&section);
 	}
 
-	void RChunk::update(const Camera& camera)
+	void ChunkRenderer::update(const Camera& camera)
 	{
-		//glEnable(GL_CULL_FACE);
+		glEnable(GL_CULL_FACE);
 
 		m_shader.bind();
 
@@ -39,9 +39,12 @@ namespace Renderer
 		m_chunks.clear();
 	}
 
-	void RChunk::prepare(const Full_Chunk& section)
+
+	// #cleanup
+	void ChunkRenderer::prepare(const Chunk& section)
 	{
 		//std::cout << section.getMesh().getModel().getIndicesCount() << std::endl;
+
 		Entity temp;
 
 		m_shader.setModelMatrix(Math::createModelMatrix(temp));

@@ -45,12 +45,6 @@
     <ClCompile Include="src\Texture\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\Master.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Renderer\Simple.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Temp\Quad.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -87,7 +81,13 @@
     <ClCompile Include="src\World\Chunk\Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer\Solid.cpp">
+    <ClCompile Include="src\Renderer\Chunk_Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Master_Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Simple_Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -117,12 +117,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Texture\Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Renderer\Master.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Renderer\Simple.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Entity.h">
@@ -176,7 +170,13 @@
     <ClInclude Include="src\World\Chunk\PositionTypes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\Solid.h">
+    <ClInclude Include="src\Renderer\Chunk_Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Master_Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Simple_Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
