@@ -18,8 +18,12 @@ Model::Model(const std::vector<GLfloat>& vertexPositions,
 }
 
 Model::~Model() {
-	glDeleteVertexArrays(1, &m_vao);
-	glDeleteBuffers(m_buffers.size(), m_buffers.data());
+	if (m_vao != 0) {
+		glDeleteVertexArrays(1, &m_vao);
+	}
+	if (m_buffers.size() > 0) {
+		glDeleteBuffers(m_buffers.size(), m_buffers.data());
+	}
 }
 
 void Model::addData(const std::vector<GLfloat>& vertexPositions,

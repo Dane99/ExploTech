@@ -167,6 +167,7 @@
     <ClCompile Include="src\World\Block\Block_Types\Grass.cpp" />
     <ClCompile Include="src\World\Chunk\Chunk.cpp" />
     <ClCompile Include="src\World\Chunk\Mesh.cpp" />
+    <ClCompile Include="src\World\Chunk\World_Manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Renderer\Chunk_Renderer.h" />
@@ -197,7 +198,9 @@
     <ClInclude Include="src\World\Chunk\Chunk.h" />
     <ClInclude Include="src\World\Chunk\PositionTypes.h" />
     <ClInclude Include="src\World\Chunk\Mesh.h" />
+    <ClInclude Include="src\World\Chunk\World_Manager.h" />
     <ClInclude Include="src\World\WorldConstants.h" />
+    <ClInclude Include="src\World\Generation\World_Generation_Manager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Blocks\Air.block" />

@@ -8,6 +8,8 @@ namespace
 		CHUNK_VOLUME = CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE,
 		CHUNK_AREA = CHUNK_SIZE * CHUNK_SIZE;
 
+	constexpr static uint8_t CHUNK_HEIGHT = 16;
+
 	constexpr static int8_t     MAX_LIGHT = 10;
 
 	constexpr static float      BLOCK_SIZE = 1.0f;

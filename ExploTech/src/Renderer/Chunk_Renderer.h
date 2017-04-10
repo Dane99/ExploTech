@@ -1,9 +1,10 @@
 #pragma once
 
 #include <vector>
+#include <SFML/System/Clock.hpp>
 
 #include "../Shaders/Simple_Shader.h"
-#include "../World/Chunk/Chunk.h"
+#include "../World/Chunk/World_Manager.h"
 
 class Camera;
 
@@ -12,7 +13,7 @@ namespace Renderer
 	class ChunkRenderer
 	{
 	public:
-		void addToMasterRenderList(const Chunk& section);
+		void addToMasterRenderList(World_Manager& world);
 
 		void update(const Camera& camera);
 
@@ -20,8 +21,10 @@ namespace Renderer
 		void prepare(const Chunk& section);
 
 	private:
-		std::vector<const Chunk*> m_chunks;
+		World_Manager* world;
 
 		Shader::Simple_Shader m_shader;
+
+		sf::Clock m_clock;
 	};
 }

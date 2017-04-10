@@ -7,10 +7,10 @@
 namespace Block
 {
 
-	struct Data_Holder
+	struct Block_Data
 	{
-		Data_Holder() = default;
-		Data_Holder(Data_Holder& other) = delete;
+		Block_Data() = default;
+		Block_Data(Block_Data& other) = delete;
 
 		ID          blockID;
 		std::string name;
@@ -26,9 +26,9 @@ namespace Block
 		public:
 			Data(const std::string fileName);
 
-			const Data_Holder& getDataHolder() const { return m_holder; }
+			const Block_Data& getBlockData() const { return m_holder; }
 
 		private:
-			Data_Holder m_holder;;
+			Block_Data m_holder;;
 	};
 }

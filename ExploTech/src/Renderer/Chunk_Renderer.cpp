@@ -8,46 +8,43 @@
 
 #include <iostream>
 
+// # change name to world renderer
+
 namespace Renderer
 {
-	void ChunkRenderer::addToMasterRenderList(const Chunk& section)
+	void ChunkRenderer::addToMasterRenderList(World_Manager& worldManager)
 	{
-		m_chunks.push_back(&section);
+		world = &worldManager;
 	}
 
 	void ChunkRenderer::update(const Camera& camera)
 	{
-		glEnable(GL_CULL_FACE);
 
 		m_shader.bind();
+		m_shader.setTime(m_clock.getElapsedTime().asSeconds());
 
 		m_shader.setProjMatrix(camera.getProjectionMatrix());
 		m_shader.setViewMatrix(camera.getViewMatrix());
 
-		//std::cout << m_chunks.size() << std::endl;
+		std::cout << world->getChunks()->size() << std::endl;
 
-		for (const auto* section : m_chunks)
+		for (const auto* chunk : *(world->getChunks()))
 		{
-			prepare(*section);
+			prepare(*chunk);
 
 			glDrawElements(GL_TRIANGLES,
-				section->getMesh().getModel().getIndicesCount(),
+				chunk->getMesh().getModel().getIndicesCount(),
 				GL_UNSIGNED_INT,
 				nullptr);
 
 		}
-		m_chunks.clear();
+		world = nullptr; // Not needed unless two seperate worlds are needed by application.
 	}
 
 
-	// #cleanup
-	void ChunkRenderer::prepare(const Chunk& section)
+	void ChunkRenderer::prepare(const Chunk& chunk)
 	{
-		//std::cout << section.getMesh().getModel().getIndicesCount() << std::endl;
-
-		Entity temp;
-
-		m_shader.setModelMatrix(Math::createModelMatrix(temp));
-		section.getMesh().getModel().bind();
+		m_shader.setModelMatrix(Math::createModelMatrix(chunk.getPosition()));
+		chunk.getMesh().getModel().bind();
 	}
 }

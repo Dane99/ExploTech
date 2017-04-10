@@ -21,8 +21,8 @@ namespace Block
 		const Type& getBlock(uint8_t id);
 		const Type& getBlock(ID blockID);
 
-		const Data_Holder& getBlockData(uint8_t id);
-		const Data_Holder& getBlockData(ID blockID);
+		const Block_Data& getBlockData(uint8_t id);
+		const Block_Data& getBlockData(ID blockID);
 
 	private:
 		std::vector<std::unique_ptr<Type>> blocks;

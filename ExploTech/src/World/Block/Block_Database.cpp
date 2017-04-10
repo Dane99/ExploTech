@@ -34,14 +34,14 @@ namespace Block
 		return *blocks[(int)blockID];
 	}
 
-	const Data_Holder& Database::getBlockData(uint8_t id)
+	const Block_Data& Database::getBlockData(uint8_t id)
 	{
-		return blocks[id]->getData().getDataHolder();
+		return blocks[id]->getData().getBlockData();
 	}
 
-	const Data_Holder& Database::getBlockData(ID blockID)
+	const Block_Data& Database::getBlockData(ID blockID)
 	{
-		return blocks[(int)blockID]->getData().getDataHolder();
+		return blocks[(int)blockID]->getData().getBlockData();
 	}
 
 

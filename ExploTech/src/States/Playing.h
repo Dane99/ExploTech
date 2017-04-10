@@ -9,6 +9,8 @@
 #include "../World/Chunk/Chunk.h"
 #include "../Temp/Quad.h"
 
+#include "../World/Chunk/World_Manager.h"
+
 namespace State 
 {
 	class Playing : public Game_State
@@ -27,7 +29,8 @@ namespace State
 			//Texture::Atlas m_texture;
 
 			Quad m_quad;
-			Chunk chunk;
+			//Chunk chunk;
+			World_Manager worldManager;
 	};
 
 

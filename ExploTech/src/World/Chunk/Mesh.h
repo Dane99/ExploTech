@@ -9,6 +9,8 @@
 #include "../../Model.h"
 #include "PositionTypes.h"
 
+#include "../../Glm_Common.h"
+
 class Mesh
 {
 public:
@@ -16,14 +18,14 @@ public:
 
 	void Mesh::addFace(const std::vector<GLfloat>&    templateFace,
 		const std::vector<GLfloat>&    texCoords,
-		const PositionTypes::Large_Position& chunkPos,
-		const PositionTypes::Small_Position& blockPos);
+		const Vector3& chunkPos,
+		const Vector3& blockPos);
 
 	void buffer();
 
 	const Model& getModel() const;
 
-	uint32_t getFaces();
+	uint32_t getFaces() const;
 
 private:
 	std::vector<GLfloat> m_verticies;

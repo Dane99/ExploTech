@@ -4,7 +4,6 @@
 #include "../Renderer/Master_Renderer.h"
 
 #include "../Camera.h"
-#include "../World/Chunk/Chunk.h"
 #include "../World/Block/Block_Database.h"
 #include <iostream>
 
@@ -16,8 +15,8 @@ namespace State {
 		: Game_State (application)
 		, m_quad(Block::Database::get().textures)
 	{
-		chunk.Generate();
 		m_quad.position.z  = -3;
+		worldManager.generateAllChunks();
 	}
 
 	void Playing::input(Camera& camera)
@@ -34,7 +33,7 @@ namespace State {
 
 	void Playing::draw(Renderer::Master& renderer)
 	{
-		renderer.addToMasterRenderList(chunk);
+		renderer.addToMasterRenderList(worldManager);
 		renderer.addToMasterRenderList(m_quad);
 
 	}

@@ -23,6 +23,15 @@ namespace Math
 
 		return matrix;
 	}
+
+	Matrix4 createModelMatrix(const Vector3& position)
+	{
+		Matrix4 matrix;
+
+		matrix = glm::translate(matrix, position);
+
+		return matrix;
+	}
 	
 	Matrix4 createProjMatrix()
 	{

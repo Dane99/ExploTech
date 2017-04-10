@@ -20,9 +20,9 @@ namespace Renderer
 		Display::update();
 	}
 
-	void Master::addToMasterRenderList(const Chunk& chunk)
+	void Master::addToMasterRenderList(World_Manager& worldManager)
 	{
-		m_chunkRenderer.addToMasterRenderList(chunk);
+		m_chunkRenderer.addToMasterRenderList(worldManager);
 	}
 
 	void Master::addToMasterRenderList(const Quad& model)
