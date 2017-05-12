@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
+
 bool Input_Manager::keys[1024];
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
@@ -15,6 +16,7 @@ Input_Manager::Input_Manager(Camera* camera, State::Game_State* gameState)
 	glfwSetKeyCallback(Display::get(), key_callback);
 	glfwSetCursorPosCallback(Display::get(), mouse_callback);
 
+	// We use setWindowPointer to allow access to the class from an outside function. In this case that function is "mouse_callback".
 	glfwSetWindowUserPointer(Display::get(), this);
 }
 
@@ -55,11 +57,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
-
-
-
+	// window param is the same as Display::get().
 	Input_Manager* inputManager = static_cast<Input_Manager*>(glfwGetWindowUserPointer(window));
-	inputManager->getCurrentGameState()->updateMouseInput(*(inputManager->getCurrentCamera()),
-														    xpos,
-															ypos);
+	inputManager->getCurrentGameState()->updateMouseInput(*(inputManager->getCurrentCamera()),													    xpos,														ypos);
 }

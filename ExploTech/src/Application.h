@@ -13,16 +13,21 @@
 class Application {
 	public:
 		Application();
+		~Application();
 
 		void runMainGameLoop();
 
 		void pushState(std::unique_ptr<State::Game_State> state);
 		void popState();
 
+	//	static State::Game_State* getGameState();
+
 	private:
-		std::stack<std::unique_ptr<State::Game_State>> m_states;
+		static std::stack<std::unique_ptr<State::Game_State>> m_states;
 
 		Renderer::Master m_renderer;
 
 		Camera camera;
+
+		Input_Manager *inputManager;
 };

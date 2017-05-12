@@ -19,6 +19,8 @@ namespace Renderer
 
 	void ChunkRenderer::update(const Camera& camera)
 	{
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
 
 		m_shader.bind();
 		m_shader.setTime(m_clock.getElapsedTime().asSeconds());

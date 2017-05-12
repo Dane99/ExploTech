@@ -3,16 +3,22 @@
 
 #include "States/Playing.h"
 
+
 Application::Application()
 {
 	pushState(std::make_unique<State::Playing>(*this));
+}
+
+Application::~Application()
+{
+	delete inputManager;
 }
 
 void Application::runMainGameLoop()
 {
 	sf::Clock clock;
 
-	Input_Manager inputManager(&camera, m_states.top().get());
+	inputManager = new Input_Manager(&camera, m_states.top().get());
 
 	// we might want to update the camera and state once those things
 	// start to change a bit.
@@ -43,3 +49,8 @@ void Application::popState()
 {
 	m_states.pop();
 }
+
+//State::Game_State* Application::getGameState()
+//{
+	// m_states.top().get();
+//}

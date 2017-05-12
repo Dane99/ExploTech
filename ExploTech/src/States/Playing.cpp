@@ -25,6 +25,9 @@ namespace State {
 
 	void Playing::update(Camera& camera, float dt)
 	{
+		m_quad.position.x += sin(clock.getElapsedTime().asSeconds()) * dt * 0.8;
+		m_quad.position.y += sin(clock.getElapsedTime().asSeconds()) * dt * 0.8;
+		m_quad.position.z += cos(clock.getElapsedTime().asSeconds()) * dt * 0.8;
 		//camera.input(dt);
 		//m_quad.position.x = cos(clock.getElapsedTime().asSeconds());
 		//m_quad.rotation.x = clock.getElapsedTime().asSeconds() * 100;
