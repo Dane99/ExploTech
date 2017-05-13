@@ -23,7 +23,7 @@ class Application {
 	//	static State::Game_State* getGameState();
 
 	private:
-		static std::stack<std::unique_ptr<State::Game_State>> m_states;
+		std::stack<std::unique_ptr<State::Game_State>> m_states;
 
 		Renderer::Master m_renderer;
 

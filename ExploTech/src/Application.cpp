@@ -11,14 +11,13 @@ Application::Application()
 
 Application::~Application()
 {
-	delete inputManager;
 }
 
 void Application::runMainGameLoop()
 {
 	sf::Clock clock;
 
-	inputManager = new Input_Manager(&camera, m_states.top().get());
+	Input_Manager inputManager(&camera, m_states.top().get());
 
 	// we might want to update the camera and state once those things
 	// start to change a bit.
