@@ -8,7 +8,7 @@
 
 namespace Renderer
 {
-	void Simple::addToMasterRenderList(const Quad& quad)
+	void Simple::addToSimpleRenderList(const Quad& quad)
 	{
 		m_quads.push_back(&quad);
 	}

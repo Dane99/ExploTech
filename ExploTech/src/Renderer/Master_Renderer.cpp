@@ -22,11 +22,11 @@ namespace Renderer
 
 	void Master::addToMasterRenderList(World_Manager& worldManager)
 	{
-		m_chunkRenderer.addToMasterRenderList(worldManager);
+		m_chunkRenderer.addToChunkRenderList(worldManager);
 	}
 
 	void Master::addToMasterRenderList(const Quad& model)
 	{
-		m_simpleRenderer.addToMasterRenderList(model);
+		m_simpleRenderer.addToSimpleRenderList(model);
 	}
 }

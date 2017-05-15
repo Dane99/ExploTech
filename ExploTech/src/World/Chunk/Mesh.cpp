@@ -15,15 +15,19 @@ void Mesh::addFace( const std::vector<GLfloat>&    templateFace,
 {
 	++m_facesCount;
 
+	// Four total vertexes needed for each side of a cube. We use an EBO or indices to substitute two additional missing vertexes. 
 	for (int i = 0, index = 0; i < 4; ++i)
 	{
-		m_verticies.push_back(templateFace[index++] + chunkPos.x * (CHUNK_SIZE - 1) + blockPos.x);
-		m_verticies.push_back(templateFace[index++] + chunkPos.y * (CHUNK_SIZE - 1) + blockPos.y);
-		m_verticies.push_back(templateFace[index++] + chunkPos.z * (CHUNK_SIZE - 1) + blockPos.z);
+		// Three positions for each vertex.
+		m_verticies.push_back(templateFace[index++] + chunkPos.x * (CHUNK_SIZE_X - 1) + blockPos.x);
+		m_verticies.push_back(templateFace[index++] + chunkPos.y * (CHUNK_SIZE_Y - 1) + blockPos.y);
+		m_verticies.push_back(templateFace[index++] + chunkPos.z * (CHUNK_SIZE_Z - 1) + blockPos.z);
 	}
 
+	// texCoords is appended to m_texCoords
 	m_texCoords.insert(m_texCoords.end(), texCoords.begin(), texCoords.end());
 
+	// Here is where we add the two 
 	m_indices.insert(m_indices.end(),
 	{
 		m_indicesIndex,

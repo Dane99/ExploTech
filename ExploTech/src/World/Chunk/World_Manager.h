@@ -27,5 +27,6 @@ class World_Manager {
 
 		std::vector<Chunk*> m_chunks;
 
-		uint16_t m_worldSize = 5; // Length and width of the area of chunks we want to load.
+		uint16_t m_worldSize = 2; // Length and width of the area of chunks we want to load.
+		uint16_t m_worldHeight = 1;
 };

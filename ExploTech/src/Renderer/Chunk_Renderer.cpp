@@ -12,15 +12,15 @@
 
 namespace Renderer
 {
-	void ChunkRenderer::addToMasterRenderList(World_Manager& worldManager)
+	void ChunkRenderer::addToChunkRenderList(World_Manager& worldManager)
 	{
 		world = &worldManager;
 	}
 
 	void ChunkRenderer::update(const Camera& camera)
 	{
-		glEnable(GL_CULL_FACE);
-		glCullFace(GL_BACK);
+		//glEnable(GL_CULL_FACE);
+		//glCullFace(GL_BACK); BUG with these needs fixing
 
 		m_shader.bind();
 		m_shader.setTime(m_clock.getElapsedTime().asSeconds());
@@ -28,7 +28,7 @@ namespace Renderer
 		m_shader.setProjMatrix(camera.getProjectionMatrix());
 		m_shader.setViewMatrix(camera.getViewMatrix());
 
-		std::cout << world->getChunks()->size() << std::endl;
+		//std::cout << world->getChunks()->size() << std::endl;
 
 		for (const auto* chunk : *(world->getChunks()))
 		{
@@ -40,7 +40,7 @@ namespace Renderer
 				nullptr);
 
 		}
-		world = nullptr; // Not needed unless two seperate worlds are needed by application.
+		world = nullptr; // Not needed unless two separate worlds are used by application.
 	}
 
 

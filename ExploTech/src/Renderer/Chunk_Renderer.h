@@ -13,7 +13,7 @@ namespace Renderer
 	class ChunkRenderer
 	{
 	public:
-		void addToMasterRenderList(World_Manager& world);
+		void addToChunkRenderList(World_Manager& world);
 
 		void update(const Camera& camera);
 

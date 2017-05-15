@@ -31,6 +31,6 @@ namespace Block
 		Texture::Atlas textures;
 	};
 
-	const Type& get(uint8_t id);
-	const Type& get(ID blockID);
+	const Type& getType(uint8_t id);
+	const Type& getType(ID blockID);
 }

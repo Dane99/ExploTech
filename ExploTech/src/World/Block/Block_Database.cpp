@@ -45,12 +45,12 @@ namespace Block
 	}
 
 
-	const Type& get(uint8_t id)
+	const Type& getType(uint8_t id)
 	{
 		return Database::get().getBlock(id);
 	}
 
-	const Type& get(ID blockID)
+	const Type& getType(ID blockID)
 	{
 		return Database::get().getBlock(blockID);
 	}

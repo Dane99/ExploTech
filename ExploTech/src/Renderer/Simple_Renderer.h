@@ -14,7 +14,7 @@ namespace Renderer
 	{
 		public:
 			// adds a model to the m_models vector.
-			void addToMasterRenderList(const Quad& quad);
+			void addToSimpleRenderList(const Quad& quad);
 
 			// draws all the models in m_models.
 			void update(const Camera& camera);

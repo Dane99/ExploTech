@@ -27,6 +27,8 @@ void Application::runMainGameLoop()
 
 		m_renderer.clear();
 
+		inputManager.updateGameState(m_states.top().get());
+
 		m_states.top()->input(camera);
 
 		m_states.top()->updateKeyboardInput(camera, dt);

@@ -2,7 +2,7 @@
 
 namespace Block
 {
-	enum class ID
+	enum class ID: uint8_t
 	{
 		Air = 0,
 		Grass = 1,

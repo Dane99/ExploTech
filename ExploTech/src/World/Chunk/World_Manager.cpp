@@ -6,7 +6,7 @@ World_Manager::World_Manager()
 {
 	for (int x = 0; x < m_worldSize; ++x) 
 	{
-		for (int y = 0; y < CHUNK_HEIGHT; ++y)
+		for (int y = 0; y < m_worldHeight; ++y)
 		{
 			for (int z = 0; z < m_worldSize; ++z)
 			{
@@ -28,7 +28,7 @@ World_Manager::~World_Manager()
 }
 
 bool World_Manager::getBlockExistence(Vector3 worldPosition)
-{
+{   // TODO
 	return false;
 }
 
