@@ -29,17 +29,19 @@ namespace Renderer
 		m_shader.setViewMatrix(camera.getViewMatrix());
 
 		//std::cout << world->getChunks()->size() << std::endl;
+		std::unordered_map<IntVector3, Chunk*, KeyHasher>* chunks = world->getChunks();
+		for (auto it = chunks->begin(); it != chunks->end(); ++it) {
 
-		for (const auto* chunk : *(world->getChunks()))
-		{
+			Chunk *chunk = (it->second);
+
 			prepare(*chunk);
 
 			glDrawElements(GL_TRIANGLES,
 				chunk->getMesh().getModel().getIndicesCount(),
 				GL_UNSIGNED_INT,
 				nullptr);
-
 		}
+
 		world = nullptr; // Not needed unless two separate worlds are used by application.
 	}
 

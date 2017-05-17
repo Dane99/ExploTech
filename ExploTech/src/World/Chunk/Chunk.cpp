@@ -4,7 +4,6 @@
 
 #include "../WorldConstants.h"
 #include "../Block/Block_Database.h"
-#include "../Block/Block_ID.h"
 #include "PositionTypes.h"
 #include "../Generation/World_Generation.h"
 
@@ -76,7 +75,7 @@ Vector3 arrayIndexOneToThreeDim(int i) {
 }
 
 
-Chunk::Chunk(const Vector3 positon)
+Chunk::Chunk(const IntVector3 positon)
 	:m_position(positon)
 {
 	
@@ -125,38 +124,38 @@ void Chunk::generate()
 				auto &blockData = Block::Database::get().getBlockData(m_blocks.get(x, y, z));
 				
 				// 0 is air
-				if (!getBlockExistence(x, y + 1, z)) {
+				if (!isBlockHere(IntVector3(x, y + 1, z))) {
 					mesh.addFace(topFace,
 						atlas.getTextureCoords(blockData.topTextureCoords),
 						m_position,
 						blockPosition);
 				}
-				if (!getBlockExistence(x, y - 1, z)) {
+				if (!isBlockHere(IntVector3(x, y - 1, z))) {
 					mesh.addFace(bottomFace,
 						atlas.getTextureCoords(blockData.bottomTextureCoords),
 						m_position,
 						blockPosition);
 				}
 
-				if (!getBlockExistence(x + 1, y, z)) {
+				if (!isBlockHere(IntVector3(x + 1, y, z))) {
 					mesh.addFace(rightFace,
 						atlas.getTextureCoords(blockData.sideTextureCoords),
 						m_position,
 						blockPosition);
 				}
-				if (!getBlockExistence(x - 1, y, z)) {
+				if (!isBlockHere(IntVector3(x - 1, y, z))) {
 					mesh.addFace(leftFace,
 						atlas.getTextureCoords(blockData.sideTextureCoords),
 						m_position,
 						blockPosition);
 				}
-				if (!getBlockExistence(x, y, z + 1)) {
+				if (!isBlockHere(IntVector3(x, y, z + 1))) {
 					mesh.addFace(frontFace,
 						atlas.getTextureCoords(blockData.sideTextureCoords),
 						m_position,
 						blockPosition);
 				}
-				if (!getBlockExistence(x, y, z - 1)) {
+				if (!isBlockHere(IntVector3(x, y, z - 1))) {
 					mesh.addFace(backFace,
 						atlas.getTextureCoords(blockData.sideTextureCoords),
 						m_position,
@@ -179,19 +178,52 @@ const Vector3 & Chunk::getPosition() const
 	return m_position;
 }
 
-bool Chunk::getBlockExistence(int x, int y, int z)
+const Block_Array* Chunk::getBlockArray() const
 {
-	if (x >= CHUNK_SIZE_X || y >= CHUNK_SIZE_Y || z >= CHUNK_SIZE_Z
-	    || x < 0 || y < 0 || z < 0) 
-	{
-		return false;
-	}
-	else if(static_cast<int>(m_blocks.get(x, y, z)) != static_cast<int>(Block::ID::Air))
-	{
-		return true;
-	}
-	else 
-	{
-		return false;
-	}
+	return &m_blocks;
 }
+
+bool Chunk::isBlockHere(IntVector3 position, bool edgesIncluded) const
+{
+	if (position.x < 0) {
+		if (left != nullptr) {
+			//std::cout << "X: " << ((int)position.x + CHUNK_SIZE) << "Y: " << (int)position.y << "Z: " << (int)position.z << std::endl;
+			//std::cout << left->changed << std::endl;
+			return left ? left->getBlockArray()->exists(position.x + CHUNK_SIZE_X, position.y, position.z) : 0;
+		}
+		return false;
+	}
+	if (position.x >= CHUNK_SIZE_X) {
+		if (right != nullptr) {
+			return right ? right->getBlockArray()->exists(position.x - CHUNK_SIZE_X, position.y, position.z) : 0;
+		}
+		return false;
+	}
+	if (position.y < 0) {
+		if (below != nullptr) {
+			return below ? below->getBlockArray()->exists(position.x, position.y + CHUNK_SIZE_Y, position.z) : 0;
+		}
+		return false;
+	}
+	if (position.y >= CHUNK_SIZE_Y) {
+		if (above != nullptr) {
+			return above ? above->getBlockArray()->exists(position.x, position.y - CHUNK_SIZE_Y, position.z) : 0;
+		}
+		return false;
+	}
+	if (position.z < 0) {
+		if (front != nullptr) {
+			return front ? front->getBlockArray()->exists(position.x, position.y, position.z + CHUNK_SIZE_Z) : 0;
+		}
+		return false;
+	}
+	if (position.z >= CHUNK_SIZE_Z) {
+		if (back != nullptr) {
+			return back ? back->getBlockArray()->exists(position.x, position.y, position.z - CHUNK_SIZE_Z) : 0;
+		}
+		return false;
+	}
+	return m_blocks.exists(position.x, position.y, position.z);
+
+}
+
