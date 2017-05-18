@@ -25,9 +25,11 @@ class World_Manager {
 		World_Manager();
 		~World_Manager();
 		
-		// Returns true if it block at world location is solid.
-		bool getBlockExistence(Vector3 worldPosition);
-		Block::Block_Data getBlockData(Vector3 worldPosition);
+		Chunk* World_Manager::getChunkWithWorldPosition(Vector3 WorldPosition);
+
+		void World_Manager::SetBlock(Vector3 WorldPosition, Block::ID type);
+
+		Block::ID World_Manager::GetBlock(Vector3 WorldPosition);
 
 		// TODO
 		Vector3 getChunkPositionFromWorldPosition(Vector3 worldPosition);

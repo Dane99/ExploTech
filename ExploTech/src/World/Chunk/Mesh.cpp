@@ -6,6 +6,9 @@ void Mesh::reset()
 {
 	m_indicesIndex = 0;
 	m_facesCount = 0;
+	m_verticies.clear();
+	m_texCoords.clear();
+	m_indices.clear();
 }
 
 void Mesh::addFace( const std::vector<GLfloat>&    templateFace,

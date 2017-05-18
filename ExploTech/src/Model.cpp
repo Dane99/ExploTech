@@ -30,9 +30,8 @@ void Model::addData(const std::vector<GLfloat>& vertexPositions,
 					const std::vector<GLfloat>& textureCoordinates,
 					const std::vector<GLuint>& indices)
 {
-	// Clear previous data
-	glDeleteVertexArrays(1, &m_vao);
-	glDeleteBuffers(m_buffers.size(), m_buffers.data());
+
+	reset();
 
 	// Update indices count
 	m_indicesCount = indices.size();
@@ -57,6 +56,21 @@ void Model::bind() const
 void Model::unbind() const
 {
 	glBindVertexArray(0);
+}
+
+void Model::reset()
+{
+	if (m_vao != 0) {
+		glDeleteVertexArrays(1, &m_vao);
+	}
+	if (m_buffers.size() > 0) {
+		glDeleteBuffers(m_buffers.size(), m_buffers.data());
+	}
+
+	m_buffers.clear();
+	m_vao = 0;
+	m_vboCount = 0;
+	m_indicesCount = 0;
 }
 
 GLuint Model::getIndicesCount() const

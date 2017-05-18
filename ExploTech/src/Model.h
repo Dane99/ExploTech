@@ -21,6 +21,8 @@ class Model
 		void bind() const;
 		void unbind() const;
 
+		void reset();
+
 		GLuint getIndicesCount() const;
 
 	private:

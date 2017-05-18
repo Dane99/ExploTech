@@ -14,4 +14,7 @@ namespace
 	constexpr static int8_t     MAX_LIGHT = 10;
 
 	constexpr static float      BLOCK_SIZE = 1.0f;
+
+	constexpr static int PLAYER_REACH_DISTANCE = 10;
+	constexpr static float REACH_RESOLUTION = 0.1f;
 }

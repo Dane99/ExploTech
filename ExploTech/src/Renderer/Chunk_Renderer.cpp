@@ -34,12 +34,16 @@ namespace Renderer
 
 			Chunk *chunk = (it->second);
 
+			chunk->generate();
+
 			prepare(*chunk);
 
 			glDrawElements(GL_TRIANGLES,
 				chunk->getMesh().getModel().getIndicesCount(),
 				GL_UNSIGNED_INT,
 				nullptr);
+
+			chunk->getMesh().getModel().unbind();
 		}
 
 		world = nullptr; // Not needed unless two separate worlds are used by application.

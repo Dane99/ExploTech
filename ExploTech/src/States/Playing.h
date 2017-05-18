@@ -18,11 +18,12 @@ namespace State
 		public:
 			Playing(Application &application);
 
-			void input (Camera& camera) override;
-			void update(Camera& camera, float dt) override;
+			void input () override;
+			void update(float dt) override;
 			void draw  (Renderer::Master& renderer) override;
-			void updateMouseInput(Camera& camera, double xpos, double ypos) override;
-			void updateKeyboardInput(Camera& camera, float dt) override;
+			void updateMouseClickInput(bool left, bool right) override;
+			void updateMouseInput(double xpos, double ypos) override;
+			void updateKeyboardInput(float dt) override;
 
 		private:
 			Shader::Simple_Shader m_shader;

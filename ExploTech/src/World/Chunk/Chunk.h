@@ -62,6 +62,18 @@ class Chunk{
 
 		const Block_Array* getBlockArray() const;
 
+		void setBlock(uint32_t x, uint32_t y, uint32_t z, uint8_t value);
+
+		uint8_t getBlock(uint32_t x, uint32_t y, uint32_t z) const;
+
+		void setChanged(bool value);
+
+		// Whether or not the chunk has changed and needs to be regenerated.
+		bool changed = true;
+
+		// Lets chunk rebuild if it has changed.
+		void checkForRebuild();
+
 	private:
 		// If solid block return 1 else 0
 		// edgesIncluded is a setting whether or not the parameters might be outside/edges of the chunk.

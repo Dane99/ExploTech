@@ -22,6 +22,8 @@ class Camera : public Entity
 		Vector3 m_up;
 		Vector3 m_right;
 
+		// Returns the direction the player is facing.
+		Vector3 getViewVector();
 
 	private:
 		// Calculates the front vector from the Camera's (updated) Euler Angles

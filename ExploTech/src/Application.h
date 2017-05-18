@@ -20,6 +20,8 @@ class Application {
 		void pushState(std::unique_ptr<State::Game_State> state);
 		void popState();
 
+		Camera& getCamera();
+
 	//	static State::Game_State* getGameState();
 
 	private:
@@ -30,4 +32,6 @@ class Application {
 		Camera camera;
 
 		Input_Manager *inputManager;
+
+		int frames = 0;
 };

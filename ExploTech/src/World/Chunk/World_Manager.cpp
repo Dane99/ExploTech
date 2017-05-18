@@ -4,6 +4,18 @@
 #include <utility>
 #include <unordered_map>
 
+namespace {
+
+	int mod(int a, int b)
+	{
+		if (b < 0) //you can check for b == 0 separately and do what you want
+			return mod(a, -b);
+		int ret = a % b;
+		if (ret < 0)
+			ret += b;
+		return ret;
+	}
+}
 World_Manager::World_Manager()
 {
 	m_chunks = new std::unordered_map<IntVector3, Chunk*, KeyHasher>;
@@ -50,11 +62,75 @@ World_Manager::~World_Manager()
 		delete it->second;
 		++it;
 	}
+	delete m_chunks;
 }
 
-bool World_Manager::getBlockExistence(Vector3 worldPosition)
-{   // TODO
-	return false;
+Chunk* World_Manager::getChunkWithWorldPosition(Vector3 WorldPosition)
+{
+	//std::cout << WorldPosition.x << std::endl;
+	std::unordered_map<IntVector3, Chunk*, KeyHasher>::iterator it = m_chunks->begin();
+	while (it != m_chunks->end())
+	{
+		if (it->second->getPosition().x*CHUNK_SIZE_X < WorldPosition.x
+			&& (it->second->getPosition().x*CHUNK_SIZE_X + CHUNK_SIZE_X) >= WorldPosition.x
+			&& it->second->getPosition().y*CHUNK_SIZE_Y < WorldPosition.y
+			&& (it->second->getPosition().y*CHUNK_SIZE_Y + CHUNK_SIZE_Y) >= WorldPosition.y
+			&& it->second->getPosition().z*CHUNK_SIZE_Z < WorldPosition.z
+			&& (it->second->getPosition().z*CHUNK_SIZE_Z + CHUNK_SIZE_Z) >= WorldPosition.z) {
+			//std::cout << it->first.x << std::endl;
+			return it->second;
+		}
+		++it;
+	}
+	return nullptr;
+}
+
+void World_Manager::SetBlock(Vector3 WorldPosition, Block::ID type)
+{
+	Chunk* chunk = getChunkWithWorldPosition(WorldPosition);
+	// make sure it is range.
+	if (chunk != nullptr) {
+		int x = floor(WorldPosition.x);
+		int y = floor(WorldPosition.y);
+		int z = floor(WorldPosition.z);
+		//std::cout << x << " " << y << " " << z << " " << std::endl;
+
+		// the remainders of how far the location is out of the coords of a chunk (slightly confusing)
+		int rx = mod(x, CHUNK_SIZE_X);
+		int ry = mod(y, CHUNK_SIZE_Y);
+		int rz = mod(z, CHUNK_SIZE_Z);
+
+		//std::cout << rx << " " << ry << " " << rz << " " << std::endl;
+		chunk->setBlock(rx, ry, rz, static_cast<uint8_t>(type));
+	}
+	else {
+		std::cout << "ERROR with SetBlock" << '\n';
+		return;
+	}
+}
+
+Block::ID World_Manager::GetBlock(Vector3 WorldPosition)
+{
+
+	// make sure it is range.
+	Chunk* chunk = getChunkWithWorldPosition(WorldPosition);
+
+	if (chunk != nullptr) {
+		int x = floor(WorldPosition.x);
+		int y = floor(WorldPosition.y);
+		int z = floor(WorldPosition.z);
+
+		// the remainders of how far the location is out of the coords of a chunk (slightly confusing)
+		int rx = mod(x, CHUNK_SIZE_X);
+		int ry = mod(y, CHUNK_SIZE_Y);
+		int rz = mod(z, CHUNK_SIZE_Z);
+
+		//std::cout << rx << " ";
+		return static_cast<Block::ID>(chunk->getBlock(rx, ry, rz));
+	}
+	else {
+		return Block::ID::Air;
+	}
 }
 
 std::unordered_map<IntVector3, Chunk*, KeyHasher>* World_Manager::getChunks()

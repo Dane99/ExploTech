@@ -3,6 +3,8 @@
 
 #include "States/Playing.h"
 
+#include <iostream>
+
 
 Application::Application()
 {
@@ -29,15 +31,19 @@ void Application::runMainGameLoop()
 
 		inputManager.updateGameState(m_states.top().get());
 
-		m_states.top()->input(camera);
+		m_states.top()->input();
 
-		m_states.top()->updateKeyboardInput(camera, dt);
+		m_states.top()->updateKeyboardInput(dt);
 		camera.updateViewMatrix();
 
-		m_states.top()->update(camera, dt);
+		m_states.top()->update(dt);
 		m_states.top()->draw(m_renderer);
 
 		m_renderer.update(camera);
+
+		if(frames % 60 == 0) std::cout << "FPS: " << floor(1.0f / (float)dt) << "\n";
+
+		++frames;
 	}
 }
 
@@ -49,6 +55,11 @@ void Application::pushState(std::unique_ptr<State::Game_State> state)
 void Application::popState()
 {
 	m_states.pop();
+}
+
+Camera& Application::getCamera()
+{
+	return camera;
 }
 
 //State::Game_State* Application::getGameState()

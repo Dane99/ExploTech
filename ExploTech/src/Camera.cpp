@@ -124,3 +124,8 @@ void Camera::updateCameraVectors()
 	m_up = glm::normalize(glm::cross(m_right, m_front));
 
 }
+
+Vector3 Camera::getViewVector()
+{
+	return m_front;
+}

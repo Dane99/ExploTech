@@ -118,54 +118,57 @@ void Chunk::generate()
 		{
 			for (uint8_t z = 0; z < CHUNK_SIZE_Z; ++z)
 			{
+				if (m_blocks.get(x, y, z) != static_cast<uint8_t>(Block::ID::Air)) {
+					IntVector3 blockPosition(x, y, z);
 
-				Vector3 blockPosition(x, y, z);
+					auto &blockData = Block::Database::get().getBlockData(m_blocks.get(x, y, z));
 
-				auto &blockData = Block::Database::get().getBlockData(m_blocks.get(x, y, z));
-				
-				// 0 is air
-				if (!isBlockHere(IntVector3(x, y + 1, z))) {
-					mesh.addFace(topFace,
-						atlas.getTextureCoords(blockData.topTextureCoords),
-						m_position,
-						blockPosition);
-				}
-				if (!isBlockHere(IntVector3(x, y - 1, z))) {
-					mesh.addFace(bottomFace,
-						atlas.getTextureCoords(blockData.bottomTextureCoords),
-						m_position,
-						blockPosition);
-				}
+					// 0 is air
+					if (!isBlockHere(IntVector3(x, y + 1, z))) {
+						mesh.addFace(topFace,
+							atlas.getTextureCoords(blockData.topTextureCoords),
+							m_position,
+							blockPosition);
+					}
+					if (!isBlockHere(IntVector3(x, y - 1, z))) {
+						mesh.addFace(bottomFace,
+							atlas.getTextureCoords(blockData.bottomTextureCoords),
+							m_position,
+							blockPosition);
+					}
 
-				if (!isBlockHere(IntVector3(x + 1, y, z))) {
-					mesh.addFace(rightFace,
-						atlas.getTextureCoords(blockData.sideTextureCoords),
-						m_position,
-						blockPosition);
-				}
-				if (!isBlockHere(IntVector3(x - 1, y, z))) {
-					mesh.addFace(leftFace,
-						atlas.getTextureCoords(blockData.sideTextureCoords),
-						m_position,
-						blockPosition);
-				}
-				if (!isBlockHere(IntVector3(x, y, z + 1))) {
-					mesh.addFace(frontFace,
-						atlas.getTextureCoords(blockData.sideTextureCoords),
-						m_position,
-						blockPosition);
-				}
-				if (!isBlockHere(IntVector3(x, y, z - 1))) {
-					mesh.addFace(backFace,
-						atlas.getTextureCoords(blockData.sideTextureCoords),
-						m_position,
-						blockPosition);
+					if (!isBlockHere(IntVector3(x + 1, y, z))) {
+						mesh.addFace(rightFace,
+							atlas.getTextureCoords(blockData.sideTextureCoords),
+							m_position,
+							blockPosition);
+					}
+					if (!isBlockHere(IntVector3(x - 1, y, z))) {
+						mesh.addFace(leftFace,
+							atlas.getTextureCoords(blockData.sideTextureCoords),
+							m_position,
+							blockPosition);
+					}
+					if (!isBlockHere(IntVector3(x, y, z + 1))) {
+						mesh.addFace(frontFace,
+							atlas.getTextureCoords(blockData.sideTextureCoords),
+							m_position,
+							blockPosition);
+					}
+					if (!isBlockHere(IntVector3(x, y, z - 1))) {
+						mesh.addFace(backFace,
+							atlas.getTextureCoords(blockData.sideTextureCoords),
+							m_position,
+							blockPosition);
+					}
 				}
 			}
 		}
 	}
 
 	mesh.buffer();
+
+	changed = false;
 }
 
 const Mesh& Chunk::getMesh() const
@@ -181,6 +184,40 @@ const Vector3 & Chunk::getPosition() const
 const Block_Array* Chunk::getBlockArray() const
 {
 	return &m_blocks;
+}
+
+void Chunk::setBlock(uint32_t x, uint32_t y, uint32_t z, uint8_t value)
+{
+	if (x == 0 && left)
+		left->changed = true;
+	if (x == CHUNK_SIZE_X - 1 && right)
+		right->changed = true;
+	if (y == 0 && below)
+		below->changed = true;
+	if (y == CHUNK_SIZE_Y - 1 && above)
+		above->changed = true;
+	if (z == 0 && front)
+		front->changed = true;
+	if (z == CHUNK_SIZE_Z - 1 && back)
+		back->changed = true;
+
+	m_blocks.set(x, y, z, value);
+	changed = true;
+}
+
+uint8_t Chunk::getBlock(uint32_t x, uint32_t y, uint32_t z) const
+{
+	return m_blocks.get(x, y, z);
+}
+
+void Chunk::setChanged(bool value)
+{
+	changed = value;
+}
+
+void Chunk::checkForRebuild()
+{
+	if (changed) generate();
 }
 
 bool Chunk::isBlockHere(IntVector3 position, bool edgesIncluded) const

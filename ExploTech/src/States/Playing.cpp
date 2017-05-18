@@ -6,6 +6,8 @@
 #include "../Camera.h"
 #include "../World/Block/Block_Database.h"
 #include <iostream>
+#include "../Application.h"
+#include "../World/WorldConstants.h"
 
 namespace State {
 
@@ -19,11 +21,11 @@ namespace State {
 		worldManager.generateAllChunks();
 	}
 
-	void Playing::input(Camera& camera)
+	void Playing::input()
 	{
 	}
 
-	void Playing::update(Camera& camera, float dt)
+	void Playing::update(float dt)
 	{
 		m_quad.position.x += sin(clock.getElapsedTime().asSeconds()) * dt * 0.8;
 		m_quad.position.y += sin(clock.getElapsedTime().asSeconds()) * dt * 0.8;
@@ -40,12 +42,38 @@ namespace State {
 		renderer.addToMasterRenderList(m_quad);
 
 	}
-	void Playing::updateMouseInput(Camera& camera, double xpos, double ypos)
+
+	void Playing::updateMouseClickInput(bool left, bool right)
 	{
-		camera.mouseInput(xpos, ypos);
+		//std::cout << static_cast<int>(worldManager.GetBlock(Vector3(0.5f, 0.5f, 0.5f))) << '\n';
+
+		//worldManager.SetBlock(glm::vec3(0.5f, 0.5f, 0.5f), Block::ID::Air);
+		Vector3 facingDirection = m_application->getCamera().getViewVector() * REACH_RESOLUTION;
+		Vector3 currentPosition = m_application->getCamera().position;
+		if (left) {
+			for (int i = 0; i < static_cast<int>((1.0f / REACH_RESOLUTION) * PLAYER_REACH_DISTANCE); ++i)
+			{
+				currentPosition.x += facingDirection.x;
+				currentPosition.y += facingDirection.y;
+				currentPosition.z += facingDirection.z;
+				//std::cout << "Test" << '\n';
+
+				if (worldManager.GetBlock(glm::vec3(currentPosition.x, currentPosition.y, currentPosition.z)) != Block::ID::Air) {
+					worldManager.SetBlock(glm::vec3(currentPosition.x, currentPosition.y, currentPosition.z), Block::ID::Air);
+					break;
+				}
+			}
+		}
+
 	}
-	void Playing::updateKeyboardInput(Camera& camera, float dt)
+
+	void Playing::updateMouseInput(double xpos, double ypos)
 	{
-		camera.keyboardInput(dt);
+		m_application->getCamera().mouseInput(xpos, ypos);
+	}
+
+	void Playing::updateKeyboardInput(float dt)
+	{
+		m_application->getCamera().keyboardInput(dt);
 	}
 }
