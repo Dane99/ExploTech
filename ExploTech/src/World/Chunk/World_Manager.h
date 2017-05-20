@@ -31,6 +31,8 @@ class World_Manager {
 
 		Block::ID World_Manager::GetBlock(Vector3 WorldPosition);
 
+		void World_Manager::setBlockByPlayer(Vector3 blockPosition, Vector3 playerPosition, Block::ID type);
+
 		// TODO
 		Vector3 getChunkPositionFromWorldPosition(Vector3 worldPosition);
 

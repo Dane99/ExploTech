@@ -101,12 +101,12 @@ void Camera::mouseInput(double xpos, double ypos)
 	updateCameraVectors();
 }
 
-const Matrix4 & Camera::getViewMatrix() const
+const Matrix4& Camera::getViewMatrix() const
 {
 	return m_viewMatrix;
 }
 
-const Matrix4 & Camera::getProjectionMatrix() const
+const Matrix4& Camera::getProjectionMatrix() const
 {
 	return m_projectionMatrix;
 }

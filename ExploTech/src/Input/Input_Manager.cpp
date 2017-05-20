@@ -5,6 +5,9 @@
 
 
 bool Input_Manager::keys[1024];
+double Input_Manager::mousePositionX = 0.0;
+double Input_Manager::mousePositionY = 0.0;
+
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -60,6 +63,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
 	// window param is the same as Display::get().
+
+	Input_Manager::mousePositionX = xpos;
+	Input_Manager::mousePositionY = ypos;
+
 	Input_Manager* inputManager = static_cast<Input_Manager*>(glfwGetWindowUserPointer(window));
 	inputManager->getCurrentGameState()->updateMouseInput(xpos, ypos);
 }

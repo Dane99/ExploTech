@@ -8,6 +8,7 @@
 #include <iostream>
 #include "../Application.h"
 #include "../World/WorldConstants.h"
+#include "../Display.h"
 
 namespace State {
 
@@ -46,22 +47,66 @@ namespace State {
 	void Playing::updateMouseClickInput(bool left, bool right)
 	{
 		//std::cout << static_cast<int>(worldManager.GetBlock(Vector3(0.5f, 0.5f, 0.5f))) << '\n';
-
-		//worldManager.SetBlock(glm::vec3(0.5f, 0.5f, 0.5f), Block::ID::Air);
-		Vector3 facingDirection = m_application->getCamera().getViewVector() * REACH_RESOLUTION;
-		Vector3 currentPosition = m_application->getCamera().position;
-		if (left) {
-			for (int i = 0; i < static_cast<int>((1.0f / REACH_RESOLUTION) * PLAYER_REACH_DISTANCE); ++i)
+		if (raycasting) 
+		{
+			//worldManager.SetBlock(Vector3(0.5f, 0.5f, 0.5f), Block::ID::Air);
+			Vector3 facingDirection = m_application->getCamera().getViewVector() * REACH_RESOLUTION;
+			Vector3 currentPosition = m_application->getCamera().position;
+			if (left) 
 			{
-				currentPosition.x += facingDirection.x;
-				currentPosition.y += facingDirection.y;
-				currentPosition.z += facingDirection.z;
-				//std::cout << "Test" << '\n';
+				for (int i = 0; i < static_cast<int>((1.0f / REACH_RESOLUTION) * PLAYER_REACH_DISTANCE); ++i)
+				{
+					currentPosition.x += facingDirection.x;
+					currentPosition.y += facingDirection.y;
+					currentPosition.z += facingDirection.z;
+					//std::cout << "Test" << '\n';
 
-				if (worldManager.GetBlock(glm::vec3(currentPosition.x, currentPosition.y, currentPosition.z)) != Block::ID::Air) {
-					worldManager.SetBlock(glm::vec3(currentPosition.x, currentPosition.y, currentPosition.z), Block::ID::Air);
-					break;
+					if (worldManager.GetBlock(Vector3(currentPosition.x, currentPosition.y, currentPosition.z)) != Block::ID::Air) 
+					{
+						worldManager.SetBlock(Vector3(currentPosition.x, currentPosition.y, currentPosition.z), Block::ID::Air);
+						break;
+					}
 				}
+			}
+			if (right) 
+			{
+				for (int i = 0; i < static_cast<int>((1.0f / REACH_RESOLUTION) * PLAYER_REACH_DISTANCE); ++i)
+				{
+					currentPosition.x += facingDirection.x;
+					currentPosition.y += facingDirection.y;
+					currentPosition.z += facingDirection.z;
+					//std::cout << "Test" << '\n';
+
+					if (worldManager.GetBlock(Vector3(currentPosition.x, currentPosition.y, currentPosition.z)) != Block::ID::Air) 
+					{
+						worldManager.setBlockByPlayer(Vector3(currentPosition.x, currentPosition.y, currentPosition.z), m_application->getCamera().position, Block::ID::Grass);
+						break;
+					}
+				}
+			}
+		}
+		else 
+		{
+			GLfloat depth;
+
+			glReadPixels(Display::WIDTH / 2, Display::HEIGHT / 2, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
+
+			glm::vec4 viewport = glm::vec4(0, 0, Display::WIDTH, Display::HEIGHT);
+			glm::vec3 wincoord = glm::vec3(Display::WIDTH / 2, Display::HEIGHT / 2, depth);
+			glm::vec3 objcoord = glm::unProject(wincoord, m_application->getCamera().getViewMatrix(), m_application->getCamera().getProjectionMatrix(), viewport);
+
+			//int x = floorf(objcoord.x);
+			//int y = floorf(objcoord.y);
+			//int z = floorf(objcoord.z);
+			Vector3 facingDirection = m_application->getCamera().getViewVector() * 0.01f;
+
+			if (right) 
+			{
+				worldManager.SetBlock(objcoord - facingDirection, Block::ID::Grass);
+			}
+			if (left)
+			{
+				worldManager.SetBlock(objcoord + facingDirection, Block::ID::Air);
 			}
 		}
 

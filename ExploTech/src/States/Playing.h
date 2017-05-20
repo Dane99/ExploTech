@@ -32,6 +32,8 @@ namespace State
 			Quad m_quad;
 			//Chunk chunk;
 			World_Manager worldManager;
+
+			static constexpr bool raycasting = false;
 	};
 
 
