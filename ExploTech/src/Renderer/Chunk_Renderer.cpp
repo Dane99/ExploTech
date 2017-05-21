@@ -19,7 +19,7 @@ namespace Renderer
 
 	void ChunkRenderer::update(const Camera& camera)
 	{
-		//glEnable(GL_CULL_FACE);
+		glEnable(GL_CULL_FACE);
 		//glCullFace(GL_BACK); BUG with these needs fixing
 
 		m_shader.bind();
@@ -34,7 +34,8 @@ namespace Renderer
 
 			Chunk *chunk = (it->second);
 
-			chunk->generate();
+			// check if any chunks need to regenerate.
+			chunk->checkForRebuild();
 
 			prepare(*chunk);
 
@@ -45,6 +46,8 @@ namespace Renderer
 
 			chunk->getMesh().getModel().unbind();
 		}
+
+		glDisable(GL_CULL_FACE);
 
 		world = nullptr; // Not needed unless two separate worlds are used by application.
 	}

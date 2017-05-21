@@ -9,8 +9,8 @@ namespace Texture
 		public:
 			void load(const std::string& fileName);
 
-			void bind();
-			void unbind();
+			void bind() const;
+			void unbind() const;
 
 		private:
 			GLuint m_textureID;

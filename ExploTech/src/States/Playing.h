@@ -11,6 +11,8 @@
 
 #include "../World/Chunk/World_Manager.h"
 
+#include "../HUD/HUD.h"
+
 namespace State 
 {
 	class Playing : public Game_State
@@ -32,6 +34,8 @@ namespace State
 			Quad m_quad;
 			//Chunk chunk;
 			World_Manager worldManager;
+
+			HUD hud;
 
 			static constexpr bool raycasting = false;
 	};

@@ -14,8 +14,6 @@ class Input_Manager {
 		Camera* getCurrentCamera() const;
 
 		static bool keys[1024];
-
-		static double mousePositionX, mousePositionY;
 	private:
 		State::Game_State* currentGameState;
 		Camera* currentCamera;

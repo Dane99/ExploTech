@@ -96,6 +96,15 @@
     <ClCompile Include="src\World\Generation\World_Generation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\HUD\Crosshair.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\HUD_Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shaders\HUD_Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Display.h">
@@ -191,12 +200,26 @@
     <ClInclude Include="src\World\Chunk\Chunk.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\HUD\HUD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\HUD\Crosshair.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\HUD_Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Shaders\HUD_Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Shaders\Simple_Fragment.glsl" />
     <None Include="Data\Shaders\Simple_Vertex.glsl" />
     <None Include="Data\Blocks\Air.block" />
     <None Include="Data\Blocks\Grass.block" />
+    <None Include="Data\Shaders\HUD_Fragment.glsl" />
+    <None Include="Data\Shaders\HUD_Vertex.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Data\Textures\grass.png">

@@ -16,6 +16,7 @@ namespace Renderer
 
 		m_simpleRenderer.update(camera);
 		m_chunkRenderer.update(camera);
+		m_HudRenderer.update();
 
 		Display::update();
 	}
@@ -23,6 +24,11 @@ namespace Renderer
 	void Master::addToMasterRenderList(World_Manager& worldManager)
 	{
 		m_chunkRenderer.addToChunkRenderList(worldManager);
+	}
+
+	void Master::addToMasterRenderList(HUD& hud)
+	{
+		m_HudRenderer.addToHudRenderList(hud);
 	}
 
 	void Master::addToMasterRenderList(const Quad& model)

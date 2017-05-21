@@ -41,6 +41,7 @@ namespace State {
 	{
 		renderer.addToMasterRenderList(worldManager);
 		renderer.addToMasterRenderList(m_quad);
+		renderer.addToMasterRenderList(hud);
 
 	}
 
@@ -98,7 +99,7 @@ namespace State {
 			//int x = floorf(objcoord.x);
 			//int y = floorf(objcoord.y);
 			//int z = floorf(objcoord.z);
-			Vector3 facingDirection = m_application->getCamera().getViewVector() * 0.01f;
+			Vector3 facingDirection = m_application->getCamera().getViewVector() * 0.03f;
 
 			if (right) 
 			{
