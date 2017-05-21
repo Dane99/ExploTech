@@ -14,10 +14,10 @@ namespace Shader
 			void bind();
 			void unbind();
 
+			GLuint getID() const;
+
 		protected:
 			virtual void getUniformLocations() = 0;
-
-			GLuint getID() const;
 
 			void loadFloat(GLuint location, float value);
 			void loadVector2(GLuint location, const Vector2& vector);

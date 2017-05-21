@@ -2,6 +2,7 @@
 
 #include "../HUD/HUD.h"
 #include "../Shaders/HUD_Shader.h"
+#include <SFML/System/Clock.hpp>
 
 namespace Renderer
 {
@@ -15,7 +16,8 @@ namespace Renderer
 
 	private:
 
-		Shader::HUD_Shader shader;
-		HUD* hud;
+		Shader::HUD_Shader m_shader;
+		HUD* m_hud;
+		sf::Clock m_clock;
 	};
 }

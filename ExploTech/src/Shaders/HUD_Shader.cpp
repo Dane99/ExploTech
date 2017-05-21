@@ -6,7 +6,12 @@ Shader::HUD_Shader::HUD_Shader()
 	getUniformLocations();
 }
 
-// No uniform locations yet so this isn't needed, but the super class has it as a pure virtual function.
+void Shader::HUD_Shader::setTime(float time)
+{
+	loadFloat(m_locationTime, time);
+}
+
 void Shader::HUD_Shader::getUniformLocations()
 {
+	m_locationTime = glGetUniformLocation(getID(), "time");
 }

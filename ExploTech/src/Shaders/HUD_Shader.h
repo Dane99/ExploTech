@@ -9,8 +9,11 @@ namespace Shader
 	public:
 		HUD_Shader();
 
+		void setTime(float time);
 
 	private:
 		void getUniformLocations() override;
+
+		GLuint m_locationTime = 0;
 	};
 }

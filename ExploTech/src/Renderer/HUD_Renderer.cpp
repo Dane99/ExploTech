@@ -9,19 +9,20 @@ namespace Renderer
 
 	void HUD_Renderer::addToHudRenderList(HUD& hud)
 	{
-		this->hud = &hud;
+		this->m_hud = &hud;
 	}
 
 	void HUD_Renderer::update()
 	{
-		shader.bind();
+		m_shader.bind();
+		m_shader.setTime(m_clock.getElapsedTime().asSeconds());
 
-		hud->crosshair.getModel().bind();
-		hud->crosshair.getTexture().bind();
+		m_hud->crosshair.getModel().bind();
+		m_hud->crosshair.getTexture().bind();
 
 		glDisable(GL_DEPTH_TEST);
 		glDrawElements(GL_TRIANGLES,
-			hud->crosshair.getModel().getIndicesCount(),
+			m_hud->crosshair.getModel().getIndicesCount(),
 			GL_UNSIGNED_INT,
 			nullptr);
 
