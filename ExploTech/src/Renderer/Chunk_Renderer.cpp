@@ -6,6 +6,8 @@
 
 #include "../World/Chunk/Chunk.h"
 
+#include "../World/Block/Block_Database.h"
+
 #include <iostream>
 
 // # change name to world renderer
@@ -20,6 +22,7 @@ namespace Renderer
 	void ChunkRenderer::update(const Camera& camera)
 	{
 		glEnable(GL_CULL_FACE);
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		//glCullFace(GL_BACK); BUG with these needs fixing
 
 		m_shader.bind();
@@ -27,6 +30,9 @@ namespace Renderer
 
 		m_shader.setProjMatrix(camera.getProjectionMatrix());
 		m_shader.setViewMatrix(camera.getViewMatrix());
+
+		//Block::Database::get().textures.bind();
+
 
 		//std::cout << world->getChunks()->size() << std::endl;
 		std::unordered_map<IntVector3, Chunk*, KeyHasher>* chunks = world->getChunks();
@@ -47,6 +53,7 @@ namespace Renderer
 			chunk->getMesh().getModel().unbind();
 		}
 
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glDisable(GL_CULL_FACE);
 
 		world = nullptr; // Not needed unless two separate worlds are used by application.

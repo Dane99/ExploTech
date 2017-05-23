@@ -6,6 +6,8 @@
 #include "../HUD/HUD.h"
 #include "../World/Chunk/Chunk.h"
 #include "../World/Chunk/World_Manager.h"
+#include "../Text/Text_Manager.h"
+#include "TextRenderer.h"
 
 class Quad;
 class Camera;
@@ -22,10 +24,12 @@ namespace Renderer
 			void addToMasterRenderList(const Quad& model);
 			void addToMasterRenderList(World_Manager& worldManager);
 			void addToMasterRenderList(HUD& hud);
+			void addToMasterRenderList(Text_Manager& textManager);
 		
 		private:
 			Simple m_simpleRenderer;
 			ChunkRenderer m_chunkRenderer;
 		    HUD_Renderer m_HudRenderer;
+			Text_Renderer m_TextRenderer;
 	};
 }

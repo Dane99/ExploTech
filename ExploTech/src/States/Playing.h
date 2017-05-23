@@ -12,6 +12,7 @@
 #include "../World/Chunk/World_Manager.h"
 
 #include "../HUD/HUD.h"
+#include "../Text/Text_Manager.h"
 
 namespace State 
 {
@@ -36,6 +37,9 @@ namespace State
 			World_Manager worldManager;
 
 			HUD hud;
+
+			Text_Manager textManager;
+
 
 			static constexpr bool raycasting = false;
 	};

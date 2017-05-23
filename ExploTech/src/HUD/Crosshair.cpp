@@ -2,17 +2,17 @@
 
 namespace{
 
-	constexpr float CROSSHAIR_SIZE = 30.0f;
+	constexpr float CROSSHAIR_SIZE = 15.0f;
 	const float WIDTH = Display::WIDTH;
 	const float HEIGHT = Display::HEIGHT;
 
 	std::vector<GLfloat> vertices = 
 	{
-		 CROSSHAIR_SIZE / WIDTH,   CROSSHAIR_SIZE / HEIGHT, 0.0f,  // Top Right
-		 CROSSHAIR_SIZE / WIDTH,  -CROSSHAIR_SIZE / HEIGHT, 0.0f,  // Bottom Right
+		 WIDTH / 2 + CROSSHAIR_SIZE,  HEIGHT / 2 + CROSSHAIR_SIZE, 0.0f,  // Top Right
+		 WIDTH / 2 + CROSSHAIR_SIZE,  HEIGHT / 2 - CROSSHAIR_SIZE, 0.0f,  // Bottom Right
 
-		-CROSSHAIR_SIZE / WIDTH,  -CROSSHAIR_SIZE / HEIGHT, 0.0f,  // Bottom Left
-		-CROSSHAIR_SIZE / WIDTH,   CROSSHAIR_SIZE / HEIGHT, 0.0f   // Top Left 
+		 WIDTH / 2 - CROSSHAIR_SIZE,  HEIGHT / 2 - CROSSHAIR_SIZE, 0.0f,  // Bottom Left
+		 WIDTH / 2 - CROSSHAIR_SIZE,  HEIGHT / 2 + CROSSHAIR_SIZE, 0.0f   // Top Left 
 
 	};
 

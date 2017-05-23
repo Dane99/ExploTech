@@ -9,17 +9,22 @@
 #include "../Application.h"
 #include "../World/WorldConstants.h"
 #include "../Display.h"
+#include <time.h>
 
 namespace State {
 
 	sf::Clock clock;
+	sf::Clock randClock;
 
 	Playing::Playing(Application &application)
 		: Game_State (application)
 		, m_quad(Block::Database::get().textures)
 	{
+		srand(time(NULL));
 		m_quad.position.z  = -3;
 		worldManager.generateAllChunks();
+		textManager.addText("Hello World!", 100, 100, 1, 1);
+		textManager.addText("Random Number Alert: ", 10, Display::HEIGHT - 100, 0.5f, 0.5f);
 	}
 
 	void Playing::input()
@@ -31,6 +36,13 @@ namespace State {
 		m_quad.position.x += sin(clock.getElapsedTime().asSeconds()) * dt * 0.8;
 		m_quad.position.y += sin(clock.getElapsedTime().asSeconds()) * dt * 0.8;
 		m_quad.position.z += cos(clock.getElapsedTime().asSeconds()) * dt * 0.8;
+
+		if (randClock.getElapsedTime().asSeconds() > 5)
+		{
+			int number = rand() % 100 + 1;
+			textManager.changeText("Random Number Alert: " + std::to_string(number), 1);
+			randClock.restart();
+		}
 		//camera.input(dt);
 		//m_quad.position.x = cos(clock.getElapsedTime().asSeconds());
 		//m_quad.rotation.x = clock.getElapsedTime().asSeconds() * 100;
@@ -42,6 +54,7 @@ namespace State {
 		renderer.addToMasterRenderList(worldManager);
 		renderer.addToMasterRenderList(m_quad);
 		renderer.addToMasterRenderList(hud);
+		renderer.addToMasterRenderList(textManager);
 
 	}
 

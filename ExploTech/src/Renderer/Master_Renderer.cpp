@@ -17,6 +17,7 @@ namespace Renderer
 		m_simpleRenderer.update(camera);
 		m_chunkRenderer.update(camera);
 		m_HudRenderer.update();
+		m_TextRenderer.update();
 
 		Display::update();
 	}
@@ -29,6 +30,11 @@ namespace Renderer
 	void Master::addToMasterRenderList(HUD& hud)
 	{
 		m_HudRenderer.addToHudRenderList(hud);
+	}
+
+	void Master::addToMasterRenderList(Text_Manager& textManager)
+	{
+		m_TextRenderer.addToTextRenderList(textManager);
 	}
 
 	void Master::addToMasterRenderList(const Quad& model)

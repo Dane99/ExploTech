@@ -4,8 +4,10 @@ layout (location = 1) in vec2 texCoords;
 
 out vec2 TexCoord;
 
+uniform mat4 projMatrix;
+
 void main()
 {
-	gl_Position = vec4(position.xyz, 1.0f);
+	gl_Position = projMatrix * vec4(position.xy, 0.0f, 1.0f);
 	TexCoord = texCoords;
 }

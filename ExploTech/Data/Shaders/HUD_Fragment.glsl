@@ -15,5 +15,5 @@ void main()
 					(sin(0.003*gl_FragCoord.x*mod(time, 100) + 2) * 127 + 128)/256,
 					(sin(0.003*gl_FragCoord.x*mod(time, 100) + 4) * 127 + 128)/256,
 					texture(ourTexture, TexCoord).a);
-    color = temp;
+	color = temp;
 }

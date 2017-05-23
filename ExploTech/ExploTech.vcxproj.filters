@@ -105,6 +105,18 @@
     <ClCompile Include="src\Shaders\HUD_Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Text\TextModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shaders\Text_Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Text\Text_Manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\TextRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Display.h">
@@ -212,6 +224,18 @@
     <ClInclude Include="src\Shaders\HUD_Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Text\TextModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Shaders\Text_Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Text\Text_Manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\TextRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Shaders\Simple_Fragment.glsl" />
@@ -220,6 +244,8 @@
     <None Include="Data\Blocks\Grass.block" />
     <None Include="Data\Shaders\HUD_Fragment.glsl" />
     <None Include="Data\Shaders\HUD_Vertex.glsl" />
+    <None Include="Data\Shaders\Text_Fragment.glsl" />
+    <None Include="Data\Shaders\Text_Vertex.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Data\Textures\grass.png">
