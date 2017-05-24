@@ -8,85 +8,103 @@ Text_Manager::~Text_Manager()
 {
 }
 
-void Text_Manager::addText(const std::string& text, float x, float y, float sx, float sy, Vector3& color)
+unsigned int Text_Manager::addText(const std::string& text, float x, float y, float sx, float sy, Vector3& color)
 {
-	m_textModels.push_back(std::make_unique<TextModel>());
-	m_textModels.back().get()->createText(text.c_str(), x, y, sx, sy);
-	m_textModels.back().get()->setColor(color);
-	m_textData.emplace_back(text, x, y, sx, sy);
+	m_textModels[currentID] = std::make_unique<TextModel>();
+	m_textModels[currentID]->createText(text.c_str(), x, y, sx, sy);
+	m_textModels[currentID]->setColor(color);
+
+	m_textData[currentID] = TextData(text, x, y, sx, sy);
+
+	return currentID++;
 }
 
 void Text_Manager::changeTextContent(const std::string& text, unsigned int id)
 {
-	if (inRange(id))
+
+	auto it = m_textData.find(id);
+	if (it != m_textData.end())
 	{
-		m_textData[id].text = text;
-		m_textData[id].changed = true;
+		it->second.text = text;
+		it->second.changed = true;
 	}
 }
 
 void Text_Manager::changeTextPositionX(float x, unsigned int id)
 {
-	if (inRange(id))
+	auto it = m_textData.find(id);
+	if (it != m_textData.end())
 	{
-		m_textData[id].x = x;
-		m_textData[id].changed = true;
+		it->second.x = x;
+		it->second.changed = true;
 	}
 }
 
 void Text_Manager::changeTextPositionY(float y, unsigned int id)
 {
-	if (inRange(id))
+	auto it = m_textData.find(id);
+	if (it != m_textData.end())
 	{
-		m_textData[id].y = y;
-		m_textData[id].changed = true;
+		it->second.y = y;
+		it->second.changed = true;
 	}
 }
 
 void Text_Manager::changeScaleX(float sx, unsigned int id)
 {
-	if (inRange(id))
+	auto it = m_textData.find(id);
+	if (it != m_textData.end())
 	{
-		m_textData[id].sx = sx;
-		m_textData[id].changed = true;
+		it->second.sx = sx;
+		it->second.changed = true;
 	}
 }
 
 void Text_Manager::changeScaleY(float sy, unsigned int id)
 {
-	if (inRange(id))
+	auto it = m_textData.find(id);
+	if (it != m_textData.end())
 	{
-		m_textData[id].sy = sy;
-		m_textData[id].changed = true;
+		it->second.sy = sy;
+		it->second.changed = true;
 	}
 }
 
 void Text_Manager::changeColor(const Vector3& color, unsigned int id)
 {
-	if (inRange(id))
+	auto it = m_textModels.find(id);
+	if (it != m_textModels.end())
 	{
 		// This does not need to set changed to true because color is updated every cycle in the text renderer.
-		m_textModels[id]->setColor(color);
+		it->second->setColor(color);
 	}
 }
 
 
 
-std::vector<std::unique_ptr<TextModel>>& Text_Manager::getTextElements()
+std::map<unsigned int, std::unique_ptr<TextModel>>& Text_Manager::getTextElements()
 {
 	return m_textModels;
 }
 
 void Text_Manager::deleteText(unsigned int id)
 {
-	if (inRange(id))
+	auto it = m_textModels.find(id);
+	if (it != m_textModels.end())
 	{
-		m_textModels[id].reset();
-		m_textModels.erase(m_textModels.begin() + id);
+		it->second.reset();
+		m_textModels.erase(it);
 	}
+
+	auto it2 = m_textData.find(id);
+	if (it2 != m_textData.end())
+	{
+		m_textData.erase(it2);
+	}
+
 }
 
-std::vector<TextData>& Text_Manager::getTextData()
+std::map<unsigned int, TextData>& Text_Manager::getTextData()
 {
 	return m_textData;
 }

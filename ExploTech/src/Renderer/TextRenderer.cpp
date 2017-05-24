@@ -11,25 +11,23 @@ void Renderer::Text_Renderer::update()
 	m_shader.bind();
 	m_shader.setProjMatrix(glm::ortho(0.0f, static_cast<GLfloat>(Display::WIDTH), 0.0f, static_cast<GLfloat>(Display::HEIGHT)));
 
-	unsigned int id = 0;
 
 	for(auto &textData : m_textManager->getTextData())
 	{
-		if(textData.changed == true)
+		if(textData.second.changed == true)
 		{
-			m_textManager->recreate(id);
-			textData.changed = false;
+			m_textManager->recreate(textData.first);
+			textData.second.changed = false;
 		}
-		++id;
 	}
 
 	for (auto &textElement : m_textManager->getTextElements())
 	{
-		m_shader.setColorVector(textElement->getColor());
+		m_shader.setColorVector(textElement.second->getColor());
 
-		textElement->bind();
-		glDrawArrays(GL_TRIANGLES, 0, textElement->getVerticesCount());
-		textElement->unbind();
+		textElement.second->bind();
+		glDrawArrays(GL_TRIANGLES, 0, textElement.second->getVerticesCount());
+		textElement.second->unbind();
 	}
 
 	m_textManager = nullptr;

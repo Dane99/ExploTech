@@ -178,6 +178,7 @@
     <ClCompile Include="src\World\Generation\World_Generation.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Command\Command.h" />
     <ClInclude Include="src\HUD\Crosshair.h" />
     <ClInclude Include="src\HUD\HUD.h" />
     <ClInclude Include="src\Renderer\Chunk_Renderer.h" />

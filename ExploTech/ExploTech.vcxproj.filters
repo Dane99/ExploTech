@@ -236,6 +236,9 @@
     <ClInclude Include="src\Renderer\TextRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Command\Command.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Shaders\Simple_Fragment.glsl" />
