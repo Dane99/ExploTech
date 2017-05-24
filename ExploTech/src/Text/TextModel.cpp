@@ -112,12 +112,6 @@ void TextModel::unbind() const
 
 void TextModel::createText(const char* text, float x, float y, float sx, float sy)
 {
-	positionX = x;
-	positionY = y;
-	scaleX = sx;
-	scaleY = sy;
-
-
 	std::vector<point> vertices;
 
 	numberOfCharactersToDraw = 0;
@@ -171,22 +165,12 @@ GLuint TextModel::getVerticesCount() const
 	return numberOfCharactersToDraw * 6; // Six vertices per character.
 }
 
-const float& TextModel::getPositionX() const
+void TextModel::setColor(const Vector3& color)
 {
-	return positionX;
+	m_color = color;
 }
 
-const float& TextModel::getPositionY() const
+Vector3 TextModel::getColor() const
 {
-	return positionY;
-}
-
-const float& TextModel::getScaleX() const
-{
-	return scaleX;
-}
-
-const float& TextModel::getScaleY() const
-{
-	return scaleY;
+	return m_color;
 }

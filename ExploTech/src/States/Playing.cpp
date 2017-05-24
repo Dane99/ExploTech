@@ -23,8 +23,8 @@ namespace State {
 		srand(time(NULL));
 		m_quad.position.z  = -3;
 		worldManager.generateAllChunks();
-		textManager.addText("Hello World!", 100, 100, 1, 1);
-		textManager.addText("Random Number Alert: ", 10, Display::HEIGHT - 100, 0.5f, 0.5f);
+		textManager.addText("Hello World!", 100, 50, 1, 1, Vector3(0.5, 0.5, 0.5));
+		textManager.addText("Random Number Alert: ", 10, Display::HEIGHT - 20, 0.5f, 0.5f, Vector3(1.0, 0.5, 0.5));
 	}
 
 	void Playing::input()
@@ -37,12 +37,29 @@ namespace State {
 		m_quad.position.y += sin(clock.getElapsedTime().asSeconds()) * dt * 0.8;
 		m_quad.position.z += cos(clock.getElapsedTime().asSeconds()) * dt * 0.8;
 
-		if (randClock.getElapsedTime().asSeconds() > 5)
+		/*textManager.changeTextPositionY(sin(clock.getElapsedTime().asSeconds()) * 300 + 300, 0);
+		textManager.changeScaleX(cos(clock.getElapsedTime().asSeconds())/2 + 1, 0);
+		textManager.changeScaleY(cos(clock.getElapsedTime().asSeconds())/2 + 1, 0);
+		textManager.changeColor(Vector3(sin(clock.getElapsedTime().asSeconds() + 0),
+										sin(clock.getElapsedTime().asSeconds() + 2),
+										sin(clock.getElapsedTime().asSeconds() + 4)), 0);
+*/
+		static bool first = true;
+		if (first) {
+			textManager.deleteText(0);
+			first = false;
+		}
+		//textManager.deleteText(0);
+
+		/*static bool first = true;
+
+		if (randClock.getElapsedTime().asSeconds() > 5 || first)
 		{
 			int number = rand() % 100 + 1;
-			textManager.changeText("Random Number Alert: " + std::to_string(number), 1);
+			textManager.changeTextContent("Random Number Alert: " + std::to_string(number), 1);
 			randClock.restart();
-		}
+			first = false;
+		}*/
 		//camera.input(dt);
 		//m_quad.position.x = cos(clock.getElapsedTime().asSeconds());
 		//m_quad.rotation.x = clock.getElapsedTime().asSeconds() * 100;

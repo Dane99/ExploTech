@@ -11,13 +11,6 @@
 
 namespace
 {
-	/// Holds all state information relevant to a character as loaded using FreeType
-	struct Character {
-		GLuint TextureID;   // ID handle of the glyph texture
-		IntVector2 Size;    // Size of glyph
-		IntVector2 Bearing;  // Offset from baseline to left/top of glyph
-		GLuint Advance;    // Horizontal offset to advance to next glyph
-	};
 
 	struct character_info {
 		float ax; // advance.x
@@ -66,10 +59,8 @@ public:
 
 	GLuint getVerticesCount() const;
 
-	const float& getPositionX() const;
-	const float& getPositionY() const;
-	const float& getScaleX() const;
-	const float& getScaleY() const;
+	void setColor(const Vector3& color);
+	Vector3 getColor() const;
 
 private:
 
@@ -78,11 +69,8 @@ private:
 
 	int numberOfCharactersToDraw = 0;
 
-	float positionX = 0.0f;
-	float positionY = 0.0f;
-	float scaleX = 0.0f;
-	float scaleY = 0.0f;
-
 	GLuint m_vao = 0, m_vbo = 0;
 	GLuint m_textureID = 0;
+
+	Vector3 m_color;
 };

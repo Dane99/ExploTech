@@ -40,6 +40,16 @@ namespace Shader
 		glUniform2f(location, vector.x, vector.y);
 	}
 
+	void Shader_Program::loadVector3(GLuint location, const Vector3& vector)
+	{
+		glUniform3f(location, vector.x, vector.y, vector.z);
+	}
+
+	void Shader_Program::loadVector4(GLuint location, const Vector4& vector)
+	{
+		glUniform4f(location, vector.x, vector.y, vector.z, vector.w);
+	}
+
 	void Shader_Program::loadMatrix4(GLuint location, const Matrix4& matrix)
 	{
 		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));

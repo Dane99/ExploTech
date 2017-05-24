@@ -21,6 +21,8 @@ namespace Shader
 
 			void loadFloat(GLuint location, float value);
 			void loadVector2(GLuint location, const Vector2& vector);
+			void loadVector3(GLuint location, const Vector3& vector);
+			void loadVector4(GLuint location, const Vector4& vector);
 			void loadMatrix4(GLuint location, const Matrix4& matrix);
 
 		private:
