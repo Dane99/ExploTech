@@ -257,5 +257,8 @@
     <Image Include="Data\Textures\Texture_Atlas.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Data\Textures\Crosshair.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

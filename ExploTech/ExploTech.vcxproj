@@ -230,6 +230,7 @@
     <None Include="Data\Shaders\Text_Vertex.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Data\Textures\Crosshair.png" />
     <Image Include="Data\Textures\grass.png" />
     <Image Include="Data\Textures\Texture_Atlas.png" />
   </ItemGroup>
