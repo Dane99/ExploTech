@@ -2,6 +2,8 @@
 
 #include "../WorldConstants.h"
 
+#include <iostream>
+
 void Mesh::reset()
 {
 	m_indicesIndex = 0;
@@ -13,12 +15,13 @@ void Mesh::reset()
 
 void Mesh::addFace( const std::vector<GLfloat>&    templateFace,
 					const std::vector<GLfloat>&    texCoords,
+					const GLfloat layer,
 					const Vector3& chunkPos,
 					const Vector3& blockPos)
 {
 	++m_facesCount;
 
-	// Four total vertexes needed for each side of a cube. We use an EBO or indices to substitute two additional missing vertexes. 
+	// Four total vertexes needed for each side of a cube. We use an EBO or indices to substitute the two additional missing vertexes. 
 	for (int i = 0, index = 0; i < 4; ++i)
 	{
 		// Three positions for each vertex.
@@ -30,7 +33,7 @@ void Mesh::addFace( const std::vector<GLfloat>&    templateFace,
 	// texCoords is appended to m_texCoords
 	m_texCoords.insert(m_texCoords.end(), texCoords.begin(), texCoords.end());
 
-	// Here is where we add the two 
+	// Here is where we add the two additional vertexes.
 	m_indices.insert(m_indices.end(),
 	{
 		m_indicesIndex,
@@ -41,18 +44,29 @@ void Mesh::addFace( const std::vector<GLfloat>&    templateFace,
 		m_indicesIndex
 	});
 	m_indicesIndex += 4;
+
+	// Layers are the texture id for the block side we are using inside the 2D texture array.
+	m_layers.push_back(layer);
+	m_layers.push_back(layer);
+	m_layers.push_back(layer);
+	m_layers.push_back(layer);
+
+
+
 }
 
 void Mesh::buffer()
 {
-	m_model.addData(m_verticies, m_texCoords, m_indices);
+	m_model.addData(m_verticies, m_texCoords, m_layers, m_indices);
 
 	m_verticies.clear();
 	m_texCoords.clear();
+	m_layers.clear();
 	m_indices.clear();
 
 	m_verticies.shrink_to_fit();
 	m_texCoords.shrink_to_fit();
+	m_layers.shrink_to_fit();
 	m_indices.shrink_to_fit();
 }
 

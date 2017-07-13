@@ -4,6 +4,10 @@
 
 #include "../Math/Matrix.h"
 
+#include "../World/Block/Block_Database.h"
+
+#include "../Texture/TextureManager.h"
+
 #include "../Camera.h"
 
 namespace Renderer
@@ -17,6 +21,11 @@ namespace Renderer
 	{
 		m_shader.bind();
 		m_shader.setTime(m_clock.getElapsedTime().asSeconds());
+
+		// binding the texture atlas.
+		//Block::Database::get().textures.bind();
+
+		TextureManager::get().getPtrTextureArray()->bind();
 
 		m_shader.setViewMatrix(camera.getViewMatrix());
 		m_shader.setProjMatrix(camera.getProjectionMatrix());

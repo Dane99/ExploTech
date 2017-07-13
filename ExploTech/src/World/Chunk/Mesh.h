@@ -17,9 +17,10 @@ public:
 	void reset();
 
 	void Mesh::addFace(const std::vector<GLfloat>&    templateFace,
-		const std::vector<GLfloat>&    texCoords,
-		const Vector3& chunkPos,
-		const Vector3& blockPos);
+					   const std::vector<GLfloat>&    texCoords,
+				  	   const GLfloat layer,
+					   const Vector3& chunkPos,
+					   const Vector3& blockPos);
 
 	void buffer();
 
@@ -31,6 +32,7 @@ private:
 	std::vector<GLfloat> m_verticies;
 	std::vector<GLfloat> m_texCoords;
 	std::vector<GLuint> m_indices;
+	std::vector<GLfloat> m_layers;
 
 	Model m_model;
 

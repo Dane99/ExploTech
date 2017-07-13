@@ -11,7 +11,7 @@ namespace Texture
 
 	std::vector<GLfloat> Atlas::getTextureCoords(const Vector2& location) const
 	{
-		static float texturesPerRow = m_size / m_textureSize;
+		static float texturesPerRow = (float)m_size / (float)m_textureSize;
 		static float unitSize = 1.0f / (float)texturesPerRow;
 		static float pixelSize = 1.0f / (float)m_size;
 

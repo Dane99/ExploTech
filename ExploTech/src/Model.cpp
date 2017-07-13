@@ -28,6 +28,33 @@ Model::~Model() {
 
 void Model::addData(const std::vector<GLfloat>& vertexPositions,
 					const std::vector<GLfloat>& textureCoordinates,
+					const std::vector<GLfloat>& layers,
+					const std::vector<GLuint>& indices)
+{
+
+	reset();
+
+	// Update indices count
+	m_indicesCount = indices.size();
+
+	// Pass new data
+	glGenVertexArrays(1, &m_vao);
+	glBindVertexArray(m_vao);
+
+	addVBO(3, vertexPositions);
+	addVBO(2, textureCoordinates);
+	addVBO(1, layers);
+	addEBO(indices);
+
+	//std::cout << "Vertex Size" << vertexPositions.size()/3 << '\n';
+	//std::cout << "Layer Size" << textureCoordinates.size()/2 << '\n';
+
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void Model::addData(const std::vector<GLfloat>& vertexPositions,
+					const std::vector<GLfloat>& textureCoordinates,
 					const std::vector<GLuint>& indices)
 {
 
@@ -100,6 +127,28 @@ void Model::addVBO(int dim, const std::vector<GLfloat>& data)
 	m_buffers.push_back(vbo);
 }
 
+// NOTE: We might not need param dim.
+void Model::addVBO(int dim, const std::vector<GLuint>& data)
+{
+	GLuint vbo;
+	glGenBuffers(1, &vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER,
+		data.size() * sizeof(data[0]),
+		data.data(),
+		GL_STATIC_DRAW);
+
+	glVertexAttribPointer(m_vboCount,
+		dim,
+		GL_UNSIGNED_INT,
+		GL_FALSE,
+		0,
+		(GLvoid*)0);
+
+	glEnableVertexAttribArray(m_vboCount++);
+
+	m_buffers.push_back(vbo);
+}
 
 void Model::addEBO(const std::vector<GLuint>& indices)
 {

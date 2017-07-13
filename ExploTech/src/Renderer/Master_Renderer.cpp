@@ -12,7 +12,7 @@ namespace Renderer
 
 	void Master::update(const Camera& camera)
 	{
-		Block::Database::get().textures.bind();
+		
 
 		m_simpleRenderer.update(camera);
 		m_chunkRenderer.update(camera);

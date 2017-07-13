@@ -105,11 +105,19 @@ Chunk::~Chunk()
 {
 }
 
+const std::vector<GLfloat> textureCoords =
+{
+	1.0f, 1.0f,
+	0.0f, 1.0f,
+	0.0f, 0.0f,
+	1.0f, 0.0f
+};
+
 void Chunk::generate()
 {
 	mesh.reset();
 
-	auto& atlas = Block::Database::get().textures;
+	//auto& atlas = Block::Database::get().textures;
 
 
 	for (uint8_t x = 0; x < CHUNK_SIZE_X; ++x)
@@ -121,43 +129,53 @@ void Chunk::generate()
 				if (m_blocks.get(x, y, z) != static_cast<uint8_t>(Block::ID::Air)) {
 					IntVector3 blockPosition(x, y, z);
 
-					auto &blockData = Block::Database::get().getBlockData(m_blocks.get(x, y, z));
+					//auto &blockData = Block::Database::get().getBlockData(m_blocks.get(x, y, z));
 
 					// 0 is air
 					if (!isBlockHere(IntVector3(x, y + 1, z))) {
 						mesh.addFace(topFace,
-							atlas.getTextureCoords(blockData.topTextureCoords),
+							textureCoords,
+							1.0f,
 							m_position,
 							blockPosition);
 					}
+
 					if (!isBlockHere(IntVector3(x, y - 1, z))) {
 						mesh.addFace(bottomFace,
-							atlas.getTextureCoords(blockData.bottomTextureCoords),
+							textureCoords,
+							3.0f,
 							m_position,
 							blockPosition);
 					}
 
 					if (!isBlockHere(IntVector3(x + 1, y, z))) {
 						mesh.addFace(rightFace,
-							atlas.getTextureCoords(blockData.sideTextureCoords),
+							textureCoords,
+							2.0f,
 							m_position,
 							blockPosition);
 					}
+
 					if (!isBlockHere(IntVector3(x - 1, y, z))) {
 						mesh.addFace(leftFace,
-							atlas.getTextureCoords(blockData.sideTextureCoords),
+							textureCoords,
+							2.0f,
 							m_position,
 							blockPosition);
 					}
+
 					if (!isBlockHere(IntVector3(x, y, z + 1))) {
 						mesh.addFace(frontFace,
-							atlas.getTextureCoords(blockData.sideTextureCoords),
+							textureCoords,
+							2.0f,
 							m_position,
 							blockPosition);
 					}
+
 					if (!isBlockHere(IntVector3(x, y, z - 1))) {
 						mesh.addFace(backFace,
-							atlas.getTextureCoords(blockData.sideTextureCoords),
+							textureCoords,
+							2.0f,
 							m_position,
 							blockPosition);
 					}

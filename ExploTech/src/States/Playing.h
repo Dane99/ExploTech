@@ -32,7 +32,7 @@ namespace State
 			Shader::Simple_Shader m_shader;
 			//Texture::Atlas m_texture;
 
-			Quad m_quad;
+			//Quad m_quad;
 			//Chunk chunk;
 			World_Manager worldManager;
 

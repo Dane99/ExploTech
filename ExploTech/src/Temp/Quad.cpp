@@ -73,14 +73,14 @@ namespace
 		textureCoords.insert(textureCoords.end(), coords.begin(), coords.end());
 	}
 }
-Quad::Quad(Texture::Atlas& textureAtlas)
+Quad::Quad()
 {
-	insertTextureCoords(textureAtlas.getTextureCoords({ 1, 0 }));
-	insertTextureCoords(textureAtlas.getTextureCoords({ 1, 0 }));
-	insertTextureCoords(textureAtlas.getTextureCoords({ 1, 0 }));
-	insertTextureCoords(textureAtlas.getTextureCoords({ 1, 0 }));
-	insertTextureCoords(textureAtlas.getTextureCoords({ 0, 0 }));
-	insertTextureCoords(textureAtlas.getTextureCoords({ 2, 0 }));
+	//insertTextureCoords(textureAtlas.getTextureCoords({ 1, 0 }));
+	//insertTextureCoords(textureAtlas.getTextureCoords({ 1, 0 }));
+	//insertTextureCoords(textureAtlas.getTextureCoords({ 1, 0 }));
+	//insertTextureCoords(textureAtlas.getTextureCoords({ 1, 0 }));
+	//insertTextureCoords(textureAtlas.getTextureCoords({ 0, 0 }));
+	//insertTextureCoords(textureAtlas.getTextureCoords({ 2, 0 }));
 
 	m_model.addData(vertexPositions, textureCoords, indices);
 }

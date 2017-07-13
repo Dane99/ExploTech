@@ -16,7 +16,12 @@ class Model
 
 		void addData(const std::vector<GLfloat>& vertexPositions,
 			 		 const std::vector<GLfloat>& textureCoordinates,
+					 const std::vector<GLfloat>& layers,
 	  			 	 const std::vector<GLuint>& indices);
+
+		void addData(const std::vector<GLfloat>& vertexPositions,
+					 const std::vector<GLfloat>& textureCoordinates,
+					 const std::vector<GLuint>& indices);
 
 		void bind() const;
 		void unbind() const;
@@ -27,6 +32,7 @@ class Model
 
 	private:
 		void addVBO(int dim, const std::vector<GLfloat>& data);
+		void addVBO(int dim, const std::vector<GLuint>& data);
 		void addEBO(const std::vector<GLuint>& indices);
 
 		std::vector<GLuint> m_buffers;

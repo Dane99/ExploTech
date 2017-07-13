@@ -3,12 +3,15 @@
 out vec4 color;
 
 in vec2 passTextureCoords;
+flat in float passLayer;
 
-uniform sampler2D ourTexture;
+uniform sampler2DArray textureArray;
 
 uniform float time;
 
 void main()
 {
-	color = texture(ourTexture, passTextureCoords) * (((sin(time) + 1)/2) + 0.5);
+	//float test = 1.0f;
+	color = vec4(texture(textureArray, vec3(passTextureCoords, passLayer)));
+	//* (((sin(time) + 1)/2) + 0.5);
 }

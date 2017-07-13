@@ -56,7 +56,7 @@ class Text_Manager
 		void recreate(unsigned int id);
 
 	private:
-		std::map<unsigned int, std::unique_ptr<TextModel>> m_textModels; // textModels are not individual characters. They are sentences.
+		std::map<unsigned int, std::unique_ptr<TextModel>> m_textModels; // textModels are not individual characters. They are sentences / groups of letters.
 
 		std::map<unsigned int, TextData> m_textData;
 

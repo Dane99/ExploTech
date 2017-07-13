@@ -18,10 +18,10 @@ namespace State {
 
 	Playing::Playing(Application &application)
 		: Game_State (application)
-		, m_quad(Block::Database::get().textures)
+		//, m_quad()
 	{
 		srand(time(NULL));
-		m_quad.position.z  = -3;
+		//m_quad.position.z  = -3;
 		worldManager.generateAllChunks();
 		textManager.addText("Hello World!", 100, 50, 1, 1, Vector3(0.5, 0.5, 0.5));
 		textManager.addText("Random Number Alert: ", 10, Display::HEIGHT - 20, 0.5f, 0.5f, Vector3(1.0, 0.5, 0.5));
@@ -33,9 +33,9 @@ namespace State {
 
 	void Playing::update(float dt)
 	{
-		m_quad.position.x += sin(clock.getElapsedTime().asSeconds()) * dt * 0.8;
-		m_quad.position.y += sin(clock.getElapsedTime().asSeconds()) * dt * 0.8;
-		m_quad.position.z += cos(clock.getElapsedTime().asSeconds()) * dt * 0.8;
+		//m_quad.position.x += sin(clock.getElapsedTime().asSeconds()) * dt * 0.8;
+		//m_quad.position.y += sin(clock.getElapsedTime().asSeconds()) * dt * 0.8;
+		//m_quad.position.z += cos(clock.getElapsedTime().asSeconds()) * dt * 0.8;
 
 		textManager.changeTextPositionY(sin(clock.getElapsedTime().asSeconds()) * 300 + 300, 0);
 		textManager.changeScaleX(cos(clock.getElapsedTime().asSeconds())/2 + 1, 0);
@@ -49,7 +49,7 @@ namespace State {
 		//	textManager.deleteText(0);
 		//	first = false;
 		//}
-		textManager.deleteText(0);
+		//textManager.deleteText(0);
 
 		static bool first = true;
 
@@ -69,7 +69,7 @@ namespace State {
 	void Playing::draw(Renderer::Master& renderer)
 	{
 		renderer.addToMasterRenderList(worldManager);
-		renderer.addToMasterRenderList(m_quad);
+		//renderer.addToMasterRenderList(m_quad);
 		renderer.addToMasterRenderList(hud);
 		renderer.addToMasterRenderList(textManager);
 

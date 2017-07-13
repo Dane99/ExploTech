@@ -11,7 +11,7 @@ namespace Texture
 class Quad : public Entity
 {
 	public:
-		Quad(Texture::Atlas& textureAtlas);
+		Quad();
 
 		const Model& getModel() const;
 

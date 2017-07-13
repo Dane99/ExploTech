@@ -164,6 +164,8 @@
     <ClCompile Include="src\States\Playing.cpp" />
     <ClCompile Include="src\Temp\Quad.cpp" />
     <ClCompile Include="src\Texture\Texture.cpp" />
+    <ClCompile Include="src\Texture\TextureArray2D.cpp" />
+    <ClCompile Include="src\Texture\TextureManager.cpp" />
     <ClCompile Include="src\Texture\Texture_Atlas.cpp" />
     <ClCompile Include="src\Text\Text_Manager.cpp" />
     <ClCompile Include="src\Text\TextModel.cpp" />
@@ -186,6 +188,8 @@
     <ClInclude Include="src\Renderer\TextRenderer.h" />
     <ClInclude Include="src\Shaders\HUD_Shader.h" />
     <ClInclude Include="src\Shaders\Text_Shader.h" />
+    <ClInclude Include="src\Texture\TextureArray2D.h" />
+    <ClInclude Include="src\Texture\TextureManager.h" />
     <ClInclude Include="src\Texture\Texture_Atlas.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Input\Input_Manager.h" />

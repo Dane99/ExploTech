@@ -8,6 +8,8 @@
 
 #include "../World/Block/Block_Database.h"
 
+#include "../Texture/TextureManager.h"
+
 #include <iostream>
 
 // # change name to world renderer
@@ -31,8 +33,10 @@ namespace Renderer
 		m_shader.setProjMatrix(camera.getProjectionMatrix());
 		m_shader.setViewMatrix(camera.getViewMatrix());
 
+		// binding the texture atlas.
 		//Block::Database::get().textures.bind();
 
+		TextureManager::get().getPtrTextureArray()->bind();
 
 		//std::cout << world->getChunks()->size() << std::endl;
 		std::unordered_map<IntVector3, Chunk*, KeyHasher>* chunks = world->getChunks();
