@@ -2,9 +2,11 @@
 #include "../Display.h"
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include "../Command/CommandManager.h"
 
 
 bool Input_Manager::keys[1024];
+std::map<unsigned int, std::vector<std::function<void(void)>>> Input_Manager::keyCallbacks;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -42,6 +44,13 @@ Camera* Input_Manager::getCurrentCamera() const
 	return currentCamera;
 }
 
+void Input_Manager::addKeyPressCallback(unsigned int keyID, std::function<void(void)> func)
+{
+	if (keyID < 1024) {
+		Input_Manager::keyCallbacks[keyID].push_back(func);
+	}
+}
+
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
@@ -51,9 +60,23 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	if (key >= 0 && key < 1024)
 	{
 		if (action == GLFW_PRESS)
+		{
+			CommandManager::keyPressed(key);
+
+			auto it = Input_Manager::keyCallbacks.find(key);
+			if (it != Input_Manager::keyCallbacks.end())
+			{
+				for(auto& func : it->second)
+				{
+					func();
+				}
+			}
 			Input_Manager::keys[key] = true;
+		}
 		else if (action == GLFW_RELEASE)
+		{
 			Input_Manager::keys[key] = false;
+		}
 	}
 }
 

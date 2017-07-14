@@ -11,8 +11,8 @@ class TextureArray2D {
 public:
 	TextureArray2D(const std::string& fileName, int widthOfSubtexture, int heightOfSubtexture, int layerCount);
 
-	void bind();
-	void unbind();
+	void bind() const;
+	void unbind() const;
 
 private:
 	GLuint textureID;

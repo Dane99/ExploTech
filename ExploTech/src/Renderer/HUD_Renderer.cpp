@@ -3,6 +3,7 @@
 #include "../Display.h"
 #include "HUD_Renderer.h"
 #include "../HUD/Crosshair.h"
+#include "../Command/CommandManager.h"
 
 namespace Renderer
 {
@@ -18,7 +19,7 @@ namespace Renderer
 		m_shader.setTime(m_clock.getElapsedTime().asSeconds());
 		m_shader.setProjMatrix(glm::ortho(0.0f, static_cast<GLfloat>(Display::WIDTH), 0.0f, static_cast<GLfloat>(Display::HEIGHT)));
 
-
+		// Crosshair
 		m_hud->crosshair.getModel().bind();
 		m_hud->crosshair.getTexture().bind();
 
@@ -29,10 +30,33 @@ namespace Renderer
 			GL_UNSIGNED_INT,
 			nullptr);
 
-		glEnable(GL_DEPTH_TEST);
-
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
 		glBindTexture(GL_TEXTURE_2D, 0);
+
+		m_shader.unbind();
+
+		if (CommandManager::isCommandWindowOpen()) {
+			m_shaderSimple.bind();
+			m_shader.setProjMatrix(glm::ortho(0.0f, static_cast<GLfloat>(Display::WIDTH), 0.0f, static_cast<GLfloat>(Display::HEIGHT)));
+
+			// Command Window
+			m_hud->commandWindow.getModel().bind();
+			m_hud->commandWindow.getTexture().bind();
+
+			glDrawElements(GL_TRIANGLES,
+				m_hud->crosshair.getModel().getIndicesCount(),
+				GL_UNSIGNED_INT,
+				nullptr);
+
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
+			glBindVertexArray(0);
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
+
+
+		glEnable(GL_DEPTH_TEST);
+
+	
 	}
 }

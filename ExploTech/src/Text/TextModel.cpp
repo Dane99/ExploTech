@@ -29,7 +29,7 @@ TextModel::TextModel()
 			continue;
 		}
 
-		w += g->bitmap.width;
+		w += g->bitmap.width + m_fontPadding;
 		h = std::max(h, g->bitmap.rows);
 	}
 
@@ -40,7 +40,7 @@ TextModel::TextModel()
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
 	glGenTextures(1, &m_textureID);
-	glActiveTexture(GL_TEXTURE0);
+	//glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, m_textureID);
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, w, h, 0, GL_RED, GL_UNSIGNED_BYTE, 0);
@@ -48,8 +48,8 @@ TextModel::TextModel()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 
 
@@ -67,13 +67,13 @@ TextModel::TextModel()
 		// TODO CHECK THIS
 		glTexSubImage2D(GL_TEXTURE_2D, 0, x, 0, g->bitmap.width, g->bitmap.rows, GL_RED, GL_UNSIGNED_BYTE, g->bitmap.buffer);
 
-		x += g->bitmap.width;
+		x += g->bitmap.width + m_fontPadding;
 
 		characters[i].ax = g->advance.x >> 6;
 		characters[i].ay = g->advance.y >> 6;
 
 		characters[i].bw = g->bitmap.width;
-		characters[i].bh = g->bitmap.rows;
+		characters[i].bh = g->bitmap.rows + m_fontPadding;
 
 		characters[i].bl = g->bitmap_left;
 		characters[i].bt = g->bitmap_top;

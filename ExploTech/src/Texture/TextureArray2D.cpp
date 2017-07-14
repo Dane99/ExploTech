@@ -29,12 +29,12 @@ TextureArray2D::TextureArray2D(const std::string& fileName, int widthOfSubtextur
 	glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
 }
 
-void TextureArray2D::bind()
+void TextureArray2D::bind() const
 {
 	glBindTexture(GL_TEXTURE_2D_ARRAY, textureID);
 }
 
-void TextureArray2D::unbind()
+void TextureArray2D::unbind() const
 {
 	glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
 }

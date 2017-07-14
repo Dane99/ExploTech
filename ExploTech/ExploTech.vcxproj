@@ -143,6 +143,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Camera.cpp" />
+    <ClCompile Include="src\Command\CommandInterpreter.cpp" />
+    <ClCompile Include="src\Command\CommandManager.cpp" />
+    <ClCompile Include="src\HUD\CommandWindow.cpp" />
     <ClCompile Include="src\HUD\Crosshair.cpp" />
     <ClCompile Include="src\Input\Input_Manager.cpp" />
     <ClCompile Include="src\Math\Matrix.cpp" />
@@ -150,12 +153,14 @@
     <ClCompile Include="src\Display.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Model.cpp" />
+    <ClCompile Include="src\PrimitiveModeling\SimpleSquare.cpp" />
     <ClCompile Include="src\Renderer\Master_Renderer.cpp" />
     <ClCompile Include="src\Renderer\HUD_Renderer.cpp" />
     <ClCompile Include="src\Renderer\Simple_Renderer.cpp" />
     <ClCompile Include="src\Renderer\Chunk_Renderer.cpp" />
     <ClCompile Include="src\Renderer\TextRenderer.cpp" />
     <ClCompile Include="src\Shaders\HUD_Shader.cpp" />
+    <ClCompile Include="src\Shaders\HUD_ShaderSimple.cpp" />
     <ClCompile Include="src\Shaders\Shader_Loader.cpp" />
     <ClCompile Include="src\Shaders\Shader_Program.cpp" />
     <ClCompile Include="src\Shaders\Simple_Shader.cpp" />
@@ -180,13 +185,17 @@
     <ClCompile Include="src\World\Generation\World_Generation.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Command\Command.h" />
+    <ClInclude Include="src\Command\CommandInterpreter.h" />
+    <ClInclude Include="src\Command\CommandManager.h" />
+    <ClInclude Include="src\HUD\CommandWindow.h" />
     <ClInclude Include="src\HUD\Crosshair.h" />
     <ClInclude Include="src\HUD\HUD.h" />
+    <ClInclude Include="src\PrimitiveModeling\SimpleSquare.h" />
     <ClInclude Include="src\Renderer\Chunk_Renderer.h" />
     <ClInclude Include="src\Renderer\HUD_Renderer.h" />
     <ClInclude Include="src\Renderer\TextRenderer.h" />
     <ClInclude Include="src\Shaders\HUD_Shader.h" />
+    <ClInclude Include="src\Shaders\HUD_ShaderSimple.h" />
     <ClInclude Include="src\Shaders\Text_Shader.h" />
     <ClInclude Include="src\Texture\TextureArray2D.h" />
     <ClInclude Include="src\Texture\TextureManager.h" />
@@ -227,6 +236,8 @@
     <None Include="Data\Blocks\Air.block" />
     <None Include="Data\Blocks\Grass.block" />
     <None Include="Data\Shaders\HUD_Fragment.glsl" />
+    <None Include="Data\Shaders\HUD_Simple_Fragment.glsl" />
+    <None Include="Data\Shaders\HUD_Simple_Vertex.glsl" />
     <None Include="Data\Shaders\HUD_Vertex.glsl" />
     <None Include="Data\Shaders\Simple_Fragment.glsl" />
     <None Include="Data\Shaders\Simple_Vertex.glsl" />

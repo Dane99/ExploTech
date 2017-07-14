@@ -10,6 +10,13 @@
 #include "../World/WorldConstants.h"
 #include "../Display.h"
 #include <time.h>
+#include <GLFW/glfw3.h>
+
+#include "../Input/Input_Manager.h"
+
+void printHello() {
+	std::cout << "Hello" << std::endl;
+}
 
 namespace State {
 
@@ -25,6 +32,8 @@ namespace State {
 		worldManager.generateAllChunks();
 		textManager.addText("Hello World!", 100, 50, 1, 1, Vector3(0.5, 0.5, 0.5));
 		textManager.addText("Random Number Alert: ", 10, Display::HEIGHT - 20, 0.5f, 0.5f, Vector3(1.0, 0.5, 0.5));
+
+		Input_Manager::addKeyPressCallback(GLFW_KEY_H, printHello);
 	}
 
 	void Playing::input()

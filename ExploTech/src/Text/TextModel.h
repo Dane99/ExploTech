@@ -72,5 +72,7 @@ private:
 	GLuint m_vao = 0, m_vbo = 0;
 	GLuint m_textureID = 0;
 
+	GLuint m_fontPadding = 1;
+
 	Vector3 m_color;
 };
