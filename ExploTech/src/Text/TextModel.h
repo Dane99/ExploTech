@@ -59,9 +59,6 @@ public:
 
 	GLuint getVerticesCount() const;
 
-	void setColor(const Vector3& color);
-	Vector3 getColor() const;
-
 private:
 
 	int atlasWidth = 0;
@@ -73,6 +70,4 @@ private:
 	GLuint m_textureID = 0;
 
 	GLuint m_fontPadding = 1;
-
-	Vector3 m_color;
 };

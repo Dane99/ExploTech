@@ -164,13 +164,3 @@ GLuint TextModel::getVerticesCount() const
 {
 	return numberOfCharactersToDraw * 6; // Six vertices per character.
 }
-
-void TextModel::setColor(const Vector3& color)
-{
-	m_color = color;
-}
-
-Vector3 TextModel::getColor() const
-{
-	return m_color;
-}

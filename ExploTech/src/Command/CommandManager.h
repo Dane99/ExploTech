@@ -1,12 +1,14 @@
 #pragma once
-
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include "../Text/Text_Manager.h"
+#include <string>
 
 
 class CommandManager
 {
 public:
-	CommandManager();
+	CommandManager(Text_Manager* textManager);
 
 	static void openCommandWindow();
 	static void closeCommandWindow();
@@ -21,6 +23,10 @@ private:
 
 	static bool m_isCommandWindowOpen;
 
-	//Text_Manager *textManager;
+	static Text_Manager* m_textManager;
+
+	static unsigned int textID;
+	
+	static bool currentTextIdExists;
 
 };

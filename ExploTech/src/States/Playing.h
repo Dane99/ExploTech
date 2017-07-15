@@ -13,6 +13,7 @@
 
 #include "../HUD/HUD.h"
 #include "../Text/Text_Manager.h"
+#include "../Command/CommandManager.h"
 
 namespace State 
 {
@@ -39,7 +40,7 @@ namespace State
 			HUD hud;
 
 			Text_Manager textManager;
-
+			CommandManager commandManager;
 
 			static constexpr bool raycasting = false;
 	};

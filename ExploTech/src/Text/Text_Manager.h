@@ -27,6 +27,10 @@ struct TextData {
 	float sx;
 	float sy;
 
+	Vector3 color;
+
+	std::unique_ptr<TextModel> textModel; // textModels are not individual characters. They are sentences / groups of letters.
+
 	bool changed = false;
 };
 
@@ -46,8 +50,10 @@ class Text_Manager
 
 		void changeColor(const Vector3& color, unsigned int id);
 
+		void concatenateText(const std::string& newText, unsigned int id);
 
-		std::map<unsigned int, std::unique_ptr<TextModel>>& getTextElements();
+		// Deletes the last character in the text string
+		void backSpace(unsigned int id);
 
 		void deleteText(unsigned int id);
 
@@ -56,7 +62,6 @@ class Text_Manager
 		void recreate(unsigned int id);
 
 	private:
-		std::map<unsigned int, std::unique_ptr<TextModel>> m_textModels; // textModels are not individual characters. They are sentences / groups of letters.
 
 		std::map<unsigned int, TextData> m_textData;
 

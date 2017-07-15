@@ -10,6 +10,7 @@
 #include "../World/WorldConstants.h"
 #include "../Display.h"
 #include <time.h>
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 #include "../Input/Input_Manager.h"
@@ -24,7 +25,8 @@ namespace State {
 	sf::Clock randClock;
 
 	Playing::Playing(Application &application)
-		: Game_State (application)
+		: Game_State(application)
+		, commandManager(&textManager)
 		//, m_quad()
 	{
 		srand(time(NULL));

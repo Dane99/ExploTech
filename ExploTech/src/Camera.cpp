@@ -6,9 +6,13 @@
 #include "Display.h"
 
 #include "Input/Input_Manager.h"
+#include <GL/GLEW.h>
 #include <GLFW/glfw3.h>
 
 #include "Math/Matrix.h"
+
+#include "Command\CommandManager.h"
+#include <iostream>
 // pitch is rotation.x
 // yaw is rotation.y
 
@@ -28,44 +32,46 @@ void Camera::updateViewMatrix()
 
 void Camera::keyboardInput(float dt)
 {
-	Vector3 change;
-	float speed = 2.0f;
-	
-	Vector3 frontDirection = glm::normalize(glm::vec3(m_front.x, 0.0f, m_front.z));
-	Vector3 rightDirection = glm::normalize(glm::vec3(m_right.x, 0.0f, m_right.z));
-
-	if (Input_Manager::keys[GLFW_KEY_W]) 
+	if (!CommandManager::isCommandWindowOpen())
 	{
-		change += frontDirection * speed;
+		Vector3 change;
+		float speed = 2.0f;
+
+		Vector3 frontDirection = glm::normalize(glm::vec3(m_front.x, 0.0f, m_front.z));
+		Vector3 rightDirection = glm::normalize(glm::vec3(m_right.x, 0.0f, m_right.z));
+
+		if (Input_Manager::keys[GLFW_KEY_W])
+		{
+			change += frontDirection * speed;
+		}
+
+		if (Input_Manager::keys[GLFW_KEY_S])
+		{
+			change -= frontDirection * speed;
+		}
+
+		if (Input_Manager::keys[GLFW_KEY_A])
+		{
+			change -= rightDirection * speed;
+		}
+
+		if (Input_Manager::keys[GLFW_KEY_D])
+		{
+			change += rightDirection * speed;
+		}
+
+		if (Input_Manager::keys[GLFW_KEY_SPACE])
+		{
+			change += m_worldUp * speed * 2.0f;
+		}
+
+		if (Input_Manager::keys[GLFW_KEY_LEFT_CONTROL])
+		{
+			change -= m_worldUp * speed;
+		}
+
+		position += change * dt;
 	}
-
-	if (Input_Manager::keys[GLFW_KEY_S])
-	{
-		change -= frontDirection * speed;
-	}
-
-	if (Input_Manager::keys[GLFW_KEY_A])
-	{
-		change -= rightDirection * speed;
-	}
-
-	if (Input_Manager::keys[GLFW_KEY_D])
-	{
-		change += rightDirection * speed;
-	}
-
-	if (Input_Manager::keys[GLFW_KEY_SPACE])
-	{
-		change += m_worldUp * speed * 2.0f;
-	}
-
-	if (Input_Manager::keys[GLFW_KEY_LEFT_CONTROL])
-	{
-		change -= m_worldUp * speed;
-	}
-
-	position += change * dt;
-
 }
 
 void Camera::mouseInput(double xpos, double ypos)

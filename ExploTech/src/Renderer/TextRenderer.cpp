@@ -19,15 +19,12 @@ void Renderer::Text_Renderer::update()
 			m_textManager->recreate(textData.first);
 			textData.second.changed = false;
 		}
-	}
 
-	for (auto &textElement : m_textManager->getTextElements())
-	{
-		m_shader.setColorVector(textElement.second->getColor());
+		m_shader.setColorVector(textData.second.color);
 
-		textElement.second->bind();
-		glDrawArrays(GL_TRIANGLES, 0, textElement.second->getVerticesCount());
-		textElement.second->unbind();
+		textData.second.textModel->bind();
+		glDrawArrays(GL_TRIANGLES, 0, textData.second.textModel->getVerticesCount());
+		textData.second.textModel->unbind();
 	}
 
 	m_textManager = nullptr;
