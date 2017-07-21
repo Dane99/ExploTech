@@ -1,4 +1,5 @@
 #include "Text_Manager.h"
+#include <iostream>
 
 Text_Manager::Text_Manager()
 {

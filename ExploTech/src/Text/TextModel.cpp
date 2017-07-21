@@ -30,7 +30,7 @@ TextModel::TextModel()
 		}
 
 		w += g->bitmap.width + m_fontPadding;
-		h = std::max(h, g->bitmap.rows);
+		h = std::max(h, g->bitmap.rows);	
 	}
 
 	/* you might as well save this value as it is needed later on */
@@ -79,12 +79,16 @@ TextModel::TextModel()
 		characters[i].bt = g->bitmap_top;
 
 		characters[i].tx = (float)x;
+
 	}
 
 	glGenVertexArrays(1, &m_vao);
 	glGenBuffers(1, &m_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+
+	FT_Done_FreeType(ft);
+
 
 }
 
