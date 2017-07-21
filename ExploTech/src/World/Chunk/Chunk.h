@@ -58,7 +58,7 @@ class Chunk{
 		const Vector3& getPosition() const;
 
 		// Pointers to neighbor chunks
-		Chunk *left, *right, *below, *above, *front, *back = nullptr;
+		Chunk *left = nullptr, *right = nullptr, *below = nullptr, *above = nullptr, *front = nullptr, *back = nullptr;
 
 		const Block_Array* getBlockArray() const;
 

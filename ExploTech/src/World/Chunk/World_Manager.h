@@ -44,9 +44,9 @@ class World_Manager {
 
 		
 
-		uint16_t m_worldSizeX = 2; // Length and width of the area of chunks we want to load.
-		uint16_t m_worldSizeY = 1;
-		uint16_t m_worldSizeZ = 2;
+		const uint16_t m_worldSizeX = 2; // Length and width of the area of chunks we want to load.
+		const uint16_t m_worldSizeY = 1;
+		const uint16_t m_worldSizeZ = 2;
 
 		// Hasher for the map below
 

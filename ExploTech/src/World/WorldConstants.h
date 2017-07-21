@@ -5,7 +5,7 @@
 namespace
 {
 
-	constexpr static int32_t    CHUNK_SIZE_X = 8, CHUNK_SIZE_Y = 8, CHUNK_SIZE_Z = 8;
+	constexpr static int32_t    CHUNK_SIZE_X = 16, CHUNK_SIZE_Y = 256, CHUNK_SIZE_Z = 16;
 
 
 	constexpr static int32_t CHUNK_VOLUME = CHUNK_SIZE_X * CHUNK_SIZE_Y * CHUNK_SIZE_Z,

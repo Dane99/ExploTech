@@ -95,9 +95,7 @@ void Text_Manager::backSpace(unsigned int id)
 	auto it = m_textData.find(id);
 	if (it != m_textData.end())
 	{
-		std::cout << "BEFORE: " << it->second.text << '\n';
 		it->second.text.pop_back();
-		std::cout << "AFTER: " << it->second.text << '\n';
 		it->second.changed = true;
 	}
 }
@@ -107,8 +105,8 @@ void Text_Manager::deleteText(unsigned int id)
 	auto it = m_textData.find(id);
 	if (it != m_textData.end())
 	{
+		//it->second.textModel.reset();
 		m_textData.erase(it);
-		//it->second.textModel.release();
 	}
 
 }

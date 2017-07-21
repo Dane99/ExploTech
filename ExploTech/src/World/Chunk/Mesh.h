@@ -11,9 +11,13 @@
 
 #include "../../Glm_Common.h"
 
+#include <memory>
+
 class Mesh
 {
 public:
+	Mesh();
+
 	void reset();
 
 	void Mesh::addFace(const std::vector<GLfloat>&    templateFace,
@@ -29,10 +33,10 @@ public:
 	uint32_t getFaces() const;
 
 private:
-	std::vector<GLfloat> m_verticies;
-	std::vector<GLfloat> m_texCoords;
-	std::vector<GLuint> m_indices;
-	std::vector<GLfloat> m_layers;
+	std::unique_ptr<std::vector<GLfloat>> m_vertices;
+	std::unique_ptr<std::vector<GLfloat>> m_texCoords;
+	std::unique_ptr<std::vector<GLuint>> m_indices;
+	std::unique_ptr<std::vector<GLfloat>> m_layers;
 
 	Model m_model;
 

@@ -4,13 +4,22 @@
 
 #include <iostream>
 
+Mesh::Mesh()
+{
+	m_vertices = std::make_unique<std::vector<GLfloat>>();
+	m_texCoords = std::make_unique<std::vector<GLfloat>>();
+	m_indices = std::make_unique<std::vector<GLuint>>();
+	m_layers = std::make_unique<std::vector<GLfloat>>();
+}
+
 void Mesh::reset()
 {
 	m_indicesIndex = 0;
 	m_facesCount = 0;
-	m_verticies.clear();
-	m_texCoords.clear();
-	m_indices.clear();
+	m_vertices->clear();
+	m_texCoords->clear();
+	m_indices->clear();
+	m_layers->clear();
 }
 
 void Mesh::addFace( const std::vector<GLfloat>&    templateFace,
@@ -25,16 +34,16 @@ void Mesh::addFace( const std::vector<GLfloat>&    templateFace,
 	for (int i = 0, index = 0; i < 4; ++i)
 	{
 		// Three positions for each vertex.
-		m_verticies.push_back(templateFace[index++] + chunkPos.x * (CHUNK_SIZE_X - 1) + blockPos.x);
-		m_verticies.push_back(templateFace[index++] + chunkPos.y * (CHUNK_SIZE_Y - 1) + blockPos.y);
-		m_verticies.push_back(templateFace[index++] + chunkPos.z * (CHUNK_SIZE_Z - 1) + blockPos.z);
+		m_vertices->push_back(templateFace[index++] + chunkPos.x * (CHUNK_SIZE_X - 1) + blockPos.x);
+		m_vertices->push_back(templateFace[index++] + chunkPos.y * (CHUNK_SIZE_Y - 1) + blockPos.y);
+		m_vertices->push_back(templateFace[index++] + chunkPos.z * (CHUNK_SIZE_Z - 1) + blockPos.z);
 	}
 
 	// texCoords is appended to m_texCoords
-	m_texCoords.insert(m_texCoords.end(), texCoords.begin(), texCoords.end());
+	m_texCoords->insert(m_texCoords->end(), texCoords.begin(), texCoords.end());
 
 	// Here is where we add the two additional vertexes.
-	m_indices.insert(m_indices.end(),
+	m_indices->insert(m_indices->end(),
 	{
 		m_indicesIndex,
 		m_indicesIndex + 1,
@@ -46,10 +55,10 @@ void Mesh::addFace( const std::vector<GLfloat>&    templateFace,
 	m_indicesIndex += 4;
 
 	// Layers are the texture id for the block side we are using inside the 2D texture array.
-	m_layers.push_back(layer);
-	m_layers.push_back(layer);
-	m_layers.push_back(layer);
-	m_layers.push_back(layer);
+	m_layers->push_back(layer);
+	m_layers->push_back(layer);
+	m_layers->push_back(layer);
+	m_layers->push_back(layer);
 
 
 
@@ -57,17 +66,17 @@ void Mesh::addFace( const std::vector<GLfloat>&    templateFace,
 
 void Mesh::buffer()
 {
-	m_model.addData(m_verticies, m_texCoords, m_layers, m_indices);
+	m_model.addData(*m_vertices, *m_texCoords, *m_layers, *m_indices);
 
-	m_verticies.clear();
-	m_texCoords.clear();
-	m_layers.clear();
-	m_indices.clear();
+	m_vertices->clear();
+	m_texCoords->clear();
+	m_layers->clear();
+	m_indices->clear();
 
-	m_verticies.shrink_to_fit();
-	m_texCoords.shrink_to_fit();
-	m_layers.shrink_to_fit();
-	m_indices.shrink_to_fit();
+	m_vertices->shrink_to_fit();
+	m_texCoords->shrink_to_fit();
+	m_layers->shrink_to_fit();
+	m_indices->shrink_to_fit();
 }
 
 const Model & Mesh::getModel() const

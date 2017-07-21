@@ -90,11 +90,17 @@ TextModel::TextModel()
 
 TextModel::~TextModel()
 {
-	if (m_vao != 0) {
+	if (m_vao != 0) 
+	{
 		glDeleteVertexArrays(1, &m_vao);
 	}
-	if (m_vbo != 0) {
+	if (m_vbo != 0)
+	{
 		glDeleteBuffers(1, &m_vbo);
+	}
+	if (m_textureID != 0)
+	{
+		glDeleteTextures(1, &m_textureID);
 	}
 }
 

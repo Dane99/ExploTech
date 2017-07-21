@@ -31,10 +31,8 @@ namespace State
 
 		private:
 			Shader::Simple_Shader m_shader;
-			//Texture::Atlas m_texture;
 
-			//Quad m_quad;
-			//Chunk chunk;
+			Quad m_quad;
 			World_Manager worldManager;
 
 			HUD hud;

@@ -27,10 +27,10 @@ namespace State {
 	Playing::Playing(Application &application)
 		: Game_State(application)
 		, commandManager(&textManager)
-		//, m_quad()
+		, m_quad()
 	{
 		srand(time(NULL));
-		//m_quad.position.z  = -3;
+		m_quad.position.z  = -3;
 		worldManager.generateAllChunks();
 		textManager.addText("Hello World!", 100, 50, 1, 1, Vector3(0.5, 0.5, 0.5));
 		textManager.addText("Random Number Alert: ", 10, Display::HEIGHT - 20, 0.5f, 0.5f, Vector3(1.0, 0.5, 0.5));
@@ -80,7 +80,7 @@ namespace State {
 	void Playing::draw(Renderer::Master& renderer)
 	{
 		renderer.addToMasterRenderList(worldManager);
-		//renderer.addToMasterRenderList(m_quad);
+		renderer.addToMasterRenderList(m_quad);
 		renderer.addToMasterRenderList(hud);
 		renderer.addToMasterRenderList(textManager);
 

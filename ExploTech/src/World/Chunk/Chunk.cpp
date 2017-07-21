@@ -120,11 +120,11 @@ void Chunk::generate()
 	//auto& atlas = Block::Database::get().textures;
 
 
-	for (uint8_t x = 0; x < CHUNK_SIZE_X; ++x)
+	for (int x = 0; x < CHUNK_SIZE_X; ++x)
 	{
-		for (uint8_t y = 0; y < CHUNK_SIZE_Y; ++y)
+		for (int y = 0; y < CHUNK_SIZE_Y; ++y)
 		{
-			for (uint8_t z = 0; z < CHUNK_SIZE_Z; ++z)
+			for (int z = 0; z < CHUNK_SIZE_Z; ++z)
 			{
 				if (m_blocks.get(x, y, z) != static_cast<uint8_t>(Block::ID::Air)) {
 					IntVector3 blockPosition(x, y, z);

@@ -6,7 +6,7 @@
 
 namespace
 {
-	std::vector<GLfloat> vertexPositions =
+	const std::vector<GLfloat> vertexPositions =
 	{
 		//Back
 		1, 0, 0,
@@ -45,7 +45,7 @@ namespace
 		0, 0, 1
 	};
 
-	std::vector<GLuint> indices =
+	const std::vector<GLuint> indices =
 	{
 		0, 1, 2,
 		2, 3, 0,
@@ -66,15 +66,54 @@ namespace
 		22, 23, 20
 	};
 
-	std::vector<GLfloat> textureCoords;
-
-	void insertTextureCoords(const std::vector<GLfloat>& coords)
+	const std::vector<GLfloat> layers =
 	{
-		textureCoords.insert(textureCoords.end(), coords.begin(), coords.end());
-	}
+		1.0f, 1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f, 1.0f
+	};
+	
+	const std::vector<GLfloat> textureCoords =
+	{
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+		0.0f, 0.0f,
+		1.0f, 0.0f
+	};
+
+
 }
 Quad::Quad()
 {
+
 	//insertTextureCoords(textureAtlas.getTextureCoords({ 1, 0 }));
 	//insertTextureCoords(textureAtlas.getTextureCoords({ 1, 0 }));
 	//insertTextureCoords(textureAtlas.getTextureCoords({ 1, 0 }));
@@ -82,7 +121,7 @@ Quad::Quad()
 	//insertTextureCoords(textureAtlas.getTextureCoords({ 0, 0 }));
 	//insertTextureCoords(textureAtlas.getTextureCoords({ 2, 0 }));
 
-	m_model.addData(vertexPositions, textureCoords, indices);
+	m_model.addData(vertexPositions, textureCoords, layers, indices);
 }
 
 const Model& Quad::getModel() const
