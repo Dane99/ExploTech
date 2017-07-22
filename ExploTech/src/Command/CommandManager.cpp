@@ -1,13 +1,25 @@
 #include "CommandManager.h"
 
-bool CommandManager::m_isCommandWindowOpen = false;
-Text_Manager* CommandManager::m_textManager = nullptr;
-unsigned int CommandManager::textID = 0;
-bool CommandManager::currentTextIdExists = false;
-
-CommandManager::CommandManager(Text_Manager* textManager)
+CommandManager::CommandManager()
 {
-	m_textManager = textManager;
+	//m_threads.emplace_back([&]()
+	//{
+	//	while (m_isRunning)
+	//	{
+	//		checkForTextElementsThatShouldBeDeleted();
+	//		std::this_thread::sleep_for(std::chrono::microseconds(100));
+	//	}
+	//});
+}
+
+CommandManager::~CommandManager()
+{
+}
+
+CommandManager& CommandManager::get()
+{
+	static CommandManager commandManager;
+	return commandManager;
 }
 
 void CommandManager::openCommandWindow()
@@ -27,12 +39,14 @@ bool CommandManager::isCommandWindowOpen()
 
 void CommandManager::keyPressed(unsigned int keyID)
 {
+
+	//std::lock_guard<std::mutex> lck(textElementsMutex);
 	
-	std::string s(1, tolower((char)keyID));
+	/*std::string s(1, tolower((char)keyID));
 
 	if (CommandManager::m_isCommandWindowOpen && currentTextIdExists && keyID != GLFW_KEY_BACKSPACE)
 	{
-		m_textManager->concatenateText(s, textID);
+		m_textManager->concatenateText(s, textElements.back().id);
 	}
 
 
@@ -57,6 +71,11 @@ void CommandManager::keyPressed(unsigned int keyID)
 		m_textManager->backSpace(textID);
 	}
 
+	if (keyID == GLFW_KEY_ENTER)
+	{
+
+	}
+
 
 	if(CommandManager::m_isCommandWindowOpen && (!currentTextIdExists))
 	{
@@ -64,6 +83,13 @@ void CommandManager::keyPressed(unsigned int keyID)
 		CommandManager::currentTextIdExists = true;
 	}
 
+*/
 
+}
+
+void CommandManager::checkForTextElementsThatShouldBeDeleted()
+{
+	//std::lock_guard<std::mutex> lck(textElementsMutex);
+	//if()
 
 }

@@ -12,9 +12,9 @@ int main()
 {
 	Display::init();
 
-	Application app;
+	//Application app;
 
-	app.runMainGameLoop();
+	Application::get().runMainGameLoop();
 
 	return 0;
 

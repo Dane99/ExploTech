@@ -8,12 +8,14 @@
 
 #include "Entity.h"
 #include "Camera.h"
-#include "Input/Input_Manager.h"
 
-class Application {
+
+//#include "Util\Singleton.h"
+
+class Application{
 	public:
-		Application();
-		~Application();
+
+		static Application& get();
 
 		void runMainGameLoop();
 
@@ -22,16 +24,21 @@ class Application {
 
 		Camera& getCamera();
 
+		State::Game_State* getCurrentGameStatePtr();
+
+		
+
 	//	static State::Game_State* getGameState();
 
 	private:
+		Application();
+		~Application();
+
 		std::stack<std::unique_ptr<State::Game_State>> m_states;
 
 		Renderer::Master m_renderer;
 
 		Camera camera;
-
-		Input_Manager *inputManager;
 
 		int frames = 0;
 };

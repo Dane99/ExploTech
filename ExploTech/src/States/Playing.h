@@ -20,7 +20,7 @@ namespace State
 	class Playing : public Game_State
 	{
 		public:
-			Playing(Application &application);
+			Playing();
 
 			void input () override;
 			void update(float dt) override;
@@ -36,9 +36,6 @@ namespace State
 			World_Manager worldManager;
 
 			HUD hud;
-
-			Text_Manager textManager;
-			CommandManager commandManager;
 
 			static constexpr bool raycasting = false;
 	};

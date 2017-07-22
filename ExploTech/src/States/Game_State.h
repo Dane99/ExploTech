@@ -12,7 +12,7 @@ namespace State
 {
 	class Game_State {
 		public:
-			Game_State(Application &application);
+			Game_State();
 
 			virtual void input			       () = 0;
 			virtual void update			       (float dt) = 0;
@@ -21,7 +21,5 @@ namespace State
 			virtual void updateKeyboardInput   (float dt) = 0;
 			virtual void draw			       (Renderer::Master& renderer) = 0;
 
-		protected:
-			Application* m_application;
 	};
 }

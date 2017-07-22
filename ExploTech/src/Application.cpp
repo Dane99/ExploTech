@@ -8,18 +8,23 @@
 
 Application::Application()
 {
-	pushState(std::make_unique<State::Playing>(*this));
+	pushState(std::make_unique<State::Playing>());
+
 }
 
 Application::~Application()
 {
 }
 
+Application& Application::get()
+{
+	static Application application;
+	return application;
+}
+
 void Application::runMainGameLoop()
 {
 	sf::Clock clock;
-
-	Input_Manager inputManager(&camera, m_states.top().get());
 
 	// we might want to update the camera and state once those things
 	// start to change a bit.
@@ -29,7 +34,6 @@ void Application::runMainGameLoop()
 
 		m_renderer.clear();
 
-		inputManager.updateGameState(m_states.top().get());
 
 		m_states.top()->input();
 
@@ -62,7 +66,7 @@ Camera& Application::getCamera()
 	return camera;
 }
 
-//State::Game_State* Application::getGameState()
-//{
-	// m_states.top().get();
-//}
+State::Game_State* Application::getCurrentGameStatePtr()
+{
+	return m_states.top().get();
+}

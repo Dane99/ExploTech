@@ -3,30 +3,49 @@
 #include <GLFW/glfw3.h>
 #include "../Text/Text_Manager.h"
 #include <string>
+#include <SFML/System/Clock.hpp>
+#include <thread>
+#include <mutex>
+#include "../Input/Input_Manager.h"
 
+namespace
+{
+	struct TextElement
+	{
+		unsigned int id;
+		sf::Clock existenceClock;
+
+		// Whether or not the text element has been pushed up to the history=(history of text messages sent).
+		bool isActive = false;
+	};
+}
 
 class CommandManager
 {
 public:
-	CommandManager(Text_Manager* textManager);
+	static CommandManager& get();
 
-	static void openCommandWindow();
-	static void closeCommandWindow();
+	void openCommandWindow();
+	void closeCommandWindow();
 
-	static bool isCommandWindowOpen();
+	bool isCommandWindowOpen();
 
 	// Called by input manager when a key is pressed.
-	static void keyPressed(unsigned int keyID);
+	void keyPressed(unsigned int keyID);
 	
 
 private:
+	CommandManager();
+	~CommandManager();
 
-	static bool m_isCommandWindowOpen;
+	bool m_isCommandWindowOpen = false;
 
-	static Text_Manager* m_textManager;
+	std::vector<TextElement> textElements;
 
-	static unsigned int textID;
-	
-	static bool currentTextIdExists;
+	void checkForTextElementsThatShouldBeDeleted();
 
+	bool m_isRunning = true;
+
+	std::vector<std::thread> m_threads;
+	std::mutex textElementsMutex;
 };

@@ -4,6 +4,7 @@
 #include "HUD_Renderer.h"
 #include "../HUD/Crosshair.h"
 #include "../Command/CommandManager.h"
+#include "../Application.h"
 
 namespace Renderer
 {
@@ -36,7 +37,7 @@ namespace Renderer
 
 		m_shader.unbind();
 
-		if (CommandManager::isCommandWindowOpen()) {
+		if (CommandManager::get().isCommandWindowOpen()) {
 			m_shaderSimple.bind();
 			m_shader.setProjMatrix(glm::ortho(0.0f, static_cast<GLfloat>(Display::WIDTH), 0.0f, static_cast<GLfloat>(Display::HEIGHT)));
 

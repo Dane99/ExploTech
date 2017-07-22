@@ -8,39 +8,44 @@
 
 namespace Display {
 	
-	GLFWwindow* window;
+	GLFWwindow* window = nullptr;
+	bool isWindowConstructed = false;
 
 	void init()
 	{
-		if (!glfwInit())
+		// Ensure we can only create one window
+		if (window == nullptr) 
 		{
-			fprintf(stderr, "Failed to initialize GLFW\n");
-			getchar();
-			throw std::runtime_error("Error initializing GLFW.");
+			if (!glfwInit())
+			{
+				fprintf(stderr, "Failed to initialize GLFW\n");
+				getchar();
+				throw std::runtime_error("Error initializing GLFW.");
+			}
+
+			glfwWindowHint(GLFW_SAMPLES, 16); // TODO look at this more closely.
+			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+			//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
+			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+			window = glfwCreateWindow(WIDTH, HEIGHT, "ExploTech", nullptr, nullptr);
+			glfwMakeContextCurrent(window);
+
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+			// Ensure we can capture the escape key being pressed below
+			glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+
+			glewInit();
+			glViewport(0, 0, WIDTH, HEIGHT);
+
+			glEnable(GL_DEPTH_TEST);
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+			glDepthFunc(GL_LESS);
 		}
-
-		glfwWindowHint(GLFW_SAMPLES, 16); // TODO look at this more closely.
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-		//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-		window = glfwCreateWindow(WIDTH, HEIGHT, "ExploTech", nullptr, nullptr);
-		glfwMakeContextCurrent(window);
-
-		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
-		// Ensure we can capture the escape key being pressed below
-		glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
-
-		glewInit();
-		glViewport(0, 0, WIDTH, HEIGHT);
-
-		glEnable(GL_DEPTH_TEST);
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-		glDepthFunc(GL_LESS);
 	}
 
 	void close()
@@ -67,6 +72,15 @@ namespace Display {
 
 	GLFWwindow* get()
 	{
-		return window;
+		// if window is not constructed yet, manually construct it. We do this because of active-type singletons.
+		if (window == nullptr) 
+		{
+			init();
+			return window;
+		}
+		else
+		{
+			return window;
+		}
 	}
 }

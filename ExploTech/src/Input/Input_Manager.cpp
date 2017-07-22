@@ -8,41 +8,27 @@
 
 bool Input_Manager::keys[1024];
 std::map<unsigned int, std::vector<std::function<void(void)>>> Input_Manager::keyCallbacks;
+Input_Manager Input_Manager::inputManager;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 
-Input_Manager::Input_Manager(Camera* camera, State::Game_State* gameState) 
-	: currentCamera(camera),
-	currentGameState(gameState)
+Input_Manager::Input_Manager() 
 {
 	glfwSetKeyCallback(Display::get(), key_callback);
 	glfwSetCursorPosCallback(Display::get(), mouse_callback);
 	glfwSetMouseButtonCallback(Display::get(), mouse_button_callback);
 
+	std::cout << "Constructor constructed!" << Display::get() << std::endl;
+
 	// We use setWindowPointer to allow access to the class from an outside function. In this case that function is "mouse_callback".
-	glfwSetWindowUserPointer(Display::get(), this);
+	//glfwSetWindowUserPointer(Display::get(), this);
 }
 
-void Input_Manager::updateGameState(State::Game_State* gameState)
+Input_Manager& Input_Manager::get()
 {
-	currentGameState = gameState;
-}
-
-void Input_Manager::updateCamera(Camera* camera)
-{
-	currentCamera = camera;
-}
-
-State::Game_State* Input_Manager::getCurrentGameState() const
-{
-	return currentGameState;
-}
-
-Camera* Input_Manager::getCurrentCamera() const
-{
-	return currentCamera;
+	return inputManager;
 }
 
 void Input_Manager::addKeyPressCallback(unsigned int keyID, std::function<void(void)> func)
@@ -62,7 +48,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	{
 		if (action == GLFW_PRESS)
 		{
-			CommandManager::keyPressed(key);
+			CommandManager::get().keyPressed(key);
 
 			auto it = Input_Manager::keyCallbacks.find(key);
 			if (it != Input_Manager::keyCallbacks.end())
@@ -84,14 +70,14 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
 	// window param is the same as Display::get().
-
-	Input_Manager* inputManager = static_cast<Input_Manager*>(glfwGetWindowUserPointer(window));
-	inputManager->getCurrentGameState()->updateMouseInput(xpos, ypos);
+	
+	//Input_Manager* inputManager = static_cast<Input_Manager*>(glfwGetWindowUserPointer(window));
+	Application::get().getCurrentGameStatePtr()->updateMouseInput(xpos, ypos);
 }
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
 	// window param is the same as Display::get().
-	Input_Manager* inputManager = static_cast<Input_Manager*>(glfwGetWindowUserPointer(window));
+	//Input_Manager* inputManager = static_cast<Input_Manager*>(glfwGetWindowUserPointer(window));
 
 	bool leftMouseButtonPressed = false
 		, rightMouseButtonPressed = false;
@@ -105,5 +91,5 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 
 	std::cout << "Left: " << (int)leftMouseButtonPressed << " Right: " << (int)rightMouseButtonPressed << '\n';
 
-	inputManager->getCurrentGameState()->updateMouseClickInput(leftMouseButtonPressed, rightMouseButtonPressed);
+	Application::get().getCurrentGameStatePtr()->updateMouseClickInput(leftMouseButtonPressed, rightMouseButtonPressed);
 }

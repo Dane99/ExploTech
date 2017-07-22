@@ -37,8 +37,8 @@ struct TextData {
 class Text_Manager
 {
 	public:
-		Text_Manager();
-		~Text_Manager();
+
+		static Text_Manager& get();
 
 		unsigned int addText(const std::string& text, float x, float y, float sx, float sy, Vector3& color);
 		void changeTextContent(const std::string& text, unsigned int id);
@@ -62,6 +62,8 @@ class Text_Manager
 		void recreate(unsigned int id);
 
 	private:
+		Text_Manager();
+		~Text_Manager();
 
 		std::map<unsigned int, TextData> m_textData;
 

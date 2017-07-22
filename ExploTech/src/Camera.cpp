@@ -13,6 +13,8 @@
 
 #include "Command\CommandManager.h"
 #include <iostream>
+
+#include "Application.h"
 // pitch is rotation.x
 // yaw is rotation.y
 
@@ -32,7 +34,7 @@ void Camera::updateViewMatrix()
 
 void Camera::keyboardInput(float dt)
 {
-	if (!CommandManager::isCommandWindowOpen())
+	if (!CommandManager::get().isCommandWindowOpen())
 	{
 		Vector3 change;
 		float speed = 2.0f;

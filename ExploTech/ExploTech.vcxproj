@@ -154,7 +154,6 @@
     <ClCompile Include="src\Display.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Model.cpp" />
-    <ClCompile Include="src\Networking\NetworkingManager.cpp" />
     <ClCompile Include="src\PrimitiveModeling\SimpleSquare.cpp" />
     <ClCompile Include="src\Renderer\Master_Renderer.cpp" />
     <ClCompile Include="src\Renderer\HUD_Renderer.cpp" />
@@ -192,7 +191,7 @@
     <ClInclude Include="src\HUD\CommandWindow.h" />
     <ClInclude Include="src\HUD\Crosshair.h" />
     <ClInclude Include="src\HUD\HUD.h" />
-    <ClInclude Include="src\Networking\NetworkingManager.h" />
+    <ClInclude Include="src\Networking\Connection.h" />
     <ClInclude Include="src\PrimitiveModeling\SimpleSquare.h" />
     <ClInclude Include="src\Renderer\Chunk_Renderer.h" />
     <ClInclude Include="src\Renderer\HUD_Renderer.h" />
@@ -222,6 +221,7 @@
     <ClInclude Include="src\Texture\Texture.h" />
     <ClInclude Include="src\Text\Text_Manager.h" />
     <ClInclude Include="src\Text\TextModel.h" />
+    <ClInclude Include="src\Util\Singleton.h" />
     <ClInclude Include="src\World\Block\Block_Data.h" />
     <ClInclude Include="src\World\Block\Block_Database.h" />
     <ClInclude Include="src\World\Block\Block_ID.h" />

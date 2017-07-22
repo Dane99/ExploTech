@@ -20,20 +20,19 @@ void printHello() {
 }
 
 namespace State {
-
-	sf::Clock clock;
+	
+	sf::Clock generalClock;
 	sf::Clock randClock;
 
-	Playing::Playing(Application &application)
-		: Game_State(application)
-		, commandManager(&textManager)
+	Playing::Playing()
+		: Game_State()
 		, m_quad()
 	{
 		srand(time(NULL));
 		m_quad.position.z  = -3;
 		worldManager.generateAllChunks();
-		textManager.addText("Hello World!", 100, 50, 1, 1, Vector3(0.5, 0.5, 0.5));
-		textManager.addText("Random Number Alert: ", 10, Display::HEIGHT - 20, 0.5f, 0.5f, Vector3(1.0, 0.5, 0.5));
+		Text_Manager::get().addText("Hello World!", 100, 50, 1, 1, Vector3(0.5, 0.5, 0.5));
+		//textManager.addText("Random Number Alert: ", 10, Display::HEIGHT - 20, 0.5f, 0.5f, Vector3(1.0, 0.5, 0.5));
 
 		Input_Manager::addKeyPressCallback(GLFW_KEY_H, printHello);
 	}
@@ -44,16 +43,16 @@ namespace State {
 
 	void Playing::update(float dt)
 	{
-		//m_quad.position.x += sin(clock.getElapsedTime().asSeconds()) * dt * 0.8;
-		//m_quad.position.y += sin(clock.getElapsedTime().asSeconds()) * dt * 0.8;
-		//m_quad.position.z += cos(clock.getElapsedTime().asSeconds()) * dt * 0.8;
+		m_quad.position.x += sin(generalClock.getElapsedTime().asSeconds()) * dt * 0.8;
+		m_quad.position.y += sin(generalClock.getElapsedTime().asSeconds()) * dt * 0.8;
+		m_quad.position.z += cos(generalClock.getElapsedTime().asSeconds()) * dt * 0.8;
 
-		textManager.changeTextPositionY(sin(clock.getElapsedTime().asSeconds()) * 300 + 300, 0);
-		textManager.changeScaleX(cos(clock.getElapsedTime().asSeconds())/2 + 1, 0);
-		textManager.changeScaleY(cos(clock.getElapsedTime().asSeconds())/2 + 1, 0);
-		textManager.changeColor(Vector3(sin(clock.getElapsedTime().asSeconds() + 0),
-										sin(clock.getElapsedTime().asSeconds() + 2),
-										sin(clock.getElapsedTime().asSeconds() + 4)), 0);
+		//textManager.changeTextPositionY(sin(generalClock.getElapsedTime().asSeconds()) * 300 + 300, 0);
+		//textManager.changeScaleX(cos(generalClock.getElapsedTime().asSeconds())/2 + 1, 0);
+		//textManager.changeScaleY(cos(generalClock.getElapsedTime().asSeconds())/2 + 1, 0);
+		//textManager.changeColor(Vector3(sin(generalClock.getElapsedTime().asSeconds() + 0),
+		//								sin(generalClock.getElapsedTime().asSeconds() + 2),
+		//								sin(generalClock.getElapsedTime().asSeconds() + 4)), 0);
 
 		//static bool first = true;
 		//if (first) {
@@ -67,7 +66,7 @@ namespace State {
 		if (randClock.getElapsedTime().asSeconds() > 5 || first)
 		{
 			int number = rand() % 100 + 1;
-			textManager.changeTextContent("Random Number Alert: " + std::to_string(number), 1);
+		//	textManager.changeTextContent("Random Number Alert: " + std::to_string(number), 1);
 			randClock.restart();
 			first = false;
 		}
@@ -82,7 +81,7 @@ namespace State {
 		renderer.addToMasterRenderList(worldManager);
 		renderer.addToMasterRenderList(m_quad);
 		renderer.addToMasterRenderList(hud);
-		renderer.addToMasterRenderList(textManager);
+		renderer.addToMasterRenderList(Text_Manager::get());
 
 	}
 
@@ -92,8 +91,8 @@ namespace State {
 		if (raycasting) 
 		{
 			//worldManager.SetBlock(Vector3(0.5f, 0.5f, 0.5f), Block::ID::Air);
-			Vector3 facingDirection = m_application->getCamera().getViewVector() * REACH_RESOLUTION;
-			Vector3 currentPosition = m_application->getCamera().position;
+			Vector3 facingDirection = Application::get().getCamera().getViewVector() * REACH_RESOLUTION;
+			Vector3 currentPosition = Application::get().getCamera().position;
 			if (left) 
 			{
 				for (int i = 0; i < static_cast<int>((1.0f / REACH_RESOLUTION) * PLAYER_REACH_DISTANCE); ++i)
@@ -121,7 +120,7 @@ namespace State {
 
 					if (worldManager.GetBlock(Vector3(currentPosition.x, currentPosition.y, currentPosition.z)) != Block::ID::Air) 
 					{
-						worldManager.setBlockByPlayer(Vector3(currentPosition.x, currentPosition.y, currentPosition.z), m_application->getCamera().position, Block::ID::Grass);
+						worldManager.setBlockByPlayer(Vector3(currentPosition.x, currentPosition.y, currentPosition.z), Application::get().getCamera().position, Block::ID::Grass);
 						break;
 					}
 				}
@@ -135,12 +134,12 @@ namespace State {
 
 			glm::vec4 viewport = glm::vec4(0, 0, Display::WIDTH, Display::HEIGHT);
 			glm::vec3 wincoord = glm::vec3(Display::WIDTH / 2, Display::HEIGHT / 2, depth);
-			glm::vec3 objcoord = glm::unProject(wincoord, m_application->getCamera().getViewMatrix(), m_application->getCamera().getProjectionMatrix(), viewport);
+			glm::vec3 objcoord = glm::unProject(wincoord, Application::get().getCamera().getViewMatrix(), Application::get().getCamera().getProjectionMatrix(), viewport);
 
 			//int x = floorf(objcoord.x);
 			//int y = floorf(objcoord.y);
 			//int z = floorf(objcoord.z);
-			Vector3 facingDirection = m_application->getCamera().getViewVector() * 0.03f;
+			Vector3 facingDirection = Application::get().getCamera().getViewVector() * 0.03f;
 
 			if (right) 
 			{
@@ -156,11 +155,12 @@ namespace State {
 
 	void Playing::updateMouseInput(double xpos, double ypos)
 	{
-		m_application->getCamera().mouseInput(xpos, ypos);
+		//std::cout << "mouse moved" << std::endl;
+		Application::get().getCamera().mouseInput(xpos, ypos);
 	}
 
 	void Playing::updateKeyboardInput(float dt)
 	{
-		m_application->getCamera().keyboardInput(dt);
+		Application::get().getCamera().keyboardInput(dt);
 	}
 }

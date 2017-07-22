@@ -5,22 +5,18 @@
 #include <functional>
 #include <vector>
 #include <map>
+#include "../Application.h"
 
 class Input_Manager {
 	public:
-		Input_Manager(Camera* camera, State::Game_State* gameState);
-		
-		void updateGameState(State::Game_State* gameState);
-		void updateCamera(Camera* camera);
-
-		State::Game_State* getCurrentGameState() const;
-		Camera* getCurrentCamera() const;
+		static Input_Manager& get();
 
 		static void addKeyPressCallback(unsigned int keyID, std::function<void(void)> func);
 
 		static bool keys[1024];
 		static std::map<unsigned int, std::vector<std::function<void(void)>>> keyCallbacks;
 	private:
-		State::Game_State* currentGameState;
-		Camera* currentCamera;
+		Input_Manager();
+
+		static Input_Manager inputManager;
 };

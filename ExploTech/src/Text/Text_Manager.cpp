@@ -9,6 +9,12 @@ Text_Manager::~Text_Manager()
 {
 }
 
+Text_Manager& Text_Manager::get()
+{
+	static Text_Manager textManager;
+	return textManager;
+}
+
 unsigned int Text_Manager::addText(const std::string& text, float x, float y, float sx, float sy, Vector3& color)
 {
 	m_textData[currentID] = TextData(text, x, y, sx, sy);

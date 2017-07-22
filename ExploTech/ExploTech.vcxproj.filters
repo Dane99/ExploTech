@@ -138,9 +138,6 @@
     <ClCompile Include="src\Shaders\HUD_ShaderSimple.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Networking\NetworkingManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Display.h">
@@ -281,7 +278,10 @@
     <ClInclude Include="src\Shaders\HUD_ShaderSimple.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Networking\NetworkingManager.h">
+    <ClInclude Include="src\Networking\Connection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Util\Singleton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
