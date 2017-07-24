@@ -94,6 +94,7 @@ TextModel::TextModel()
 
 TextModel::~TextModel()
 {
+	std::cout << "Destructor textmodel" << std::endl;
 	if (m_vao != 0) 
 	{
 		glDeleteVertexArrays(1, &m_vao);

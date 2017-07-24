@@ -41,14 +41,26 @@ class Text_Manager
 		static Text_Manager& get();
 
 		unsigned int addText(const std::string& text, float x, float y, float sx, float sy, Vector3& color);
-		void changeTextContent(const std::string& text, unsigned int id);
+		void setTextContent(const std::string& text, unsigned int id);
+
+		void setTextPositionX(float x, unsigned int id);
+		void setTextPositionY(float y, unsigned int id);
+
+		// Change text position is relative to the already existing position. Example: posX += x.
 		void changeTextPositionX(float x, unsigned int id);
 		void changeTextPositionY(float y, unsigned int id);
 
-		void changeScaleX(float sx, unsigned int id);
-		void changeScaleY(float sy, unsigned int id);
+		void setScaleX(float sx, unsigned int id);
+		void setScaleY(float sy, unsigned int id);
 
-		void changeColor(const Vector3& color, unsigned int id);
+		void setColor(const Vector3& color, unsigned int id);
+
+		std::string getTextString(unsigned int id) const;
+		float getTextPositionX(unsigned int id) const;
+		float getTextPositionY(unsigned int id) const;
+		float getTextScaleX(unsigned int id) const;
+		float getTextScaleY(unsigned int id) const;
+		Vector3 getTextColor(unsigned int id) const;
 
 		void concatenateText(const std::string& newText, unsigned int id);
 

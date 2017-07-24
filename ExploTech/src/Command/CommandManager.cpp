@@ -1,19 +1,31 @@
 #include "CommandManager.h"
 
+
 CommandManager::CommandManager()
 {
-	//m_threads.emplace_back([&]()
-	//{
-	//	while (m_isRunning)
-	//	{
-	//		checkForTextElementsThatShouldBeDeleted();
-	//		std::this_thread::sleep_for(std::chrono::microseconds(100));
-	//	}
-	//});
+
 }
 
 CommandManager::~CommandManager()
 {
+}
+
+void CommandManager::CheckforElementsThatShouldBeDeleted()
+{
+	auto i = textElements.begin();
+
+	while (i != textElements.end())
+	{
+		if ((*i)->shouldBeDeleted())
+		{
+			delete *i;
+			i = textElements.erase(i);
+		}
+		else
+		{
+			++i;
+		}
+	}
 }
 
 CommandManager& CommandManager::get()
@@ -34,19 +46,112 @@ void CommandManager::closeCommandWindow()
 
 bool CommandManager::isCommandWindowOpen()
 {
-	return m_isCommandWindowOpen;
+	if(textElements.size() != 0)
+	{
+		if (textElements.back()->isActive) {
+			return true;
+		}
+	}
+	return false;
 }
 
 void CommandManager::keyPressed(unsigned int keyID)
 {
-
-	//std::lock_guard<std::mutex> lck(textElementsMutex);
-	
-	/*std::string s(1, tolower((char)keyID));
-
-	if (CommandManager::m_isCommandWindowOpen && currentTextIdExists && keyID != GLFW_KEY_BACKSPACE)
+	// Keys that are letters and numbers (not backspace character).
+	if (keyID < 127)
 	{
-		m_textManager->concatenateText(s, textElements.back().id);
+
+		std::string s(1, tolower((char)keyID));
+		std::cout << "key: " << s << std::endl;
+
+
+		if (keyID == GLFW_KEY_SLASH && !Input_Manager::keys[GLFW_KEY_RIGHT_SHIFT])
+		{
+			if (textElements.size() == 0)
+			{
+				TextElement* tmp = new TextElement(s);
+				textElements.emplace_back(tmp);
+			}
+			else
+			{
+				if (textElements.back()->isActive)
+				{
+					textElements.pop_back();
+				}
+				else
+				{
+					TextElement* tmp = new TextElement(s);
+					textElements.emplace_back(tmp);
+				}
+			}
+		}
+		else if(keyID == GLFW_KEY_SLASH && Input_Manager::keys[GLFW_KEY_RIGHT_SHIFT])
+		{
+			if (isCommandWindowOpen())
+			{
+				textElements.back()->add("?");
+			}
+		}
+		else
+		{
+			if (isCommandWindowOpen())
+			{
+					textElements.back()->add(s);
+		
+			}
+		}
+	}
+
+	if (keyID == GLFW_KEY_BACKSPACE)
+	{
+		if (isCommandWindowOpen())
+		{
+			textElements.back()->backSpace();
+		}
+	}
+
+	if (keyID == GLFW_KEY_ENTER)
+	{
+		if (isCommandWindowOpen())
+		{
+			for (auto& element : textElements)
+			{
+				element->moveUp(25.0f);
+			}
+			TextElement* tmp = new TextElement("");
+			textElements.emplace_back(tmp);
+		}
+	}
+/*
+	if (keyID == GLFW_KEY_SLASH)
+	{
+		if (textElements.size() != 0) 
+		{
+			if (textElements.back().isActive)
+			{
+				//textElements.pop_back();
+			}
+			else
+			{
+				textElements.push_back(std::move(TextElement(s)));
+			}
+		}
+		else {
+			textElements.push_back(std::move(TextElement(s)));
+		}
+	}
+
+		if (isCommandWindowOpen())
+		{
+			std::cout << "test" << std::endl;
+			textElements.back().add(s);
+
+		}
+	*/
+	/*
+	if (CommandManager::m_isCommandWindowOpen && keyID != GLFW_KEY_BACKSPACE)
+	{
+		Text_Manager::get().concatenateText(s, textElements.back().id);
 	}
 
 
@@ -82,14 +187,14 @@ void CommandManager::keyPressed(unsigned int keyID)
 		textID = m_textManager->addText(s, 20, 15, 0.5f, 0.5f, Vector3(1.0f));
 		CommandManager::currentTextIdExists = true;
 	}
+	*/
 
-*/
+
 
 }
 
-void CommandManager::checkForTextElementsThatShouldBeDeleted()
+void CommandManager::update()
 {
-	//std::lock_guard<std::mutex> lck(textElementsMutex);
-	//if()
-
+	CheckforElementsThatShouldBeDeleted();
 }
+

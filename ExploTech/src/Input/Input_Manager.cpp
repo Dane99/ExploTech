@@ -3,7 +3,6 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
-#include "../Command/CommandManager.h"
 
 
 bool Input_Manager::keys[1024];
@@ -19,8 +18,6 @@ Input_Manager::Input_Manager()
 	glfwSetKeyCallback(Display::get(), key_callback);
 	glfwSetCursorPosCallback(Display::get(), mouse_callback);
 	glfwSetMouseButtonCallback(Display::get(), mouse_button_callback);
-
-	std::cout << "Constructor constructed!" << Display::get() << std::endl;
 
 	// We use setWindowPointer to allow access to the class from an outside function. In this case that function is "mouse_callback".
 	//glfwSetWindowUserPointer(Display::get(), this);
@@ -89,7 +86,7 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 		rightMouseButtonPressed = true;
 	}
 
-	std::cout << "Left: " << (int)leftMouseButtonPressed << " Right: " << (int)rightMouseButtonPressed << '\n';
+	//std::cout << "Left: " << (int)leftMouseButtonPressed << " Right: " << (int)rightMouseButtonPressed << '\n';
 
 	Application::get().getCurrentGameStatePtr()->updateMouseClickInput(leftMouseButtonPressed, rightMouseButtonPressed);
 }

@@ -88,7 +88,7 @@ Chunk* World_Manager::getChunkWithWorldPosition(Vector3 WorldPosition)
 void World_Manager::SetBlock(Vector3 WorldPosition, Block::ID type)
 {
 	Chunk* chunk = getChunkWithWorldPosition(WorldPosition);
-	std::cout << "Called SetBlock: X:" << WorldPosition.x << " Y: " << WorldPosition.y << " Z: " << WorldPosition.z <<  '\n';
+	//std::cout << "Called SetBlock: X:" << WorldPosition.x << " Y: " << WorldPosition.y << " Z: " << WorldPosition.z <<  '\n';
 	// make sure it is range.
 	if (chunk != nullptr) {
 		int x = floor(WorldPosition.x);

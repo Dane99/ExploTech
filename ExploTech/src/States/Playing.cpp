@@ -31,7 +31,7 @@ namespace State {
 		srand(time(NULL));
 		m_quad.position.z  = -3;
 		worldManager.generateAllChunks();
-		Text_Manager::get().addText("Hello World!", 100, 50, 1, 1, Vector3(0.5, 0.5, 0.5));
+		//Text_Manager::get().addText("Hello World!", 100, 50, 1, 1, Vector3(0.5, 0.5, 0.5));
 		//textManager.addText("Random Number Alert: ", 10, Display::HEIGHT - 20, 0.5f, 0.5f, Vector3(1.0, 0.5, 0.5));
 
 		Input_Manager::addKeyPressCallback(GLFW_KEY_H, printHello);
@@ -43,6 +43,8 @@ namespace State {
 
 	void Playing::update(float dt)
 	{
+		CommandManager::get().update();
+
 		m_quad.position.x += sin(generalClock.getElapsedTime().asSeconds()) * dt * 0.8;
 		m_quad.position.y += sin(generalClock.getElapsedTime().asSeconds()) * dt * 0.8;
 		m_quad.position.z += cos(generalClock.getElapsedTime().asSeconds()) * dt * 0.8;
