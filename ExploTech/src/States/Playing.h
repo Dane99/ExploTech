@@ -37,7 +37,7 @@ namespace State
 
 			HUD hud;
 
-			static constexpr bool raycasting = false;
+			static constexpr bool raycasting = true;
 	};
 
 

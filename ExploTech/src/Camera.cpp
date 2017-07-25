@@ -109,6 +109,11 @@ void Camera::mouseInput(double xpos, double ypos)
 	updateCameraVectors();
 }
 
+void Camera::setPosition(Vector3& position)
+{
+	this->position = position;
+}
+
 const Matrix4& Camera::getViewMatrix() const
 {
 	return m_viewMatrix;

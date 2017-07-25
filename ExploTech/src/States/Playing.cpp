@@ -122,7 +122,12 @@ namespace State {
 
 					if (worldManager.GetBlock(Vector3(currentPosition.x, currentPosition.y, currentPosition.z)) != Block::ID::Air) 
 					{
-						worldManager.setBlockByPlayer(Vector3(currentPosition.x, currentPosition.y, currentPosition.z), Application::get().getCamera().position, Block::ID::Grass);
+						currentPosition.x -= facingDirection.x;
+						currentPosition.y -= facingDirection.y;
+						currentPosition.z -= facingDirection.z;
+						worldManager.SetBlock(Vector3(currentPosition.x, currentPosition.y, currentPosition.z), Block::ID::Grass);
+
+						
 						break;
 					}
 				}
@@ -141,7 +146,7 @@ namespace State {
 			//int x = floorf(objcoord.x);
 			//int y = floorf(objcoord.y);
 			//int z = floorf(objcoord.z);
-			Vector3 facingDirection = Application::get().getCamera().getViewVector() * 0.03f;
+			Vector3 facingDirection = Application::get().getCamera().getViewVector() * 0.07f;
 
 			if (right) 
 			{

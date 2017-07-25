@@ -131,6 +131,8 @@ private:
 	CommandManager();
 	~CommandManager();
 
+	void sendToInterpreter(std::string data);
+
 	void CheckforElementsThatShouldBeDeleted();
 
 	bool m_isCommandWindowOpen = false;

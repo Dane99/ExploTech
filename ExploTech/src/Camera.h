@@ -14,6 +14,8 @@ class Camera : public Entity
 		void keyboardInput(float dt);
 		void mouseInput(double xpos, double ypos);
 
+		void setPosition(Vector3& position);
+
 		const Matrix4& getViewMatrix() const;
 		const Matrix4& getProjectionMatrix() const;
 

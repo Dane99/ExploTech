@@ -1,6 +1,6 @@
 #include "CommandManager.h"
 
-
+#include <sstream>
 CommandManager::CommandManager()
 {
 
@@ -8,6 +8,26 @@ CommandManager::CommandManager()
 
 CommandManager::~CommandManager()
 {
+	for (auto& element : textElements)
+	{
+		delete element;
+	}
+	textElements.clear();
+}
+
+void CommandManager::sendToInterpreter(std::string data)
+{
+	if (data.find("/tp") == 0)
+	{
+		float numbers[3];
+		std::stringstream ss(data.substr(3, data.length() - 3));
+		for (int i = 0; i<3; i++) {
+			ss >> numbers[i];
+			std::cout << numbers[i] << std::endl;
+		}
+		Application::get().getCamera().setPosition(Vector3(numbers[0], numbers[1], numbers[2]));
+
+	}
 }
 
 void CommandManager::CheckforElementsThatShouldBeDeleted()
@@ -76,6 +96,7 @@ void CommandManager::keyPressed(unsigned int keyID)
 			{
 				if (textElements.back()->isActive)
 				{
+					delete textElements.back();
 					textElements.pop_back();
 				}
 				else
@@ -114,6 +135,8 @@ void CommandManager::keyPressed(unsigned int keyID)
 	{
 		if (isCommandWindowOpen())
 		{
+			sendToInterpreter(Text_Manager::get().getTextString(textElements.back()->id));
+
 			for (auto& element : textElements)
 			{
 				element->moveUp(25.0f);
@@ -121,6 +144,12 @@ void CommandManager::keyPressed(unsigned int keyID)
 			TextElement* tmp = new TextElement("");
 			textElements.emplace_back(tmp);
 		}
+	}
+
+	if (keyID == GLFW_KEY_ESCAPE && isCommandWindowOpen())
+	{
+		delete textElements.back();
+		textElements.pop_back();
 	}
 /*
 	if (keyID == GLFW_KEY_SLASH)
