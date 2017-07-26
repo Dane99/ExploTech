@@ -144,7 +144,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Camera.cpp" />
-    <ClCompile Include="src\Command\CommandInterpreter.cpp" />
     <ClCompile Include="src\Command\CommandManager.cpp" />
     <ClCompile Include="src\HUD\CommandWindow.cpp" />
     <ClCompile Include="src\HUD\Crosshair.cpp" />
@@ -154,6 +153,7 @@
     <ClCompile Include="src\Display.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Model.cpp" />
+    <ClCompile Include="src\Networking\ConnectionManager.cpp" />
     <ClCompile Include="src\PrimitiveModeling\SimpleSquare.cpp" />
     <ClCompile Include="src\Renderer\Master_Renderer.cpp" />
     <ClCompile Include="src\Renderer\HUD_Renderer.cpp" />
@@ -186,12 +186,12 @@
     <ClCompile Include="src\World\Generation\World_Generation.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Command\CommandInterpreter.h" />
     <ClInclude Include="src\Command\CommandManager.h" />
     <ClInclude Include="src\HUD\CommandWindow.h" />
     <ClInclude Include="src\HUD\Crosshair.h" />
     <ClInclude Include="src\HUD\HUD.h" />
     <ClInclude Include="src\Networking\Connection.h" />
+    <ClInclude Include="src\Networking\ConnectionManager.h" />
     <ClInclude Include="src\PrimitiveModeling\SimpleSquare.h" />
     <ClInclude Include="src\Renderer\Chunk_Renderer.h" />
     <ClInclude Include="src\Renderer\HUD_Renderer.h" />

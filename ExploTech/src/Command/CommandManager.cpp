@@ -28,6 +28,33 @@ void CommandManager::sendToInterpreter(std::string data)
 		Application::get().getCamera().setPosition(Vector3(numbers[0], numbers[1], numbers[2]));
 
 	}
+
+	if (data.find("/c") == 0)
+	{
+		std::string buf; // Have a buffer string
+		std::stringstream ss(data); // Insert the string into a stream
+
+		std::vector<std::string> tokens; // Create vector to hold our words
+
+		while (ss >> buf)
+		{
+			tokens.push_back(buf);
+		}
+
+		std::string message;
+		for (int i = 2; i < tokens.size(); ++i)
+		{
+			message += tokens[i];
+
+			if (i != tokens.size() - 1)
+			{
+				message += " ";
+			}
+		}
+
+		//std::cout << data.substr(3, data.length() - 3) << std::endl;
+		ConnectionManager::get().startClient(50000, tokens.at(1), message);
+	}
 }
 
 void CommandManager::CheckforElementsThatShouldBeDeleted()
