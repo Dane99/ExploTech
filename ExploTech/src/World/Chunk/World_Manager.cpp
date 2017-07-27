@@ -65,6 +65,40 @@ World_Manager::~World_Manager()
 	delete m_chunks;
 }
 
+World_Manager& World_Manager::get()
+{
+	static World_Manager worldManager;
+	return worldManager;
+}
+
+void World_Manager::addThreadSafeBlockChangesToTheList(Vector3 worldPosition, Block::ID type)
+{
+	blockChangesMutex.lock();
+
+	// Construct a new blockChanges structure
+	BlockChange change(worldPosition, type);
+	blockChanges.push(change);
+
+	blockChangesMutex.unlock();
+}
+
+void World_Manager::realizeBlockChangeList()
+{
+	blockChangesMutex.lock();
+
+	while (!blockChanges.empty())
+	{
+		SetBlock(blockChanges.front().worldPosition, static_cast<Block::ID>(blockChanges.front().type));
+		blockChanges.pop();
+	}
+	blockChangesMutex.unlock();
+}
+
+void World_Manager::update()
+{
+	//realizeBlockChangeList();
+}
+
 Chunk* World_Manager::getChunkWithWorldPosition(Vector3 WorldPosition)
 {
 	//std::cout << WorldPosition.x << std::endl;
@@ -85,8 +119,15 @@ Chunk* World_Manager::getChunkWithWorldPosition(Vector3 WorldPosition)
 	return nullptr;
 }
 
-void World_Manager::SetBlock(Vector3 WorldPosition, Block::ID type)
+void World_Manager::SetBlock(Vector3 WorldPosition, Block::ID type, bool isFromServer)
 {
+	if (!isFromServer)
+	{
+		BlockChange blockChange(WorldPosition, type);
+		// TODO
+		ConnectionManager::get().sendMessageToServer(50000, "127.0.0.1", blockChange);
+	}
+
 	Chunk* chunk = getChunkWithWorldPosition(WorldPosition);
 	//std::cout << "Called SetBlock: X:" << WorldPosition.x << " Y: " << WorldPosition.y << " Z: " << WorldPosition.z <<  '\n';
 	// make sure it is range.

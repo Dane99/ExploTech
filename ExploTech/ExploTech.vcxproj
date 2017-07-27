@@ -222,6 +222,7 @@
     <ClInclude Include="src\Text\Text_Manager.h" />
     <ClInclude Include="src\Text\TextModel.h" />
     <ClInclude Include="src\Util\Singleton.h" />
+    <ClInclude Include="src\World\Block\BlockChange.h" />
     <ClInclude Include="src\World\Block\Block_Data.h" />
     <ClInclude Include="src\World\Block\Block_Database.h" />
     <ClInclude Include="src\World\Block\Block_ID.h" />

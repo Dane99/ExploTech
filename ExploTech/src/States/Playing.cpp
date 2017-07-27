@@ -30,7 +30,7 @@ namespace State {
 	{
 		srand(time(NULL));
 		m_quad.position.z  = -3;
-		worldManager.generateAllChunks();
+		World_Manager::get().generateAllChunks();
 		//Text_Manager::get().addText("Hello World!", 100, 50, 1, 1, Vector3(0.5, 0.5, 0.5));
 		//textManager.addText("Random Number Alert: ", 10, Display::HEIGHT - 20, 0.5f, 0.5f, Vector3(1.0, 0.5, 0.5));
 
@@ -44,6 +44,7 @@ namespace State {
 	void Playing::update(float dt)
 	{
 		CommandManager::get().update();
+		World_Manager::get().update();
 
 		m_quad.position.x += sin(generalClock.getElapsedTime().asSeconds()) * dt * 0.8;
 		m_quad.position.y += sin(generalClock.getElapsedTime().asSeconds()) * dt * 0.8;
@@ -80,7 +81,7 @@ namespace State {
 
 	void Playing::draw(Renderer::Master& renderer)
 	{
-		renderer.addToMasterRenderList(worldManager);
+		renderer.addToMasterRenderList(World_Manager::get());
 		renderer.addToMasterRenderList(m_quad);
 		renderer.addToMasterRenderList(hud);
 		renderer.addToMasterRenderList(Text_Manager::get());
@@ -104,9 +105,9 @@ namespace State {
 					currentPosition.z += facingDirection.z;
 					//std::cout << "Test" << '\n';
 
-					if (worldManager.GetBlock(Vector3(currentPosition.x, currentPosition.y, currentPosition.z)) != Block::ID::Air) 
+					if (World_Manager::get().GetBlock(Vector3(currentPosition.x, currentPosition.y, currentPosition.z)) != Block::ID::Air) 
 					{
-						worldManager.SetBlock(Vector3(currentPosition.x, currentPosition.y, currentPosition.z), Block::ID::Air);
+						World_Manager::get().SetBlock(Vector3(currentPosition.x, currentPosition.y, currentPosition.z), Block::ID::Air);
 						break;
 					}
 				}
@@ -120,12 +121,12 @@ namespace State {
 					currentPosition.z += facingDirection.z;
 					//std::cout << "Test" << '\n';
 
-					if (worldManager.GetBlock(Vector3(currentPosition.x, currentPosition.y, currentPosition.z)) != Block::ID::Air) 
+					if (World_Manager::get().GetBlock(Vector3(currentPosition.x, currentPosition.y, currentPosition.z)) != Block::ID::Air)
 					{
 						currentPosition.x -= facingDirection.x;
 						currentPosition.y -= facingDirection.y;
 						currentPosition.z -= facingDirection.z;
-						worldManager.SetBlock(Vector3(currentPosition.x, currentPosition.y, currentPosition.z), Block::ID::Grass);
+						World_Manager::get().SetBlock(Vector3(currentPosition.x, currentPosition.y, currentPosition.z), Block::ID::Grass);
 
 						
 						break;
@@ -150,11 +151,11 @@ namespace State {
 
 			if (right) 
 			{
-				worldManager.SetBlock(objcoord - facingDirection, Block::ID::Grass);
+				World_Manager::get().SetBlock(objcoord - facingDirection, Block::ID::Grass);
 			}
 			if (left)
 			{
-				worldManager.SetBlock(objcoord + facingDirection, Block::ID::Air);
+				World_Manager::get().SetBlock(objcoord + facingDirection, Block::ID::Air);
 			}
 		}
 

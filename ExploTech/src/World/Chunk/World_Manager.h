@@ -2,11 +2,17 @@
 
 #include "../../Glm_Common.h"
 #include "../Block/Block_Data.h"
+#include "../../Util/Singleton.h"
 
 #include "Chunk.h"
 
 #include <vector>
 #include <unordered_map>
+#include <queue>
+#include <mutex>
+
+#include "../Block/BlockChange.h"
+#include "../../Networking/ConnectionManager.h"
 
 struct KeyHasher
 {
@@ -19,15 +25,22 @@ struct KeyHasher
 	}
 };
 
-class World_Manager {
+
+class World_Manager : public Singleton
+{
 
 	public:
-		World_Manager();
-		~World_Manager();
 		
+		static World_Manager& get();
+
+		void addThreadSafeBlockChangesToTheList(Vector3 worldPosition, Block::ID type);
+		void realizeBlockChangeList();
+
+		void update();
+
 		Chunk* World_Manager::getChunkWithWorldPosition(Vector3 WorldPosition);
 
-		void World_Manager::SetBlock(Vector3 WorldPosition, Block::ID type);
+		void World_Manager::SetBlock(Vector3 WorldPosition, Block::ID type, bool isFromServer = false);
 
 		Block::ID World_Manager::GetBlock(Vector3 WorldPosition);
 
@@ -41,12 +54,17 @@ class World_Manager {
 		void generateAllChunks();
 
 	private:
-
+		World_Manager();
+		~World_Manager();
 		
 
 		const uint16_t m_worldSizeX = 2; // Length and width of the area of chunks we want to load.
 		const uint16_t m_worldSizeY = 1;
 		const uint16_t m_worldSizeZ = 2;
+
+		std::queue<BlockChange> blockChanges;
+		std::mutex blockChangesMutex;
+
 
 		// Hasher for the map below
 

@@ -33,7 +33,6 @@ namespace State
 			Shader::Simple_Shader m_shader;
 
 			Quad m_quad;
-			World_Manager worldManager;
 
 			HUD hud;
 

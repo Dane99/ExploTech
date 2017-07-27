@@ -5,13 +5,15 @@
 #include <vector>
 #include <SFML/Network.hpp>
 #include <iostream>
+#include "../World/Chunk/World_Manager.h"
+#include "../World/Block/BlockChange.h"
 
 class ConnectionManager
 {
 	public:
 		static ConnectionManager& get();
 
-		void sendMessageToServer(unsigned short port, std::string ip, std::string message);
+		void sendMessageToServer(unsigned short port, std::string ip, BlockChange blockChange);
 
 	private:
 		ConnectionManager();

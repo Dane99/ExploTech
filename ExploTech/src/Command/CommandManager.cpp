@@ -53,7 +53,7 @@ void CommandManager::sendToInterpreter(std::string data)
 		}
 
 		//std::cout << data.substr(3, data.length() - 3) << std::endl;
-		ConnectionManager::get().sendMessageToServer(50000, tokens.at(1), message);
+		//ConnectionManager::get().sendMessageToServer(50000, tokens.at(1), message);
 	}
 }
 
