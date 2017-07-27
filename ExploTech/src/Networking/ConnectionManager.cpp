@@ -6,7 +6,7 @@ ConnectionManager& ConnectionManager::get()
 	return connectionManager;
 }
 
-void ConnectionManager::startClient(unsigned short port, std::string ip, std::string message)
+void ConnectionManager::sendMessageToServer(unsigned short port, std::string ip, std::string message)
 {
 	
 	// Ask for the server address
@@ -27,7 +27,7 @@ ConnectionManager::ConnectionManager()
 	{
 		while (m_isRunning)
 		{
-	
+			receiveData();
 			std::this_thread::sleep_for(std::chrono::microseconds(100));
 		}
 	});
@@ -44,7 +44,7 @@ ConnectionManager::~ConnectionManager()
 	}
 }
 
-void ConnectionManager::maintainConnection()
+void ConnectionManager::receiveData()
 {
 	// Receive an answer from anyone (but most likely from the server)
 	char in[128];

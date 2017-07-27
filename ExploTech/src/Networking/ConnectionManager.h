@@ -11,13 +11,13 @@ class ConnectionManager
 	public:
 		static ConnectionManager& get();
 
-		void startClient(unsigned short port, std::string ip, std::string message);
+		void sendMessageToServer(unsigned short port, std::string ip, std::string message);
 
 	private:
 		ConnectionManager();
 		~ConnectionManager();
 
-		void maintainConnection();
+		void receiveData();
 
 		bool m_isRunning = true;
 		std::vector<std::thread> m_threads;
