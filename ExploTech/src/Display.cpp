@@ -73,7 +73,7 @@ namespace Display {
 
 	GLFWwindow* get()
 	{
-		// if window is not constructed yet, manually construct it. We do this because of active-type singletons.
+		// if window is not constructed yet, manually construct it. We do this because of active-type singletons (not very important).
 		if (window == nullptr) 
 		{
 			init();

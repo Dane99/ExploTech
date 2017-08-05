@@ -34,8 +34,8 @@ TextModel::TextModel()
 	}
 
 	/* you might as well save this value as it is needed later on */
-	atlasWidth = w;
-	atlasHeight = h;
+	m_atlasWidth = w;
+	m_atlasHeight = h;
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
@@ -125,7 +125,7 @@ void TextModel::createText(const char* text, float x, float y, float sx, float s
 {
 	std::vector<point> vertices;
 
-	numberOfCharactersToDraw = 0;
+	m_numberOfCharactersToDraw = 0;
 
 	for (const char *p = text; *p; p++) {
 		float x2 = x + characters[*p].bl * sx;
@@ -141,14 +141,14 @@ void TextModel::createText(const char* text, float x, float y, float sx, float s
 		if (!w || !h)
 			continue;
 
-		vertices.push_back(point(x2    , -y2    , ((characters[*p - 1].tx) / atlasWidth)				   , 0                              ));
-		vertices.push_back(point(x2 + w, -y2    , ( characters[*p - 1].tx + characters[*p].bw) / atlasWidth, 0                              ));
-		vertices.push_back(point(x2    , -y2 - h, ((characters[*p - 1].tx) / atlasWidth)				   , characters[*p].bh / atlasHeight)); //remember: each glyph occupies a different amount of vertical space
-		vertices.push_back(point(x2 + w, -y2    , ( characters[*p - 1].tx + characters[*p].bw) / atlasWidth, 0                              ));
-		vertices.push_back(point(x2    , -y2 - h, ((characters[*p - 1].tx) / atlasWidth)				   , characters[*p].bh / atlasHeight));
-		vertices.push_back(point(x2 + w, -y2 - h, ( characters[*p - 1].tx + characters[*p].bw) / atlasWidth, characters[*p].bh / atlasHeight));
+		vertices.push_back(point(x2    , -y2    , ((characters[*p - 1].tx) / m_atlasWidth)				   , 0                              ));
+		vertices.push_back(point(x2 + w, -y2    , ( characters[*p - 1].tx + characters[*p].bw) / m_atlasWidth, 0                              ));
+		vertices.push_back(point(x2    , -y2 - h, ((characters[*p - 1].tx) / m_atlasWidth)				   , characters[*p].bh / m_atlasHeight)); //remember: each glyph occupies a different amount of vertical space
+		vertices.push_back(point(x2 + w, -y2    , ( characters[*p - 1].tx + characters[*p].bw) / m_atlasWidth, 0                              ));
+		vertices.push_back(point(x2    , -y2 - h, ((characters[*p - 1].tx) / m_atlasWidth)				   , characters[*p].bh / m_atlasHeight));
+		vertices.push_back(point(x2 + w, -y2 - h, ( characters[*p - 1].tx + characters[*p].bw) / m_atlasWidth, characters[*p].bh / m_atlasHeight));
 
-		++numberOfCharactersToDraw;
+		++m_numberOfCharactersToDraw;
 	}
 
 	glBindVertexArray(m_vao);
@@ -173,5 +173,5 @@ void TextModel::createText(const char* text, float x, float y, float sx, float s
 
 GLuint TextModel::getVerticesCount() const
 {
-	return numberOfCharactersToDraw * 6; // Six vertices per character.
+	return m_numberOfCharactersToDraw * 6; // Six vertices per character.
 }

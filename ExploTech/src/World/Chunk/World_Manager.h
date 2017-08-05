@@ -33,37 +33,44 @@ class World_Manager : public Singleton
 		
 		static World_Manager& get();
 
+		// This function is for the server to add block changes on a seperate thread.
 		void addThreadSafeServerBlockChangesToTheList(Vector3 worldPosition, Block::ID type, bool isFromServer = false);
+
+		// Turns the server block change list into actual changes to the world.
 		void realizeServerBlockChangeList();
 
 		void update();
 
+		// Get chunk with world position.
 		Chunk* World_Manager::getChunkWithWorldPosition(Vector3 WorldPosition);
 
+		// Set block with world position.
 		void World_Manager::SetBlock(Vector3 WorldPosition, Block::ID type, bool isFromServer = false);
 
+		// Get block with world position.
 		Block::ID World_Manager::GetBlock(Vector3 WorldPosition);
 
-		void World_Manager::setBlockByPlayer(Vector3 blockPosition, Vector3 playerPosition, Block::ID type);
-
+		// Get the full unordered map of chunks.
 		std::unordered_map<IntVector3, Chunk*, KeyHasher>* getChunks();
 
+		// Generates all the chunks that are within the defined range.
 		void generateAllChunks();
 
 	private:
 		World_Manager();
 		~World_Manager();
 		
-
-		const uint16_t m_worldSizeX = 2; // Length and width of the area of chunks we want to load.
+		// Defined area of chunks we want to load.
+		const uint16_t m_worldSizeX = 2; 
 		const uint16_t m_worldSizeY = 1;
 		const uint16_t m_worldSizeZ = 2;
 
+		// Queue for block changes from the server.
 		std::queue<BlockChange> blockChanges;
+		// Mutex for the server block additions.
 		std::mutex blockChangesMutex;
 
 
 		// Hasher for the map below
-
 		std::unordered_map<IntVector3, Chunk*, KeyHasher>* m_chunks;
 };

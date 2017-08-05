@@ -19,16 +19,14 @@ class Application{
 
 		void runMainGameLoop();
 
+		// Add a new state on top.
 		void pushState(std::unique_ptr<State::Game_State> state);
+		// Removes the top state.
 		void popState();
 
 		Camera& getCamera();
 
 		State::Game_State* getCurrentGameStatePtr();
-
-		
-
-	//	static State::Game_State* getGameState();
 
 	private:
 		Application();
@@ -40,5 +38,6 @@ class Application{
 
 		Camera camera;
 
-		int frames = 0;
+		// Number of frames in the lifetime of the application.
+		unsigned int frames = 0;
 };

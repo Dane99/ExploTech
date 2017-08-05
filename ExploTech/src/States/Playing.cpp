@@ -46,9 +46,9 @@ namespace State {
 		CommandManager::get().update();
 		World_Manager::get().update();
 
-		m_quad.position.x += sin(generalClock.getElapsedTime().asSeconds()) * dt * 0.8;
-		m_quad.position.y += sin(generalClock.getElapsedTime().asSeconds()) * dt * 0.8;
-		m_quad.position.z += cos(generalClock.getElapsedTime().asSeconds()) * dt * 0.8;
+		m_quad.position.x += static_cast<float>(sin(generalClock.getElapsedTime().asSeconds()) * dt * 0.8);
+		m_quad.position.y += static_cast<float>(sin(generalClock.getElapsedTime().asSeconds()) * dt * 0.8);
+		m_quad.position.z += static_cast<float>(cos(generalClock.getElapsedTime().asSeconds()) * dt * 0.8);
 
 		//textManager.changeTextPositionY(sin(generalClock.getElapsedTime().asSeconds()) * 300 + 300, 0);
 		//textManager.changeScaleX(cos(generalClock.getElapsedTime().asSeconds())/2 + 1, 0);
@@ -57,12 +57,6 @@ namespace State {
 		//								sin(generalClock.getElapsedTime().asSeconds() + 2),
 		//								sin(generalClock.getElapsedTime().asSeconds() + 4)), 0);
 
-		//static bool first = true;
-		//if (first) {
-		//	textManager.deleteText(0);
-		//	first = false;
-		//}
-		//textManager.deleteText(0);
 
 		static bool first = true;
 
@@ -73,7 +67,7 @@ namespace State {
 			randClock.restart();
 			first = false;
 		}
-		//camera.input(dt);
+
 		//m_quad.position.x = cos(clock.getElapsedTime().asSeconds());
 		//m_quad.rotation.x = clock.getElapsedTime().asSeconds() * 100;
 		//m_quad.rotation.z = clock.getElapsedTime().asSeconds() * 100;
@@ -90,10 +84,8 @@ namespace State {
 
 	void Playing::updateMouseClickInput(bool left, bool right)
 	{
-		//std::cout << static_cast<int>(worldManager.GetBlock(Vector3(0.5f, 0.5f, 0.5f))) << '\n';
 		if (raycasting) 
 		{
-			//worldManager.SetBlock(Vector3(0.5f, 0.5f, 0.5f), Block::ID::Air);
 			Vector3 facingDirection = Application::get().getCamera().getViewVector() * REACH_RESOLUTION;
 			Vector3 currentPosition = Application::get().getCamera().position;
 			if (left) 
@@ -103,7 +95,6 @@ namespace State {
 					currentPosition.x += facingDirection.x;
 					currentPosition.y += facingDirection.y;
 					currentPosition.z += facingDirection.z;
-					//std::cout << "Test" << '\n';
 
 					if (World_Manager::get().GetBlock(Vector3(currentPosition.x, currentPosition.y, currentPosition.z)) != Block::ID::Air) 
 					{
@@ -119,7 +110,6 @@ namespace State {
 					currentPosition.x += facingDirection.x;
 					currentPosition.y += facingDirection.y;
 					currentPosition.z += facingDirection.z;
-					//std::cout << "Test" << '\n';
 
 					if (World_Manager::get().GetBlock(Vector3(currentPosition.x, currentPosition.y, currentPosition.z)) != Block::ID::Air)
 					{
@@ -144,9 +134,6 @@ namespace State {
 			glm::vec3 wincoord = glm::vec3(Display::WIDTH / 2, Display::HEIGHT / 2, depth);
 			glm::vec3 objcoord = glm::unProject(wincoord, Application::get().getCamera().getViewMatrix(), Application::get().getCamera().getProjectionMatrix(), viewport);
 
-			//int x = floorf(objcoord.x);
-			//int y = floorf(objcoord.y);
-			//int z = floorf(objcoord.z);
 			Vector3 facingDirection = Application::get().getCamera().getViewVector() * 0.07f;
 
 			if (right) 
@@ -163,7 +150,6 @@ namespace State {
 
 	void Playing::updateMouseInput(double xpos, double ypos)
 	{
-		//std::cout << "mouse moved" << std::endl;
 		Application::get().getCamera().mouseInput(xpos, ypos);
 	}
 

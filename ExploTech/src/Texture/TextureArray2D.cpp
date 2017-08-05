@@ -7,8 +7,8 @@ TextureArray2D::TextureArray2D(const std::string& fileName, int widthOfSubtextur
 	sf::Image image;
 	image.loadFromFile(filePath);
 
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_2D_ARRAY, textureID);
+	glGenTextures(1, &m_textureID);
+	glBindTexture(GL_TEXTURE_2D_ARRAY, m_textureID);
 	//Allocate the storage.
 	// Second parameter is the mipmap level count.
 	glTexStorage3D(GL_TEXTURE_2D_ARRAY, 1, GL_RGBA8, widthOfSubtexture, heightOfSubtexture, layerCount);
@@ -31,7 +31,7 @@ TextureArray2D::TextureArray2D(const std::string& fileName, int widthOfSubtextur
 
 void TextureArray2D::bind() const
 {
-	glBindTexture(GL_TEXTURE_2D_ARRAY, textureID);
+	glBindTexture(GL_TEXTURE_2D_ARRAY, m_textureID);
 }
 
 void TextureArray2D::unbind() const

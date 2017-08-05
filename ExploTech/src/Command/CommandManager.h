@@ -19,72 +19,31 @@ namespace
 		TextElement(std::string s)
 		{
 			id = Text_Manager::get().addText(s, 20, 15, 0.5f, 0.5f, Vector3(1.0f));
-			//std::cout << "Constructor called! " << id << std::endl;
 		}
 
-		~TextElement() 
+		~TextElement()
 		{
-			//std::cout << "Destructor textElement. " << id << std::endl;
-				Text_Manager::get().deleteText(id);
+			Text_Manager::get().deleteText(id);
 		}
 
-		/*TextElement(const TextElement& other) {
-			std::cout << "Copy constructor called! " << other.id << std::endl;
-
-			existenceClock = other.existenceClock;
-			isActive = other.isActive;
-
-			id = Text_Manager::get().addText(Text_Manager::get().getTextString(other.id),
-										 	 Text_Manager::get().getTextPositionX(other.id),
-											 Text_Manager::get().getTextPositionY(other.id),
-											 Text_Manager::get().getTextScaleX(other.id),
-											 Text_Manager::get().getTextScaleY(other.id),
-											 Text_Manager::get().getTextColor(other.id));
-			std::cout << "Copy constructor called! got id " << id << std::endl;
-		}
-
-		TextElement& operator =(const TextElement& other)
-		{
-			std::cout << "Copy assignment constructor called! " << other.id << std::endl;
-			existenceClock = other.existenceClock;
-			isActive = other.isActive;
-
-			id = Text_Manager::get().addText(Text_Manager::get().getTextString(other.id),
-											 Text_Manager::get().getTextPositionX(other.id),
-										  	 Text_Manager::get().getTextPositionY(other.id),
-											 Text_Manager::get().getTextScaleX(other.id),
-										  	 Text_Manager::get().getTextScaleY(other.id),
-											 Text_Manager::get().getTextColor(other.id));
-			std::cout << "Copy assignment constructor called! got id " << id << std::endl;
-			return *this;
-		}
-
-		TextElement& operator= (TextElement && rhs)
-		{
-			std::cout << "Move assignment from " << rhs.id << std::endl;
-			std::swap(id, rhs.id);
-			std::swap(existenceClock, rhs.existenceClock);
-			std::swap(isActive, rhs.isActive);
-			return *this;
-		}*/
-
-
-		// adds more to the end of the text element.
+		// Adds a string to the end of the text element.
 		void add(std::string s)
 		{
 			Text_Manager::get().concatenateText(s, id);
 		}
 
+		// Removes the last character of the text element.
 		void backSpace()
 		{
 			Text_Manager::get().backSpace(id);
 		}
 
+		// Moves the text element up by y.
 		void moveUp(float y)
 		{
-			//std::cout << "ID: " << id << std::endl;
 			Text_Manager::get().changeTextPositionY(y, id);
 		
+			// If text elements is still active (we are still typing) then start the clock for it to disappear.
 			if (isActive == true)
 			{
 				existenceClock.restart();
@@ -138,7 +97,7 @@ private:
 
 	bool m_isCommandWindowOpen = false;
 
-	std::vector<TextElement*> textElements;
+	std::vector<TextElement*> m_textElements;
 
 	bool m_isRunning = true;
 };

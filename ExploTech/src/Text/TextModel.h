@@ -62,12 +62,13 @@ public:
 
 private:
 
-	int atlasWidth = 0;
-	int atlasHeight = 0;
+	int m_atlasWidth = 0;
+	int m_atlasHeight = 0;
 
-	int numberOfCharactersToDraw = 0;
+	int m_numberOfCharactersToDraw = 0;
 
-	GLuint m_vao = 0, m_vbo = 0;
+	GLuint m_vao = 0;
+	GLuint m_vbo = 0;
 	GLuint m_textureID = 0;
 
 	GLuint m_fontPadding = 1;

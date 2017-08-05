@@ -7,6 +7,8 @@
 
 #include <vector>
 
+// TODO: this should be pretty simple.
+
 class SimpleSquare
 {
 public:

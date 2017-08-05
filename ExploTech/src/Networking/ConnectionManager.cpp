@@ -14,11 +14,6 @@ void ConnectionManager::sendMessageToServer(unsigned short port, std::string ip,
 	// Ask for the server address
 	sf::IpAddress server(ip);
 
-	
-	// message.length() + 1 for null terminated string
-	//if (socket.send(message.c_str(), message.length() + 1, server, port) != sf::Socket::Done)
-	//	return;
-
 	sf::Packet packet;
 	packet << blockChange.worldPosition.x << blockChange.worldPosition.y << blockChange.worldPosition.z << blockChange.type;
 
@@ -27,7 +22,7 @@ void ConnectionManager::sendMessageToServer(unsigned short port, std::string ip,
 		return;
 	}
 
-	//std::cout << "Message sent to the server: \"" << message << "\"" << std::endl;
+	std::cout << "Message sent to the server." << std::endl;
 }
 
 ConnectionManager::ConnectionManager()
@@ -57,7 +52,7 @@ ConnectionManager::~ConnectionManager()
 
 void ConnectionManager::receiveData()
 {
-	// Receive an answer from anyone (but most likely from the server)
+	// Receive an answer from anyone (but most likely from the server).
 	sf::IpAddress sender;
 	unsigned short senderPort;
 	sf::Packet packet;
@@ -70,5 +65,6 @@ void ConnectionManager::receiveData()
 		std::cout << "X: " << blockChange.worldPosition.x << " Y: " << blockChange.worldPosition.y << " Z: " << blockChange.worldPosition.z << " Type: " << blockChange.type << std::endl;
 		World_Manager::get().addThreadSafeServerBlockChangesToTheList(blockChange.worldPosition, static_cast<Block::ID>(blockChange.type), true);
 	}
-	//std::cout << "Message received from " << sender << ": \"" << in << "\"" << std::endl;
+
+	std::cout << "Message received from " << sender << std::endl;
 }

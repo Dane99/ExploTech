@@ -34,6 +34,7 @@ void Camera::updateViewMatrix()
 
 void Camera::keyboardInput(float dt)
 {
+	// If the command window is open, we do not want to be able to move.
 	if (!CommandManager::get().isCommandWindowOpen())
 	{
 		Vector3 change;

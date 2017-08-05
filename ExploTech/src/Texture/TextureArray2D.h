@@ -15,6 +15,6 @@ public:
 	void unbind() const;
 
 private:
-	GLuint textureID;
+	GLuint m_textureID;
 
 };

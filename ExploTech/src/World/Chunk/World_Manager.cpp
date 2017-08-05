@@ -175,88 +175,6 @@ Block::ID World_Manager::GetBlock(Vector3 WorldPosition)
 	}
 }
 
-void World_Manager::setBlockByPlayer(Vector3 blockPosition, Vector3 playerPosition, Block::ID type)
-{
-	GLfloat xDif, yDif, zDif, xDifAbs, yDifAbs, zDifAbs;
-	xDif = playerPosition.x - blockPosition.x;
-	yDif = playerPosition.y - blockPosition.y;
-	zDif = playerPosition.z - blockPosition.z;
-
-	xDifAbs = abs(xDif);
-	yDifAbs = abs(yDif);
-	zDifAbs = abs(zDif);
-
-	//blockPosition = getCleanLocation(blockPosition);
-
-	if (xDif >= yDif
-		&& xDif >= zDif
-		&& xDif >= xDifAbs
-		&& xDif >= yDifAbs
-		&& xDif >= zDifAbs) {
-
-		if (GetBlock(Vector3(blockPosition.x + 0.5f, blockPosition.y, blockPosition.z)) == Block::ID::Air) {
-			blockPosition.x += 1;
-			SetBlock(Vector3(blockPosition.x, blockPosition.y, blockPosition.z), type);
-		}
-	}
-	else if (yDif >= xDif
-		&& yDif >= zDif
-		&& yDif >= xDifAbs
-		&& yDif >= yDifAbs
-		&& yDif >= zDifAbs) {
-
-		if (GetBlock(Vector3(blockPosition.x, blockPosition.y + 0.5f, blockPosition.z)) == Block::ID::Air) {
-			blockPosition.y += 1;
-			SetBlock(Vector3(blockPosition.x, blockPosition.y, blockPosition.z), type);
-		}
-	}
-	else if (zDif >= xDif
-		&& zDif >= yDif
-		&& zDif >= xDifAbs
-		&& zDif >= yDifAbs
-		&& zDif >= zDifAbs) {
-		if (GetBlock(Vector3(blockPosition.x, blockPosition.y, blockPosition.z + 0.5f)) == Block::ID::Air) {
-			blockPosition.z += 1;
-			SetBlock(Vector3(blockPosition.x, blockPosition.y, blockPosition.z), type);
-		}
-	}
-	else if (xDifAbs >= xDif
-		&& xDifAbs >= yDif
-		&& xDifAbs >= zDif
-		&& xDifAbs >= yDifAbs
-		&& xDifAbs >= zDifAbs) {
-		if (GetBlock(Vector3(blockPosition.x - 0.5f, blockPosition.y, blockPosition.z)) == Block::ID::Air) {
-			blockPosition.x -= 1;
-			SetBlock(Vector3(blockPosition.x, blockPosition.y, blockPosition.z), type);
-		}
-
-	}
-	else if (yDifAbs >= xDif
-		&& yDifAbs >= yDif
-		&& yDifAbs >= zDif
-		&& yDifAbs >= xDifAbs
-		&& yDifAbs >= zDifAbs) {
-		if (GetBlock(Vector3(blockPosition.x, blockPosition.y - 0.5f, blockPosition.z)) == Block::ID::Air) {
-			blockPosition.y -= 1;
-			SetBlock(Vector3(blockPosition.x, blockPosition.y, blockPosition.z), type);
-		}
-
-	}
-	else if (zDifAbs >= xDif
-		&& zDifAbs >= yDif
-		&& zDifAbs >= zDif
-		&& zDifAbs >= xDifAbs
-		&& zDifAbs >= yDifAbs) {
-
-		if (GetBlock(Vector3(blockPosition.x, blockPosition.y, blockPosition.z - 0.5f)) == Block::ID::Air) {
-			blockPosition.z -= 1;
-			SetBlock(Vector3(blockPosition.x, blockPosition.y, blockPosition.z), type);
-		}
-	}
-
-
-}
-
 std::unordered_map<IntVector3, Chunk*, KeyHasher>* World_Manager::getChunks()
 {
 	return m_chunks;
@@ -269,4 +187,3 @@ void World_Manager::generateAllChunks()
 		it->second->generate();
 	}
 }
-

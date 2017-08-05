@@ -8,11 +8,11 @@ CommandManager::CommandManager()
 
 CommandManager::~CommandManager()
 {
-	for (auto& element : textElements)
+	for (auto& element : m_textElements)
 	{
 		delete element;
 	}
-	textElements.clear();
+	m_textElements.clear();
 }
 
 void CommandManager::sendToInterpreter(std::string data)
@@ -20,11 +20,27 @@ void CommandManager::sendToInterpreter(std::string data)
 	if (data.find("/tp") == 0)
 	{
 		float numbers[3];
-		std::stringstream ss(data.substr(3, data.length() - 3));
-		for (int i = 0; i<3; i++) {
-			ss >> numbers[i];
-			std::cout << numbers[i] << std::endl;
+
+		int index = 0;
+
+		std::istringstream iss(data.substr(3, data.length() - 3));
+		float num = 0;
+		while ((iss >> num || !iss.eof()) && (index < 3)) {
+			if (iss.fail()) {
+				iss.clear();
+				std::string dummy;
+				iss >> dummy;
+				continue;
+			}
+			numbers[index++] = num;
 		}
+
+		
+		if (index < 3) {
+			std::cout << "Teleport command failed!" << std::endl;
+			return;
+		}
+
 		Application::get().getCamera().setPosition(Vector3(numbers[0], numbers[1], numbers[2]));
 
 	}
@@ -42,7 +58,7 @@ void CommandManager::sendToInterpreter(std::string data)
 		}
 
 		std::string message;
-		for (int i = 2; i < tokens.size(); ++i)
+		for (unsigned int i = 2; i < tokens.size(); ++i)
 		{
 			message += tokens[i];
 
@@ -51,22 +67,19 @@ void CommandManager::sendToInterpreter(std::string data)
 				message += " ";
 			}
 		}
-
-		//std::cout << data.substr(3, data.length() - 3) << std::endl;
-		//ConnectionManager::get().sendMessageToServer(50000, tokens.at(1), message);
 	}
 }
 
 void CommandManager::CheckforElementsThatShouldBeDeleted()
 {
-	auto i = textElements.begin();
+	auto i = m_textElements.begin();
 
-	while (i != textElements.end())
+	while (i != m_textElements.end())
 	{
 		if ((*i)->shouldBeDeleted())
 		{
 			delete *i;
-			i = textElements.erase(i);
+			i = m_textElements.erase(i);
 		}
 		else
 		{
@@ -93,9 +106,9 @@ void CommandManager::closeCommandWindow()
 
 bool CommandManager::isCommandWindowOpen()
 {
-	if(textElements.size() != 0)
+	if(m_textElements.size() != 0)
 	{
-		if (textElements.back()->isActive) {
+		if (m_textElements.back()->isActive) {
 			return true;
 		}
 	}
@@ -114,22 +127,22 @@ void CommandManager::keyPressed(unsigned int keyID)
 
 		if (keyID == GLFW_KEY_SLASH && !Input_Manager::keys[GLFW_KEY_RIGHT_SHIFT])
 		{
-			if (textElements.size() == 0)
+			if (m_textElements.size() == 0)
 			{
 				TextElement* tmp = new TextElement(s);
-				textElements.emplace_back(tmp);
+				m_textElements.emplace_back(tmp);
 			}
 			else
 			{
-				if (textElements.back()->isActive)
+				if (m_textElements.back()->isActive)
 				{
-					delete textElements.back();
-					textElements.pop_back();
+					delete m_textElements.back();
+					m_textElements.pop_back();
 				}
 				else
 				{
 					TextElement* tmp = new TextElement(s);
-					textElements.emplace_back(tmp);
+					m_textElements.emplace_back(tmp);
 				}
 			}
 		}
@@ -137,14 +150,14 @@ void CommandManager::keyPressed(unsigned int keyID)
 		{
 			if (isCommandWindowOpen())
 			{
-				textElements.back()->add("?");
+				m_textElements.back()->add("?");
 			}
 		}
 		else
 		{
 			if (isCommandWindowOpen())
 			{
-					textElements.back()->add(s);
+					m_textElements.back()->add(s);
 		
 			}
 		}
@@ -154,7 +167,7 @@ void CommandManager::keyPressed(unsigned int keyID)
 	{
 		if (isCommandWindowOpen())
 		{
-			textElements.back()->backSpace();
+			m_textElements.back()->backSpace();
 		}
 	}
 
@@ -162,91 +175,22 @@ void CommandManager::keyPressed(unsigned int keyID)
 	{
 		if (isCommandWindowOpen())
 		{
-			sendToInterpreter(Text_Manager::get().getTextString(textElements.back()->id));
+			sendToInterpreter(Text_Manager::get().getTextString(m_textElements.back()->id));
 
-			for (auto& element : textElements)
+			for (auto& element : m_textElements)
 			{
 				element->moveUp(25.0f);
 			}
 			TextElement* tmp = new TextElement("");
-			textElements.emplace_back(tmp);
+			m_textElements.emplace_back(tmp);
 		}
 	}
 
 	if (keyID == GLFW_KEY_ESCAPE && isCommandWindowOpen())
 	{
-		delete textElements.back();
-		textElements.pop_back();
-	}
-/*
-	if (keyID == GLFW_KEY_SLASH)
-	{
-		if (textElements.size() != 0) 
-		{
-			if (textElements.back().isActive)
-			{
-				//textElements.pop_back();
-			}
-			else
-			{
-				textElements.push_back(std::move(TextElement(s)));
-			}
-		}
-		else {
-			textElements.push_back(std::move(TextElement(s)));
-		}
-	}
-
-		if (isCommandWindowOpen())
-		{
-			std::cout << "test" << std::endl;
-			textElements.back().add(s);
-
-		}
-	*/
-	/*
-	if (CommandManager::m_isCommandWindowOpen && keyID != GLFW_KEY_BACKSPACE)
-	{
-		Text_Manager::get().concatenateText(s, textElements.back().id);
-	}
-
-
-	if (keyID == GLFW_KEY_SLASH) 
-	{
-		if(CommandManager::m_isCommandWindowOpen)
-		{
-			CommandManager::m_isCommandWindowOpen = false;
-			m_textManager->deleteText(textID);
-			textID = 0;
-
-			CommandManager::currentTextIdExists = false;
-		}
-		else
-		{
-			CommandManager::m_isCommandWindowOpen = true;
-		}
-	}
-
-	if (keyID == GLFW_KEY_BACKSPACE)
-	{
-		m_textManager->backSpace(textID);
-	}
-
-	if (keyID == GLFW_KEY_ENTER)
-	{
-
-	}
-
-
-	if(CommandManager::m_isCommandWindowOpen && (!currentTextIdExists))
-	{
-		textID = m_textManager->addText(s, 20, 15, 0.5f, 0.5f, Vector3(1.0f));
-		CommandManager::currentTextIdExists = true;
-	}
-	*/
-
-
-
+		delete m_textElements.back();
+		m_textElements.pop_back();
+	}		
 }
 
 void CommandManager::update()

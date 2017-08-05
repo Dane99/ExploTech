@@ -34,16 +34,16 @@ namespace{
 
 Crosshair::Crosshair()
 {
-	model.addData(vertices, texCoords, indices);
-	texture.load("Crosshair");
+	m_model.addData(vertices, texCoords, indices);
+	m_texture.load("Crosshair");
 }
 
 const Model& Crosshair::getModel() const
 {
-	return model;
+	return m_model;
 }
 
 const Texture::Basic_Texture& Crosshair::getTexture() const
 {
-	return texture;
+	return m_texture;
 }

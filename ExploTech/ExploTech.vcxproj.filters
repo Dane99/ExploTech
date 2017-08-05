@@ -275,9 +275,6 @@
     <ClInclude Include="src\Shaders\HUD_ShaderSimple.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Networking\Connection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Util\Singleton.h">
       <Filter>Header Files</Filter>
     </ClInclude>

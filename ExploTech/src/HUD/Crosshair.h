@@ -16,6 +16,6 @@ public:
 
 private:
 
-	Model model;
-	Texture::Basic_Texture texture;
+	Model m_model;
+	Texture::Basic_Texture m_texture;
 };

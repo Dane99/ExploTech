@@ -190,7 +190,6 @@
     <ClInclude Include="src\HUD\CommandWindow.h" />
     <ClInclude Include="src\HUD\Crosshair.h" />
     <ClInclude Include="src\HUD\HUD.h" />
-    <ClInclude Include="src\Networking\Connection.h" />
     <ClInclude Include="src\Networking\ConnectionManager.h" />
     <ClInclude Include="src\PrimitiveModeling\SimpleSquare.h" />
     <ClInclude Include="src\Renderer\Chunk_Renderer.h" />
