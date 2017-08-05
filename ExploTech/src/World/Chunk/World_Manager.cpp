@@ -71,7 +71,7 @@ World_Manager& World_Manager::get()
 	return worldManager;
 }
 
-void World_Manager::addThreadSafeBlockChangesToTheList(Vector3 worldPosition, Block::ID type)
+void World_Manager::addThreadSafeServerBlockChangesToTheList(Vector3 worldPosition, Block::ID type, bool isFromServer)
 {
 	blockChangesMutex.lock();
 
@@ -82,13 +82,13 @@ void World_Manager::addThreadSafeBlockChangesToTheList(Vector3 worldPosition, Bl
 	blockChangesMutex.unlock();
 }
 
-void World_Manager::realizeBlockChangeList()
+void World_Manager::realizeServerBlockChangeList()
 {
 	blockChangesMutex.lock();
 
 	while (!blockChanges.empty())
 	{
-		SetBlock(blockChanges.front().worldPosition, static_cast<Block::ID>(blockChanges.front().type));
+		SetBlock(blockChanges.front().worldPosition, static_cast<Block::ID>(blockChanges.front().type), true);
 		blockChanges.pop();
 	}
 	blockChangesMutex.unlock();
@@ -96,7 +96,7 @@ void World_Manager::realizeBlockChangeList()
 
 void World_Manager::update()
 {
-	//realizeBlockChangeList();
+	realizeServerBlockChangeList();
 }
 
 Chunk* World_Manager::getChunkWithWorldPosition(Vector3 WorldPosition)

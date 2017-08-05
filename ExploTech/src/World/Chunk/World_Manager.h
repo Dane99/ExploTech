@@ -33,8 +33,8 @@ class World_Manager : public Singleton
 		
 		static World_Manager& get();
 
-		void addThreadSafeBlockChangesToTheList(Vector3 worldPosition, Block::ID type);
-		void realizeBlockChangeList();
+		void addThreadSafeServerBlockChangesToTheList(Vector3 worldPosition, Block::ID type, bool isFromServer = false);
+		void realizeServerBlockChangeList();
 
 		void update();
 
@@ -45,9 +45,6 @@ class World_Manager : public Singleton
 		Block::ID World_Manager::GetBlock(Vector3 WorldPosition);
 
 		void World_Manager::setBlockByPlayer(Vector3 blockPosition, Vector3 playerPosition, Block::ID type);
-
-		// TODO
-		Vector3 getChunkPositionFromWorldPosition(Vector3 worldPosition);
 
 		std::unordered_map<IntVector3, Chunk*, KeyHasher>* getChunks();
 

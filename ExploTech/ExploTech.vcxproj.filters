@@ -290,7 +290,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Shaders\Simple_Fragment.glsl" />
-    <None Include="Data\Shaders\Simple_Vertex.glsl" />
     <None Include="Data\Blocks\Air.block" />
     <None Include="Data\Blocks\Grass.block" />
     <None Include="Data\Shaders\HUD_Fragment.glsl" />
@@ -299,6 +298,7 @@
     <None Include="Data\Shaders\Text_Vertex.glsl" />
     <None Include="Data\Shaders\HUD_Simple_Vertex.glsl" />
     <None Include="Data\Shaders\HUD_Simple_Fragment.glsl" />
+    <None Include="Data\Shaders\Simple_Vertex.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Data\Textures\grass.png">
