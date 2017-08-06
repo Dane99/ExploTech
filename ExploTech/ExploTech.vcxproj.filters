@@ -60,18 +60,6 @@
     <ClCompile Include="src\Texture\Texture_Atlas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\World\Block\Block_Data.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\World\Block\Block_Types\Block_Type.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\World\Block\Block_Types\Air.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\World\Block\Block_Types\Grass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\World\Block\Block_Database.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -138,6 +126,18 @@
     <ClCompile Include="src\Networking\ConnectionManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\World\Block\BlockTypes\Data\BlockData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World\Block\BlockTypes\Air.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World\Block\BlockTypes\BlockType.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World\Block\BlockTypes\Grass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Display.h">
@@ -188,22 +188,10 @@
     <ClInclude Include="src\Texture\Texture_Atlas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\World\Block\Block_Data.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\World\Block\Block_Database.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\World\Block\Block_ID.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\World\Block\Block_Types\Block_Type.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\World\Block\Block_Types\Air.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\World\Block\Block_Types\Grass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\World\Chunk\Mesh.h">
@@ -282,6 +270,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\World\Block\BlockChange.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\World\Block\BlockTypes\Data\BlockData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\World\Block\BlockTypes\Air.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\World\Block\BlockTypes\BlockType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\World\Block\BlockTypes\Grass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -3,7 +3,7 @@
 namespace Block
 {
 	Grass::Grass()
-		: Type("Grass")
+		: BlockType("Grass")
 	{
 	}
 }

@@ -129,55 +129,59 @@ void Chunk::generate()
 				if (m_blocks.get(x, y, z) != static_cast<uint8_t>(Block::ID::Air)) {
 					IntVector3 blockPosition(x, y, z);
 
-					//auto &blockData = Block::Database::get().getBlockData(m_blocks.get(x, y, z));
-
 					// 0 is air
-					if (!isBlockHere(IntVector3(x, y + 1, z))) {
+					if (!isBlockHere(IntVector3(x, y + 1, z))) 
+					{
 						mesh.addFace(topFace,
-							textureCoords,
-							1.0f,
-							m_position,
-							blockPosition);
+									 textureCoords,
+									 1.0f,
+									 m_position,
+									 blockPosition);
 					}
 
-					if (!isBlockHere(IntVector3(x, y - 1, z))) {
+					if (!isBlockHere(IntVector3(x, y - 1, z))) 
+					{
 						mesh.addFace(bottomFace,
-							textureCoords,
-							3.0f,
-							m_position,
-							blockPosition);
+									 textureCoords,
+									 3.0f,
+							 		 m_position,
+								 	 blockPosition);
 					}
 
-					if (!isBlockHere(IntVector3(x + 1, y, z))) {
+					if (!isBlockHere(IntVector3(x + 1, y, z))) 
+					{
 						mesh.addFace(rightFace,
-							textureCoords,
-							2.0f,
-							m_position,
-							blockPosition);
+									 textureCoords,
+									 2.0f,
+									 m_position,
+									 blockPosition);
 					}
 
-					if (!isBlockHere(IntVector3(x - 1, y, z))) {
+					if (!isBlockHere(IntVector3(x - 1, y, z))) 
+					{
 						mesh.addFace(leftFace,
-							textureCoords,
-							2.0f,
-							m_position,
-							blockPosition);
+									 textureCoords,
+									 2.0f,
+									 m_position,
+									 blockPosition);
 					}
 
-					if (!isBlockHere(IntVector3(x, y, z + 1))) {
+					if (!isBlockHere(IntVector3(x, y, z + 1))) 
+					{
 						mesh.addFace(frontFace,
-							textureCoords,
-							2.0f,
-							m_position,
-							blockPosition);
+									 textureCoords,
+									 2.0f,
+									 m_position,
+									 blockPosition);
 					}
 
-					if (!isBlockHere(IntVector3(x, y, z - 1))) {
+					if (!isBlockHere(IntVector3(x, y, z - 1))) 
+					{
 						mesh.addFace(backFace,
-							textureCoords,
-							2.0f,
-							m_position,
-							blockPosition);
+									 textureCoords,
+									 2.0f,
+									 m_position,
+									 blockPosition);
 					}
 				}
 			}

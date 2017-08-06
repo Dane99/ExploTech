@@ -1,5 +1,6 @@
 #pragma once
 #include "TextureArray2D.h"
+#include "../World/Block/Block_ID.h"
 
 class TextureManager
 {

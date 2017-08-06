@@ -3,10 +3,6 @@
 #include <memory>
 #include <vector>
 
-#include "Block_Types/Air.h"
-#include "Block_Types/Grass.h"
-
-#include "Block_ID.h"
 
 namespace Block
 {
@@ -18,41 +14,19 @@ namespace Block
 
 	Database::Database()
 		: blocks((int)ID::NUM_BLOCK_TYPES)
-		, textures("Texture_Atlas", 512, 16)
 	{
 		blocks[(int)ID::Air] = std::make_unique<Air>();
 		blocks[(int)ID::Grass] = std::make_unique<Grass>();
 	}
 
-	const Type& Database::getBlock(uint8_t id)
+	const BlockData& Database::getBlockData(uint8_t id)
 	{
-		return *blocks[id];
+		return blocks[id]->getData();
 	}
 
-	const Type& Database::getBlock(ID blockID)
+	const BlockData& Database::getBlockData(ID blockID)
 	{
-		return *blocks[(int)blockID];
-	}
-
-	const Block_Data& Database::getBlockData(uint8_t id)
-	{
-		return blocks[id]->getData().getBlockData();
-	}
-
-	const Block_Data& Database::getBlockData(ID blockID)
-	{
-		return blocks[(int)blockID]->getData().getBlockData();
-	}
-
-
-	const Type& getType(uint8_t id)
-	{
-		return Database::get().getBlock(id);
-	}
-
-	const Type& getType(ID blockID)
-	{
-		return Database::get().getBlock(blockID);
+		return blocks[(int)blockID]->getData();
 	}
 
 }

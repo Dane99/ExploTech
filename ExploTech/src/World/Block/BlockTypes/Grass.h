@@ -1,12 +1,13 @@
 #pragma once
 
-#include "Block_Type.h"
+#include "BlockType.h"
 
 namespace Block
 {
-	class Grass : public Type
+	class Grass : public BlockType
 	{
 		public:
 			Grass();
+			
 	};
 }

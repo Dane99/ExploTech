@@ -3,11 +3,11 @@
 #include <memory>
 #include <vector>
 
-#include "Block_Types/Block_Type.h"
-
 #include "Block_ID.h"
 
-#include "../../Texture/Texture_Atlas.h"
+#include "BlockTypes/Air.h"
+#include "BlockTypes/Grass.h"
+#include "BlockTypes/BlockType.h"
 
 namespace Block
 {
@@ -16,21 +16,14 @@ namespace Block
 	public:
 		static Database& get();
 
-		Database();
+		
 
-		const Type& getBlock(uint8_t id);
-		const Type& getBlock(ID blockID);
-
-		const Block_Data& getBlockData(uint8_t id);
-		const Block_Data& getBlockData(ID blockID);
+		const BlockData& getBlockData(uint8_t id);
+		const BlockData& getBlockData(ID blockID);
 
 	private:
-		std::vector<std::unique_ptr<Type>> blocks;
+		Database();
 
-	public:
-		Texture::Atlas textures;
+		std::vector<std::unique_ptr<BlockType>> blocks;
 	};
-
-	const Type& getType(uint8_t id);
-	const Type& getType(ID blockID);
 }
