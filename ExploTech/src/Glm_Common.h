@@ -13,3 +13,13 @@ typedef glm::vec4 Vector4;
 typedef glm::ivec4 IntVector4;
 
 typedef glm::mat4 Matrix4;
+
+
+// TODO add more entity types (i.e. like animals).
+enum class EntityType
+{
+	Player = 0,
+	MovingBlock,
+	
+	MAX_ELEMENT_COUNT
+};

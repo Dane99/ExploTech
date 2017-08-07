@@ -12,9 +12,10 @@
 
 namespace Renderer
 {
-	void Simple::addToSimpleRenderList(const Quad& quad)
+	// TODO rename entity renderer.
+	void Simple::addToSimpleRenderList(EntityManager& entityManager)
 	{
-		m_quads.push_back(&quad);
+		m_entityManager = &entityManager;
 	}
 
 	void Simple::update(const Camera& camera)
@@ -27,7 +28,7 @@ namespace Renderer
 
 		TextureManager::get().getPtrTextureArray()->bind();
 
-		for (auto& quad : m_quads) 
+		for (auto& quad : (*(m_entityManager->getQuads()))) 
 		{
 			prepare(*quad);
 			glDrawElements(GL_TRIANGLES,
@@ -36,11 +37,11 @@ namespace Renderer
 						   nullptr);
 		}
 
-		m_quads.clear();
+		m_entityManager = nullptr;
 	
 	}
 
-	void Simple::prepare(const Quad& quad)
+	void Simple::prepare(Quad& quad)
 	{
 		quad.getModel().bind();
 		m_shader.setModelMatrix(Math::createModelMatrix(quad));

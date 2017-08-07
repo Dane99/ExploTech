@@ -8,6 +8,7 @@
 #include "../World/Chunk/World_Manager.h"
 #include "../Text/Text_Manager.h"
 #include "TextRenderer.h"
+#include "../Entity/EntityManager.h"
 
 class Quad;
 class Camera;
@@ -21,7 +22,7 @@ namespace Renderer
 
 			void update(const Camera& camera);
 
-			void addToMasterRenderList(const Quad& model);
+			void addToMasterRenderList(EntityManager& entityManager);
 			void addToMasterRenderList(World_Manager& worldManager);
 			void addToMasterRenderList(HUD& hud);
 			void addToMasterRenderList(Text_Manager& textManager);

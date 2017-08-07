@@ -124,6 +124,12 @@ Quad::Quad()
 	m_model.addData(vertexPositions, textureCoords, layers, indices);
 }
 
+Quad::Quad(Vector3 worldPosition)
+{
+	position = worldPosition;
+	m_model.addData(vertexPositions, textureCoords, layers, indices);
+}
+
 const Model& Quad::getModel() const
 {
 	return m_model;

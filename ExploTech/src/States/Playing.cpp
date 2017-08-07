@@ -28,6 +28,9 @@ namespace State {
 		: Game_State()
 		, m_quad()
 	{
+		EntityManager::get().addNewEntity(Vector3(0, 0, -3), EntityType::MovingBlock);
+		EntityManager::get().moveToPosition(Vector3(0, 0, -10), 20.0f, generalClock.getElapsedTime().asSeconds(), 0);
+
 		srand(time(NULL));
 		m_quad.position.z  = -3;
 		World_Manager::get().generateAllChunks();
@@ -45,6 +48,7 @@ namespace State {
 	{
 		CommandManager::get().update();
 		World_Manager::get().update();
+		EntityManager::get().update(generalClock.getElapsedTime().asSeconds());
 
 		m_quad.position.x += static_cast<float>(sin(generalClock.getElapsedTime().asSeconds()) * dt * 0.8);
 		m_quad.position.y += static_cast<float>(sin(generalClock.getElapsedTime().asSeconds()) * dt * 0.8);
@@ -76,7 +80,7 @@ namespace State {
 	void Playing::draw(Renderer::Master& renderer)
 	{
 		renderer.addToMasterRenderList(World_Manager::get());
-		renderer.addToMasterRenderList(m_quad);
+		renderer.addToMasterRenderList(EntityManager::get());
 		renderer.addToMasterRenderList(hud);
 		renderer.addToMasterRenderList(Text_Manager::get());
 

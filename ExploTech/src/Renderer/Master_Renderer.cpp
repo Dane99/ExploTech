@@ -37,8 +37,8 @@ namespace Renderer
 		m_TextRenderer.addToTextRenderList(textManager);
 	}
 
-	void Master::addToMasterRenderList(const Quad& model)
+	void Master::addToMasterRenderList(EntityManager& entityManager)
 	{
-		m_simpleRenderer.addToSimpleRenderList(model);
+		m_simpleRenderer.addToSimpleRenderList(entityManager);
 	}
 }

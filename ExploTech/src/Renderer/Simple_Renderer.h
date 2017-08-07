@@ -4,6 +4,7 @@
 #include <SFML/System/Clock.hpp>
 
 #include "../Shaders/Simple_Shader.h"
+#include "../Entity/EntityManager.h"
 
 class Quad;
 class Camera;
@@ -14,15 +15,15 @@ namespace Renderer
 	{
 		public:
 			// adds a model to the m_models vector.
-			void addToSimpleRenderList(const Quad& quad);
+			void addToSimpleRenderList(EntityManager& entityManager);
 
 			// draws all the models in m_models.
 			void update(const Camera& camera);
 
 		private:
-			void prepare(const Quad& quad);
+			void prepare(Quad& quad);
 
-			std::vector<const Quad*> m_quads;
+			EntityManager* m_entityManager;
 			Shader::Simple_Shader m_shader;
 
 			sf::Clock m_clock;

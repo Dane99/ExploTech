@@ -30,7 +30,7 @@ namespace State
 			void updateKeyboardInput(float dt) override;
 
 		private:
-			Shader::Simple_Shader m_shader;
+			//Shader::Simple_Shader m_shader;
 
 			Quad m_quad;
 
