@@ -73,7 +73,13 @@ void Camera::keyboardInput(float dt)
 			change -= m_worldUp * speed;
 		}
 
-		position += change * dt;
+		float sprint = 1.0f;
+		if(Input_Manager::keys[GLFW_KEY_LEFT_SHIFT])
+		{
+			sprint = 30.0f;
+		}
+
+		position += change * dt * sprint;
 	}
 }
 

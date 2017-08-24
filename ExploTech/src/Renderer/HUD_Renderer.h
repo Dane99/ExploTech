@@ -19,7 +19,6 @@ namespace Renderer
 	private:
 
 		Shader::HUD_Shader m_shader;
-		Shader::HUD_ShaderSimple m_shaderSimple;
 		HUD* m_hud;
 		sf::Clock m_clock;
 	};

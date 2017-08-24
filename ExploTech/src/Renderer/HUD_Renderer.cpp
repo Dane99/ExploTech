@@ -38,7 +38,6 @@ namespace Renderer
 		m_shader.unbind();
 
 		if (CommandManager::get().isCommandWindowOpen()) {
-			m_shaderSimple.bind();
 			m_shader.setProjMatrix(glm::ortho(0.0f, static_cast<GLfloat>(Display::WIDTH), 0.0f, static_cast<GLfloat>(Display::HEIGHT)));
 
 			// Command Window

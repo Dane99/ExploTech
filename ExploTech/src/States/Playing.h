@@ -9,7 +9,7 @@
 #include "../World/Chunk/Chunk.h"
 #include "../Temp/Quad.h"
 
-#include "../World/Chunk/World_Manager.h"
+#include "../World/Chunk/WorldManager.h"
 
 #include "../HUD/HUD.h"
 #include "../Text/Text_Manager.h"
@@ -35,6 +35,8 @@ namespace State
 			Quad m_quad;
 
 			HUD hud;
+
+			WorldManager worldManager;
 
 			static constexpr bool raycasting = true;
 	};

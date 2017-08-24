@@ -63,7 +63,7 @@ void ConnectionManager::receiveData()
 	BlockChange blockChange;
 	if (packet >> blockChange.worldPosition.x >> blockChange.worldPosition.y >> blockChange.worldPosition.z >> blockChange.type) {
 		std::cout << "X: " << blockChange.worldPosition.x << " Y: " << blockChange.worldPosition.y << " Z: " << blockChange.worldPosition.z << " Type: " << blockChange.type << std::endl;
-		World_Manager::get().addThreadSafeServerBlockChangesToTheList(blockChange.worldPosition, static_cast<Block::ID>(blockChange.type), true);
+		//World_Manager::get().addThreadSafeServerBlockChangesToTheList(blockChange.worldPosition, static_cast<Block::ID>(blockChange.type), true);
 	}
 
 	std::cout << "Message received from " << sender << std::endl;

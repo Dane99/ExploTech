@@ -22,7 +22,7 @@ namespace Renderer
 		Display::update();
 	}
 
-	void Master::addToMasterRenderList(World_Manager& worldManager)
+	void Master::addToMasterRenderList(WorldManager& worldManager)
 	{
 		m_chunkRenderer.addToChunkRenderList(worldManager);
 	}

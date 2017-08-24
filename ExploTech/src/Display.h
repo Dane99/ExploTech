@@ -4,8 +4,8 @@ struct GLFWwindow;
 
 namespace Display {
 
-	constexpr static int WIDTH = 640;
-	constexpr static int HEIGHT = 480;
+	constexpr static int WIDTH = 1280;
+	constexpr static int HEIGHT = 720;
 
 	void init();
 	void close();

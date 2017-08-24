@@ -21,6 +21,7 @@ struct MoveEvent
 	// Seconds
 	float timeToComplete;
 	float startTime;
+	// The id of the entity.
 	int id;
 };
 

@@ -55,7 +55,8 @@ class Chunk{
 
 		void generate();
 		const Mesh& getMesh() const;
-		const Vector3& getPosition() const;
+		const IntVector3& getPosition() const;
+		void setPosition(const IntVector3& position);
 
 		// Pointers to neighbor chunks
 		Chunk *left = nullptr, *right = nullptr, *below = nullptr, *above = nullptr, *front = nullptr, *back = nullptr;
@@ -83,7 +84,7 @@ class Chunk{
 
 		Block_Array m_blocks;
 
-		Vector3 m_position;
+		IntVector3 m_position;
 
 		Mesh mesh;
 

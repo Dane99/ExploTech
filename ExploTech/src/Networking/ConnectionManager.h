@@ -5,7 +5,7 @@
 #include <vector>
 #include <SFML/Network.hpp>
 #include <iostream>
-#include "../World/Chunk/World_Manager.h"
+#include "../World/Chunk/WorldManager.h"
 #include "../World/Block/BlockChange.h"
 
 class ConnectionManager

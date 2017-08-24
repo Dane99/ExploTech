@@ -27,13 +27,15 @@ namespace State {
 	Playing::Playing()
 		: Game_State()
 		, m_quad()
+		, worldManager()
 	{
 		EntityManager::get().addNewEntity(Vector3(0, 0, -3), EntityType::MovingBlock);
-		EntityManager::get().moveToPosition(Vector3(0, 0, -10), 20.0f, generalClock.getElapsedTime().asSeconds(), 0);
+		EntityManager::get().moveToPosition(Vector3(-10, -10, -10), 15.0f, generalClock.getElapsedTime().asSeconds(), 0);
+
+		worldManager.addChunk(IntVector3(0, 0, 0));
 
 		srand(time(NULL));
 		m_quad.position.z  = -3;
-		World_Manager::get().generateAllChunks();
 		//Text_Manager::get().addText("Hello World!", 100, 50, 1, 1, Vector3(0.5, 0.5, 0.5));
 		//textManager.addText("Random Number Alert: ", 10, Display::HEIGHT - 20, 0.5f, 0.5f, Vector3(1.0, 0.5, 0.5));
 
@@ -47,12 +49,13 @@ namespace State {
 	void Playing::update(float dt)
 	{
 		CommandManager::get().update();
-		World_Manager::get().update();
+		worldManager.update(Application::get().getCamera().position);
 		EntityManager::get().update(generalClock.getElapsedTime().asSeconds());
 
 		m_quad.position.x += static_cast<float>(sin(generalClock.getElapsedTime().asSeconds()) * dt * 0.8);
 		m_quad.position.y += static_cast<float>(sin(generalClock.getElapsedTime().asSeconds()) * dt * 0.8);
 		m_quad.position.z += static_cast<float>(cos(generalClock.getElapsedTime().asSeconds()) * dt * 0.8);
+
 
 		//textManager.changeTextPositionY(sin(generalClock.getElapsedTime().asSeconds()) * 300 + 300, 0);
 		//textManager.changeScaleX(cos(generalClock.getElapsedTime().asSeconds())/2 + 1, 0);
@@ -60,6 +63,26 @@ namespace State {
 		//textManager.changeColor(Vector3(sin(generalClock.getElapsedTime().asSeconds() + 0),
 		//								sin(generalClock.getElapsedTime().asSeconds() + 2),
 		//								sin(generalClock.getElapsedTime().asSeconds() + 4)), 0);
+
+
+		//Application::get().getCamera().position.x / 16
+
+		/*std::cout << ((float)Application::get().getCamera().position.x) / 16.0f << std::endl;
+		int chunkX = floor(((float)Application::get().getCamera().position.x) / 16.0f);
+		int chunkZ = floor(((float)Application::get().getCamera().position.z) / 16.0f);
+		
+
+		IntVector3 chunkLocation(chunkX, 0, chunkZ);
+
+		if(!World_Manager::get().isChunkHere(chunkLocation))
+		{
+			World_Manager::get().addChunk(chunkLocation);
+			World_Manager::get().addChunk(IntVector3(chunkLocation.x + 1, chunkLocation.y, chunkLocation.z));
+			World_Manager::get().addChunk(IntVector3(chunkLocation.x - 1, chunkLocation.y, chunkLocation.z));
+			World_Manager::get().addChunk(IntVector3(chunkLocation.x, chunkLocation.y, chunkLocation.z + 1));
+			World_Manager::get().addChunk(IntVector3(chunkLocation.x, chunkLocation.y, chunkLocation.z - 1));
+		}
+		*/
 
 
 		static bool first = true;
@@ -79,7 +102,7 @@ namespace State {
 
 	void Playing::draw(Renderer::Master& renderer)
 	{
-		renderer.addToMasterRenderList(World_Manager::get());
+		renderer.addToMasterRenderList(worldManager);
 		renderer.addToMasterRenderList(EntityManager::get());
 		renderer.addToMasterRenderList(hud);
 		renderer.addToMasterRenderList(Text_Manager::get());
@@ -100,9 +123,9 @@ namespace State {
 					currentPosition.y += facingDirection.y;
 					currentPosition.z += facingDirection.z;
 
-					if (World_Manager::get().GetBlock(Vector3(currentPosition.x, currentPosition.y, currentPosition.z)) != Block::ID::Air) 
+					if (worldManager.GetBlock(Vector3(currentPosition.x, currentPosition.y, currentPosition.z)) != Block::ID::Air) 
 					{
-						World_Manager::get().SetBlock(Vector3(currentPosition.x, currentPosition.y, currentPosition.z), Block::ID::Air);
+						worldManager.setBlock(Vector3(currentPosition.x, currentPosition.y, currentPosition.z), Block::ID::Air);
 						break;
 					}
 				}
@@ -115,12 +138,12 @@ namespace State {
 					currentPosition.y += facingDirection.y;
 					currentPosition.z += facingDirection.z;
 
-					if (World_Manager::get().GetBlock(Vector3(currentPosition.x, currentPosition.y, currentPosition.z)) != Block::ID::Air)
+					if (worldManager.GetBlock(Vector3(currentPosition.x, currentPosition.y, currentPosition.z)) != Block::ID::Air)
 					{
 						currentPosition.x -= facingDirection.x;
 						currentPosition.y -= facingDirection.y;
 						currentPosition.z -= facingDirection.z;
-						World_Manager::get().SetBlock(Vector3(currentPosition.x, currentPosition.y, currentPosition.z), Block::ID::Grass);
+						worldManager.setBlock(Vector3(currentPosition.x, currentPosition.y, currentPosition.z), Block::ID::Grass);
 
 						
 						break;
@@ -142,11 +165,11 @@ namespace State {
 
 			if (right) 
 			{
-				World_Manager::get().SetBlock(objcoord - facingDirection, Block::ID::Grass);
+				worldManager.setBlock(objcoord - facingDirection, Block::ID::Grass);
 			}
 			if (left)
 			{
-				World_Manager::get().SetBlock(objcoord + facingDirection, Block::ID::Air);
+				worldManager.setBlock(objcoord + facingDirection, Block::ID::Air);
 			}
 		}
 

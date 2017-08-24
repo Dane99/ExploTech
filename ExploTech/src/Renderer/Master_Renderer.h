@@ -5,7 +5,7 @@
 #include "HUD_Renderer.h"
 #include "../HUD/HUD.h"
 #include "../World/Chunk/Chunk.h"
-#include "../World/Chunk/World_Manager.h"
+#include "../World/Chunk/WorldManager.h"
 #include "../Text/Text_Manager.h"
 #include "TextRenderer.h"
 #include "../Entity/EntityManager.h"
@@ -23,7 +23,7 @@ namespace Renderer
 			void update(const Camera& camera);
 
 			void addToMasterRenderList(EntityManager& entityManager);
-			void addToMasterRenderList(World_Manager& worldManager);
+			void addToMasterRenderList(WorldManager& worldManager);
 			void addToMasterRenderList(HUD& hud);
 			void addToMasterRenderList(Text_Manager& textManager);
 		

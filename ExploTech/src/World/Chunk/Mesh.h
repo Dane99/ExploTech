@@ -23,7 +23,6 @@ public:
 	void Mesh::addFace(const std::vector<GLfloat>&    templateFace,
 					   const std::vector<GLfloat>&    texCoords,
 				  	   const GLfloat layer,
-					   const Vector3& chunkPos,
 					   const Vector3& blockPos);
 
 	void buffer();

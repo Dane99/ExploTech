@@ -9,62 +9,68 @@
 
 #include <iostream>
 
-namespace
-{
+
 	const std::vector<GLfloat> frontFace
 	{
-		0,          0,          BLOCK_SIZE,
-		BLOCK_SIZE, 0,          BLOCK_SIZE,
-		BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE,
-		0,          BLOCK_SIZE, BLOCK_SIZE
+		0,          0,          BLOCK_DIM,
+		BLOCK_DIM, 0,          BLOCK_DIM,
+		BLOCK_DIM, BLOCK_DIM, BLOCK_DIM,
+		0,          BLOCK_DIM, BLOCK_DIM
 	};
 
 	const std::vector<GLfloat> backFace
 	{
-		BLOCK_SIZE, 0,          0,
+		BLOCK_DIM, 0,          0,
 		0,          0,          0,
-		0,          BLOCK_SIZE, 0,
-		BLOCK_SIZE, BLOCK_SIZE, 0
+		0,          BLOCK_DIM, 0,
+		BLOCK_DIM, BLOCK_DIM, 0
 	};
 
 	const std::vector<GLfloat> leftFace
 	{
 		0, 0,           0,
-		0, 0,           BLOCK_SIZE,
-		0, BLOCK_SIZE,  BLOCK_SIZE,
-		0, BLOCK_SIZE,  0
+		0, 0,           BLOCK_DIM,
+		0, BLOCK_DIM,  BLOCK_DIM,
+		0, BLOCK_DIM,  0
 	};
 
 	const std::vector<GLfloat> rightFace
 	{
-		BLOCK_SIZE, 0,          BLOCK_SIZE,
-		BLOCK_SIZE, 0,          0,
-		BLOCK_SIZE, BLOCK_SIZE, 0,
-		BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE
+		BLOCK_DIM, 0,          BLOCK_DIM,
+		BLOCK_DIM, 0,          0,
+		BLOCK_DIM, BLOCK_DIM, 0,
+		BLOCK_DIM, BLOCK_DIM, BLOCK_DIM
 	};
 
 	const std::vector<GLfloat> topFace
 	{
-		0,          BLOCK_SIZE, BLOCK_SIZE,
-		BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE,
-		BLOCK_SIZE, BLOCK_SIZE, 0,
-		0,          BLOCK_SIZE, 0
+		0,          BLOCK_DIM, BLOCK_DIM,
+		BLOCK_DIM, BLOCK_DIM, BLOCK_DIM,
+		BLOCK_DIM, BLOCK_DIM, 0,
+		0,          BLOCK_DIM, 0
 	};
 
 	const std::vector<GLfloat> bottomFace
 	{
 		0,          0, 0,
-		BLOCK_SIZE, 0, 0,
-		BLOCK_SIZE, 0, BLOCK_SIZE,
-		0,          0, BLOCK_SIZE
+		BLOCK_DIM, 0, 0,
+		BLOCK_DIM, 0, BLOCK_DIM,
+		0,          0, BLOCK_DIM
 	};
 
 	constexpr GLfloat TOP_LIGHT = 1.0f;
 	constexpr GLfloat X_LIGHT = 0.8f;
 	constexpr GLfloat Z_LIGHT = 0.6f;
 	constexpr GLfloat BOTTOM_LIGHT = 0.6f;
-}
 
+
+const std::vector<GLfloat> textureCoords =
+{
+	1.0f, 1.0f,
+	0.0f, 1.0f,
+	0.0f, 0.0f,
+	1.0f, 0.0f
+};
 
 Vector3 arrayIndexOneToThreeDim(int i) {
 	Vector3 arrayCoords;
@@ -88,10 +94,6 @@ Chunk::Chunk(const IntVector3 positon)
 			}
 		}
 	}
-
-	for (int i = 0; i < CHUNK_VOLUME; ++i) {
-		//m_blocks[i] = static_cast<uint8_t>(generation.getBlockTypeAt(arrayIndexOneToThreeDim(i)));
-	}
 	
 	//typesOfBlocksInChunk = new std::set<uint8_t>{ m_blocks, m_blocks + CHUNK_VOLUME };
 
@@ -104,14 +106,6 @@ Chunk::Chunk(const IntVector3 positon)
 Chunk::~Chunk()
 {
 }
-
-const std::vector<GLfloat> textureCoords =
-{
-	1.0f, 1.0f,
-	0.0f, 1.0f,
-	0.0f, 0.0f,
-	1.0f, 0.0f
-};
 
 void Chunk::generate()
 {
@@ -135,7 +129,6 @@ void Chunk::generate()
 						mesh.addFace(topFace,
 									 textureCoords,
 									 1.0f,
-									 m_position,
 									 blockPosition);
 					}
 
@@ -144,7 +137,6 @@ void Chunk::generate()
 						mesh.addFace(bottomFace,
 									 textureCoords,
 									 3.0f,
-							 		 m_position,
 								 	 blockPosition);
 					}
 
@@ -153,7 +145,6 @@ void Chunk::generate()
 						mesh.addFace(rightFace,
 									 textureCoords,
 									 2.0f,
-									 m_position,
 									 blockPosition);
 					}
 
@@ -162,7 +153,6 @@ void Chunk::generate()
 						mesh.addFace(leftFace,
 									 textureCoords,
 									 2.0f,
-									 m_position,
 									 blockPosition);
 					}
 
@@ -171,7 +161,6 @@ void Chunk::generate()
 						mesh.addFace(frontFace,
 									 textureCoords,
 									 2.0f,
-									 m_position,
 									 blockPosition);
 					}
 
@@ -180,7 +169,6 @@ void Chunk::generate()
 						mesh.addFace(backFace,
 									 textureCoords,
 									 2.0f,
-									 m_position,
 									 blockPosition);
 					}
 				}
@@ -198,9 +186,14 @@ const Mesh& Chunk::getMesh() const
 	return mesh;
 }
 
-const Vector3 & Chunk::getPosition() const
+const IntVector3& Chunk::getPosition() const
 {
 	return m_position;
+}
+
+void Chunk::setPosition(const IntVector3& position)
+{
+	m_position = position;
 }
 
 const Block_Array* Chunk::getBlockArray() const
@@ -244,6 +237,8 @@ void Chunk::checkForRebuild()
 
 bool Chunk::isBlockHere(IntVector3 position, bool edgesIncluded) const
 {
+
+	// if out of range of our chunk
 	if (position.x < 0) {
 		if (left != nullptr) {
 			//std::cout << "X: " << ((int)position.x + CHUNK_SIZE) << "Y: " << (int)position.y << "Z: " << (int)position.z << std::endl;

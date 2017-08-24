@@ -34,6 +34,14 @@ struct TextData {
 	bool changed = false;
 };
 
+// Should be default, but was getting some weird errors.
+struct textCompare {
+	bool operator() (const unsigned int& lhs, const unsigned int& rhs) const
+	{
+		return lhs<rhs;
+	}
+};
+
 class Text_Manager
 {
 	public:
@@ -69,7 +77,7 @@ class Text_Manager
 
 		void deleteText(unsigned int id);
 
-		std::map<unsigned int, TextData>& getTextData();
+		std::map<unsigned int, TextData, textCompare>& getTextData();
 
 		void recreate(unsigned int id);
 
@@ -77,7 +85,7 @@ class Text_Manager
 		Text_Manager();
 		~Text_Manager();
 
-		std::map<unsigned int, TextData> m_textData;
+		std::map<unsigned int, TextData, textCompare> m_textData;
 
 		bool inRange(unsigned int id);
 

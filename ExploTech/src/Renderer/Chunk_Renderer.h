@@ -4,7 +4,7 @@
 #include <SFML/System/Clock.hpp>
 
 #include "../Shaders/Simple_Shader.h"
-#include "../World/Chunk/World_Manager.h"
+#include "../World/Chunk/WorldManager.h"
 
 class Camera;
 
@@ -13,7 +13,7 @@ namespace Renderer
 	class ChunkRenderer
 	{
 	public:
-		void addToChunkRenderList(World_Manager& world);
+		void addToChunkRenderList(WorldManager& world);
 
 		void update(const Camera& camera);
 
@@ -21,7 +21,7 @@ namespace Renderer
 		void prepare(const Chunk& section);
 
 	private:
-		World_Manager* world;
+		WorldManager* world;
 
 		Shader::Simple_Shader m_shader;
 

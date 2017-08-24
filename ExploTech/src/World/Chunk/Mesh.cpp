@@ -25,7 +25,6 @@ void Mesh::reset()
 void Mesh::addFace( const std::vector<GLfloat>&    templateFace,
 					const std::vector<GLfloat>&    texCoords,
 					const GLfloat layer,
-					const Vector3& chunkPos,
 					const Vector3& blockPos)
 {
 	++m_facesCount;
@@ -34,9 +33,9 @@ void Mesh::addFace( const std::vector<GLfloat>&    templateFace,
 	for (int i = 0, index = 0; i < 4; ++i)
 	{
 		// Three positions for each vertex.
-		m_vertices->push_back(templateFace[index++] + chunkPos.x * (CHUNK_SIZE_X - 1) + blockPos.x);
-		m_vertices->push_back(templateFace[index++] + chunkPos.y * (CHUNK_SIZE_Y - 1) + blockPos.y);
-		m_vertices->push_back(templateFace[index++] + chunkPos.z * (CHUNK_SIZE_Z - 1) + blockPos.z);
+		m_vertices->push_back(templateFace.at(index++) + blockPos.x);
+		m_vertices->push_back(templateFace.at(index++) + blockPos.y);
+		m_vertices->push_back(templateFace.at(index++) + blockPos.z);
 	}
 
 	// texCoords is appended to m_texCoords
@@ -79,7 +78,7 @@ void Mesh::buffer()
 	m_indices->shrink_to_fit();
 }
 
-const Model & Mesh::getModel() const
+const Model& Mesh::getModel() const
 {
 	return m_model;
 }

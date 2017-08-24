@@ -17,7 +17,6 @@ void Renderer::Text_Renderer::update()
 		if(textData.second.changed == true)
 		{
 			m_textManager->recreate(textData.first);
-			textData.second.changed = false;
 		}
 
 		m_shader.setColorVector(textData.second.color);

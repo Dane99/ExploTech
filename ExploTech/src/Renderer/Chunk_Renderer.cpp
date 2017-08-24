@@ -16,7 +16,7 @@
 
 namespace Renderer
 {
-	void ChunkRenderer::addToChunkRenderList(World_Manager& worldManager)
+	void ChunkRenderer::addToChunkRenderList(WorldManager& worldManager)
 	{
 		world = &worldManager;
 	}
@@ -44,9 +44,6 @@ namespace Renderer
 
 			Chunk *chunk = (it->second);
 
-			// check if any chunks need to regenerate.
-			chunk->checkForRebuild();
-
 			prepare(*chunk);
 
 			glDrawElements(GL_TRIANGLES,
@@ -66,7 +63,7 @@ namespace Renderer
 
 	void ChunkRenderer::prepare(const Chunk& chunk)
 	{
-		m_shader.setModelMatrix(Math::createModelMatrix(chunk.getPosition()));
+		m_shader.setModelMatrix(Math::createModelMatrix(Vector3(chunk.getPosition().x * (CHUNK_SIZE_X), chunk.getPosition().y * (CHUNK_SIZE_Y), chunk.getPosition().z * (CHUNK_SIZE_Z))));
 		chunk.getMesh().getModel().bind();
 	}
 }

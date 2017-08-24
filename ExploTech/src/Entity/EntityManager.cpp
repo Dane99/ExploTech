@@ -59,6 +59,8 @@ void EntityManager::updateMoveEvents(float currentTime)
 
 		if (movePercentageComplete > 1.0f)
 		{
+			// Set the end destination to the exact position.
+			m_quads.at(moveEvents[i].id)->position = moveEvents[i].destination;
 			moveEvents.erase(moveEvents.begin() + i);
 			continue;
 		}

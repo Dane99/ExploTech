@@ -203,7 +203,7 @@ void Text_Manager::deleteText(unsigned int id)
 
 }
 
-std::map<unsigned int, TextData>& Text_Manager::getTextData()
+std::map<unsigned int, TextData, textCompare>& Text_Manager::getTextData()
 {
 	return m_textData;
 }
@@ -216,7 +216,7 @@ void Text_Manager::recreate(unsigned int id)
 		m_textData[id].sx,
 		m_textData[id].sy);
 
-	//m_textData[id].changed = false;
+	m_textData[id].changed = false;
 }
 
 bool Text_Manager::inRange(unsigned int id)
