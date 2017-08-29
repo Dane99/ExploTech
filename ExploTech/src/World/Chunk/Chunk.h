@@ -7,6 +7,7 @@
 
 #include "../WorldConstants.h"
 #include "../Block/Block_ID.h"
+#include "../Generation/WorldGeneration.h"
 
 #include <set>
 
@@ -50,7 +51,7 @@ struct Block_Array
 
 class Chunk{
 	public:
-		Chunk(const IntVector3 position);
+		Chunk(const IntVector3 position, WorldGeneration* worldGeneration);
 		~Chunk();
 
 		void generate();
@@ -80,6 +81,7 @@ class Chunk{
 		// edgesIncluded is a setting whether or not the parameters might be outside/edges of the chunk.
 		bool Chunk::isBlockHere(IntVector3 position, bool edgesIncluded = true) const;
 
+		void generateBlockTypes();
 
 
 		Block_Array m_blocks;
@@ -88,5 +90,7 @@ class Chunk{
 
 		Mesh mesh;
 
-		std::set<uint8_t> *typesOfBlocksInChunk;
+		WorldGeneration* m_worldGeneration;
+
+		//std::set<uint8_t> *typesOfBlocksInChunk;
 };

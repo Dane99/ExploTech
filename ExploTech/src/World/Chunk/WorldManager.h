@@ -90,9 +90,11 @@ class WorldManager
 		std::vector<std::thread> m_chunkLoadThreads;
 
 		moodycamel::ConcurrentQueue<Chunk*> m_generatedChunks;
-		moodycamel::ConcurrentQueue<Chunk*> m_rebuildChunks;
-		moodycamel::ConcurrentQueue<Chunk*> m_rebuiltChunks;
+		//moodycamel::ConcurrentQueue<Chunk*> m_rebuildChunks;
+		//moodycamel::ConcurrentQueue<Chunk*> m_rebuiltChunks;
 		//std::vector<Chunk*> m_generatedChunks;
+
+		WorldGeneration worldGeneration;
 
 		int chunksAdded = 0;
 		int chunksRemoved = 0;

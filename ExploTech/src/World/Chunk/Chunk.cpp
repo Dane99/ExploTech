@@ -5,7 +5,6 @@
 #include "../WorldConstants.h"
 #include "../Block/Block_Database.h"
 #include "PositionTypes.h"
-#include "../Generation/World_Generation.h"
 
 #include <iostream>
 
@@ -81,19 +80,13 @@ Vector3 arrayIndexOneToThreeDim(int i) {
 }
 
 
-Chunk::Chunk(const IntVector3 positon)
+Chunk::Chunk(const IntVector3 positon, WorldGeneration* worldGeneration)
 	:m_position(positon)
+	,m_worldGeneration(worldGeneration)
 {
-	
-	auto& generation = World_Generation::get();
 
-	for (int x = 0; x < CHUNK_SIZE_X; ++x) {
-		for (int y = 0; y < CHUNK_SIZE_Y; ++y) {
-			for (int z = 0; z < CHUNK_SIZE_Z; ++z) {
-				m_blocks.set(x, y, z, static_cast<uint8_t>(generation.getBlockTypeAt(x, y, z)));
-			}
-		}
-	}
+	// creates block generation
+	generateBlockTypes();
 	
 	//typesOfBlocksInChunk = new std::set<uint8_t>{ m_blocks, m_blocks + CHUNK_VOLUME };
 
@@ -194,6 +187,7 @@ const IntVector3& Chunk::getPosition() const
 void Chunk::setPosition(const IntVector3& position)
 {
 	m_position = position;
+	generateBlockTypes();
 }
 
 const Block_Array* Chunk::getBlockArray() const
@@ -279,5 +273,20 @@ bool Chunk::isBlockHere(IntVector3 position, bool edgesIncluded) const
 	}
 	return m_blocks.exists(position.x, position.y, position.z);
 
+}
+
+void Chunk::generateBlockTypes()
+{
+	for (int x = 0; x < CHUNK_SIZE_X; ++x) {
+		for (int y = 0; y < CHUNK_SIZE_Y; ++y) {
+			for (int z = 0; z < CHUNK_SIZE_Z; ++z) {
+				IntVector3 localPosition = IntVector3(x, y, z);
+				IntVector3 globalPosition = IntVector3(m_position.x * CHUNK_SIZE_X, m_position.y * CHUNK_SIZE_Y, m_position.z * CHUNK_SIZE_Z);
+				m_blocks.set(x, y, z, static_cast<uint8_t>(m_worldGeneration->getBlockTypeAt(localPosition + globalPosition)));
+			}
+		}
+	}
+
+	changed = true;
 }
 

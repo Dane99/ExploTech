@@ -29,7 +29,7 @@ WorldManager::WorldManager()
 		});
 	}
 
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 0; i++)
 	{
 		std::this_thread::sleep_for(std::chrono::milliseconds(50));
 		m_chunkLoadThreads.emplace_back([&]()
@@ -100,14 +100,14 @@ void WorldManager::loadChunks()
 	{
 		if (m_generatedChunks.size_approx() < 1000)
 		{
-			auto temp = new Chunk(IntVector3(0, 0, 0));
+			auto temp = new Chunk(IntVector3(0, 0, 0), &worldGeneration);
 			temp->generate();
 			m_generatedChunks.enqueue(temp);
 			++chunksAdded;
 		}
 		else
 		{
-			std::this_thread::sleep_for(std::chrono::milliseconds(50));
+			std::this_thread::sleep_for(std::chrono::milliseconds(100));
 		}
 			//std::cout << "chunk added" << std::endl;
 	}
@@ -115,6 +115,7 @@ void WorldManager::loadChunks()
 
 void WorldManager::rebuildChunks()
 {
+	/*
 	while (m_isRunning)
 	{
 		Chunk* it = nullptr;
@@ -129,12 +130,13 @@ void WorldManager::rebuildChunks()
 			std::this_thread::sleep_for(std::chrono::milliseconds(50));
 		}
 	}
+	*/
 }
 
 void WorldManager::checkIfNewChunksShouldBeAdded(Vector3 cameraPosition)
 {
-	float RENDER_DISTANCE = 200.0f;
-	float REMOVAL_DISTANCE = 400.0f;
+	float RENDER_DISTANCE = 100.0f;
+	float REMOVAL_DISTANCE = 150.0f;
 
 	// Distance from player to chunk.
 	float Distance = 0.0f;
@@ -255,14 +257,25 @@ void WorldManager::update(Vector3& cameraPosition)
 
 	checkIfNewChunksShouldBeAdded(cameraPosition);
 
-	for (auto it = m_chunks->begin(); it != m_chunks->end();) 
+	int totalRebuilt = 0;
+
+	for (auto& chunk : *m_chunks)
+	{
+		if (chunk.second->changed && totalRebuilt < 1)
+		{
+			chunk.second->generate();
+			++totalRebuilt;
+		}
+	}
+
+	/*for (auto it = m_chunks->begin(); it != m_chunks->end();) 
 	{
 			// check if any chunks need to regenerate.
 		if (it->second->changed)
 		{
-			Chunk temp = (*it->second);
+			Chunk* temp = it->second;
 
-			m_rebuildChunks.enqueue(it->second);
+			m_rebuildChunks.enqueue(temp);
 
 			it = m_chunks->erase(it);
 		}
@@ -277,10 +290,11 @@ void WorldManager::update(Vector3& cameraPosition)
 
 	if (m_rebuiltChunks.try_dequeue(rebuiltChunk))
 	{
-		if (rebuiltChunk != nullptr) {
-			(*m_chunks)[rebuiltChunk->getPosition()] = rebuiltChunk;
-		}
+		(*m_chunks)[rebuiltChunk->getPosition()] = rebuiltChunk;
 	}
+
+	*/
+
 	//size_t elementsRemoved = m_rebuiltChunks.try_dequeue_bulk(chunkIt, 64);
 
 	//std::cout << "Elements Removed: " << elementsRemoved << std::endl;
@@ -392,13 +406,13 @@ void WorldManager::addChunk(const IntVector3& chunkPosition)
 													//(*m_chunks)[chunkPosition] = new Chunk(chunkPosition);
 	//}
 	//locker.~lock_guard();
-	std::cout << "Chunks in queue: " << chunksAdded - chunksRemoved << std::endl;
+	//std::cout << "Chunks in queue: " << chunksAdded - chunksRemoved << std::endl;
 
 	static bool firstChunk = true;
 	
 	if (firstChunk) 
 	{
-		(*m_chunks)[chunkPosition] = new Chunk(chunkPosition);
+		(*m_chunks)[chunkPosition] = new Chunk(chunkPosition, &worldGeneration);
 		firstChunk = false;
 	}
 	else
@@ -407,14 +421,14 @@ void WorldManager::addChunk(const IntVector3& chunkPosition)
 
 		if (m_generatedChunks.try_dequeue(temp) == false)
 		{
-			(*m_chunks)[chunkPosition] = new Chunk(chunkPosition);
+			(*m_chunks)[chunkPosition] = new Chunk(chunkPosition, &worldGeneration);
 			std::cout << "Chunk was not found in creation." << std::endl;
 		}
 		else
 		{
 			//std::cout << "Success!!!" << std::endl;
+			temp->setPosition(chunkPosition);
 			(*m_chunks)[chunkPosition] = temp;
-			(*m_chunks)[chunkPosition]->setPosition(chunkPosition);
 			++chunksRemoved;
 		}
 	}

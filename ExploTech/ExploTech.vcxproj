@@ -113,11 +113,13 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -184,7 +186,8 @@
     <ClCompile Include="src\World\Chunk\Chunk.cpp" />
     <ClCompile Include="src\World\Chunk\Mesh.cpp" />
     <ClCompile Include="src\World\Chunk\WorldManager.cpp" />
-    <ClCompile Include="src\World\Generation\World_Generation.cpp" />
+    <ClCompile Include="src\World\Generation\FastNoise\FastNoise.cpp" />
+    <ClCompile Include="src\World\Generation\WorldGeneration.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Command\CommandManager.h" />
@@ -237,8 +240,9 @@
     <ClInclude Include="src\World\Chunk\PositionTypes.h" />
     <ClInclude Include="src\World\Chunk\Mesh.h" />
     <ClInclude Include="src\World\Chunk\WorldManager.h" />
+    <ClInclude Include="src\World\Generation\FastNoise\FastNoise.h" />
     <ClInclude Include="src\World\WorldConstants.h" />
-    <ClInclude Include="src\World\Generation\World_Generation.h" />
+    <ClInclude Include="src\World\Generation\WorldGeneration.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Blocks\Air.block" />

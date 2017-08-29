@@ -38,7 +38,7 @@ void Camera::keyboardInput(float dt)
 	if (!CommandManager::get().isCommandWindowOpen())
 	{
 		Vector3 change;
-		float speed = 2.0f;
+		float speed = 6.0f;
 
 		Vector3 frontDirection = glm::normalize(glm::vec3(m_front.x, 0.0f, m_front.z));
 		Vector3 rightDirection = glm::normalize(glm::vec3(m_right.x, 0.0f, m_right.z));
