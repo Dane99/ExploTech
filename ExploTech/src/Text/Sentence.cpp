@@ -1,7 +1,7 @@
-#include "TextModel.h"
+#include "Sentence.h"
 #include <iostream>
 
-TextModel::TextModel()
+Sentence::Sentence()
 {
 	FT_Library ft;
 
@@ -92,7 +92,7 @@ TextModel::TextModel()
 
 }
 
-TextModel::~TextModel()
+Sentence::~Sentence()
 {
 	std::cout << "Destructor textmodel" << std::endl;
 	if (m_vao != 0) 
@@ -109,19 +109,19 @@ TextModel::~TextModel()
 	}
 }
 
-void TextModel::bind() const
+void Sentence::bind() const
 {
 	glBindVertexArray(m_vao);
 	glBindTexture(GL_TEXTURE_2D, m_textureID);
 }
 
-void TextModel::unbind() const
+void Sentence::unbind() const
 {
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glBindVertexArray(0);
 }
 
-void TextModel::createText(const char* text, float x, float y, float sx, float sy)
+void Sentence::createText(const char* text, float x, float y, float sx, float sy)
 {
 	std::vector<point> vertices;
 
@@ -171,7 +171,7 @@ void TextModel::createText(const char* text, float x, float y, float sx, float s
 	//glDrawArrays(GL_TRIANGLES, 0, numberOfCharacters * 6);
 }
 
-GLuint TextModel::getVerticesCount() const
+GLuint Sentence::getVerticesCount() const
 {
 	return m_numberOfCharactersToDraw * 6; // Six vertices per character.
 }

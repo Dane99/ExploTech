@@ -46,12 +46,12 @@ namespace
 	};
 }
 
-class TextModel
+class Sentence
 {
 public:
-	TextModel();
+	Sentence();
 
-	~TextModel();
+	~Sentence();
 
 	void bind() const;
 	void unbind() const;

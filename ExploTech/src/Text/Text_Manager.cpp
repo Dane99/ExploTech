@@ -17,217 +17,134 @@ Text_Manager& Text_Manager::get()
 
 unsigned int Text_Manager::addText(const std::string& text, float x, float y, float sx, float sy, Vector3& color)
 {
-	m_textData[currentID] = TextData(text, x, y, sx, sy);
-	m_textData[currentID].textModel = std::make_unique<TextModel>();
-	m_textData[currentID].textModel->createText(text.c_str(), x, y, sx, sy);
-	m_textData[currentID].color = color;
 
+	DisplaySentence* sentence = new DisplaySentence(text, x, y, sx, sy);
 
-	return currentID++;
+	int id = _DisplaySentences.push_back(sentence);
+
+	_DisplaySentences.getLastPointer()->sentence.createText(text.c_str(), x, y, sx, sy);
+	_DisplaySentences.getLastPointer()->setColor(color);
+
+	return id;
 }
 
-void Text_Manager::setTextContent(const std::string& text, unsigned int id)
+void Text_Manager::setTextContent(const std::string& text, int id)
 {
-
-	auto it = m_textData.find(id);
-	if (it != m_textData.end())
-	{
-		it->second.text = text;
-		it->second.changed = true;
-	}
+	_DisplaySentences.getPointerWithID(id)->setText(text);
 }
 
-void Text_Manager::setTextPositionX(float x, unsigned int id)
+void Text_Manager::setTextPositionX(float x, int id)
 {
-	auto it = m_textData.find(id);
-	if (it != m_textData.end())
-	{
-		it->second.x = x;
-		it->second.changed = true;
-	}
+	_DisplaySentences.getPointerWithID(id)->setPositionX(x);
 }
 
-void Text_Manager::setTextPositionY(float y, unsigned int id)
+void Text_Manager::setTextPositionY(float y, int id)
 {
-	auto it = m_textData.find(id);
-	if (it != m_textData.end())
-	{
-		it->second.y = y;
-		it->second.changed = true;
-	}
+	_DisplaySentences.getPointerWithID(id)->setPositionY(y);
 }
 
-void Text_Manager::changeTextPositionX(float x, unsigned int id)
+void Text_Manager::changeTextPositionX(float x, int id)
 {
-	auto it = m_textData.find(id);
-	if (it != m_textData.end())
-	{
-		it->second.x += x;
-		it->second.changed = true;
-	}
+	DisplaySentence* pointerToDisplaySentence = _DisplaySentences.getPointerWithID(id);
+	pointerToDisplaySentence->setPositionX(pointerToDisplaySentence->getPositionX() + x);
 }
 
-void Text_Manager::changeTextPositionY(float y, unsigned int id)
+void Text_Manager::changeTextPositionY(float y, int id)
 {
-	auto it = m_textData.find(id);
-	if (it != m_textData.end())
-	{
-		it->second.y += y;
-		//std::cout << "ID: " << id << std::endl;
-		//std::cout << "TextManager: " << it->second.y << std::endl;
-		it->second.changed = true;
-	}
+	DisplaySentence* pointerToDisplaySentence = _DisplaySentences.getPointerWithID(id);
+	pointerToDisplaySentence->setPositionY(pointerToDisplaySentence->getPositionY() + y);
 }
 
-void Text_Manager::setScaleX(float sx, unsigned int id)
+void Text_Manager::setScaleX(float sx, int id)
 {
-	auto it = m_textData.find(id);
-	if (it != m_textData.end())
-	{
-		it->second.sx = sx;
-		it->second.changed = true;
-	}
+	_DisplaySentences.getPointerWithID(id)->setScaleX(sx);
 }
 
-void Text_Manager::setScaleY(float sy, unsigned int id)
+void Text_Manager::setScaleY(float sy, int id)
 {
-	auto it = m_textData.find(id);
-	if (it != m_textData.end())
-	{
-		it->second.sy = sy;
-		it->second.changed = true;
-	}
+	_DisplaySentences.getPointerWithID(id)->setScaleY(sy);
 }
 
-void Text_Manager::setColor(const Vector3& color, unsigned int id)
+void Text_Manager::setColor(const Vector3& color, int id)
 {
-	auto it = m_textData.find(id);
-	if (it != m_textData.end())
-	{
-		// This does not need to set changed to true because color is updated every cycle in the text renderer.
-		it->second.color = color;
-	}
+	_DisplaySentences.getPointerWithID(id)->setColor(color);
 }
 
-std::string Text_Manager::getTextString(unsigned int id) const
+std::string Text_Manager::getTextString(int id) const
 {
-	auto it = m_textData.find(id);
-	if (it != m_textData.end())
-	{
-		return it->second.text;
-	}
-	return "NULL";
+	return _DisplaySentences.getPointerWithID(id)->getText();
 }
 
-float Text_Manager::getTextPositionX(unsigned int id) const
+float Text_Manager::getTextPositionX(int id) const
 {
-	auto it = m_textData.find(id);
-	if (it != m_textData.end())
-	{
-		return it->second.x;
-	}
-	std::cout << "Error getting text position x." << std::endl;
+	return _DisplaySentences.getPointerWithID(id)->getPositionX();
 }
 
-float Text_Manager::getTextPositionY(unsigned int id) const
+float Text_Manager::getTextPositionY( int id) const
 {
-	auto it = m_textData.find(id);
-	if (it != m_textData.end())
-	{
-		return it->second.y;
-	}
-	std::cout << "Error getting text position y." << std::endl;
+	return _DisplaySentences.getPointerWithID(id)->getPositionY();
 }
 
-float Text_Manager::getTextScaleX(unsigned int id) const
+float Text_Manager::getTextScaleX(int id) const
 {
-	auto it = m_textData.find(id);
-	if (it != m_textData.end())
-	{
-		return it->second.sx;
-	}
-	std::cout << "Error getting scale x." << std::endl;
+	return _DisplaySentences.getPointerWithID(id)->getScaleX();
 }
 
-float Text_Manager::getTextScaleY(unsigned int id) const
+float Text_Manager::getTextScaleY(int id) const
 {
-	auto it = m_textData.find(id);
-	if (it != m_textData.end())
-	{
-		return it->second.sy;
-	}
-	std::cout << "Error getting scale y." << std::endl;
+	return _DisplaySentences.getPointerWithID(id)->getScaleY();
 }
 
-Vector3 Text_Manager::getTextColor(unsigned int id) const
+Vector3 Text_Manager::getTextColor(int id) const
 {
-	auto it = m_textData.find(id);
-	if (it != m_textData.end())
-	{
-		return it->second.color;
-	}
-	std::cout << "Error getting scale y." << std::endl;
+	return _DisplaySentences.getPointerWithID(id)->getColor();
 }
 
-void Text_Manager::concatenateText(const std::string& newText, unsigned int id)
+void Text_Manager::concatenateText(const std::string& newText, int id)
 {
-	auto it = m_textData.find(id);
-	if (it != m_textData.end())
-	{
-		it->second.text = it->second.text + newText;
-		it->second.changed = true;
-	}
+	DisplaySentence* pointerToDisplaySentence = _DisplaySentences.getPointerWithID(id);
+	pointerToDisplaySentence->setText(pointerToDisplaySentence->getText() + newText);
 }
 
-void Text_Manager::backSpace(unsigned int id)
+void Text_Manager::backSpace(int id)
 {
-	auto it = m_textData.find(id);
-	if (it != m_textData.end())
-	{
-		if (it->second.text.length() > 0)
-		{
-			it->second.text.pop_back();
-			it->second.changed = true;
+	DisplaySentence* pointerToDisplaySentence = _DisplaySentences.getPointerWithID(id);
+	std::string text = pointerToDisplaySentence->getText();
+
+	text.pop_back();
+
+	pointerToDisplaySentence->setText(text);
+}
+
+void Text_Manager::deleteText(int id)
+{
+	_DisplaySentences.eraseWithID(id);
+
+}
+
+PointerVector<DisplaySentence>* Text_Manager::getSentences()
+{
+	return &_DisplaySentences;
+}
+
+void Text_Manager::update()
+{
+	int length = _DisplaySentences.getSize();
+
+	for (int i = 0; i < length; i++) {
+		// Pointer to display sentence aka p.
+		DisplaySentence* p = _DisplaySentences.getPointerWithOffset(i);
+
+		if (p->getChanged() == true) {
+			p->sentence.createText(p->getText().c_str(),
+								   p->getPositionX(),
+								   p->getPositionY(),
+							  	   p->getScaleX(),
+								   p->getScaleY());
 		}
-	}
-}
 
-void Text_Manager::deleteText(unsigned int id)
-{
-	auto it = m_textData.find(id);
-	if (it != m_textData.end())
-	{
-		//it->second.textModel.reset();
-		m_textData.erase(it);
+		p->setChanged(false);
 	}
 
-}
-
-std::map<unsigned int, TextData, textCompare>& Text_Manager::getTextData()
-{
-	return m_textData;
-}
-
-void Text_Manager::recreate(unsigned int id)
-{
-	m_textData[id].textModel->createText(m_textData[id].text.c_str(),
-		m_textData[id].x,
-		m_textData[id].y,
-		m_textData[id].sx,
-		m_textData[id].sy);
-
-	m_textData[id].changed = false;
-}
-
-bool Text_Manager::inRange(unsigned int id)
-{
-	if (id < m_textData.size())
-	{
-		return true;
-	}
-	else
-	{
-		std::cout << "ERROR: changeText id out of range!" << '\n';
-		return false;
-	}
+	
 }

@@ -96,6 +96,7 @@ WorldManager::~WorldManager()
 
 void WorldManager::loadChunks()
 {
+	/*
 	while (m_isRunning)
 	{
 		if (m_generatedChunks.size_approx() < 1000)
@@ -111,6 +112,7 @@ void WorldManager::loadChunks()
 		}
 			//std::cout << "chunk added" << std::endl;
 	}
+	*/
 }
 
 void WorldManager::rebuildChunks()
@@ -135,8 +137,8 @@ void WorldManager::rebuildChunks()
 
 void WorldManager::checkIfNewChunksShouldBeAdded(Vector3 cameraPosition)
 {
-	float RENDER_DISTANCE = 100.0f;
-	float REMOVAL_DISTANCE = 150.0f;
+	float RENDER_DISTANCE = 200.0f;
+	float REMOVAL_DISTANCE = 300.0f;
 
 	// Distance from player to chunk.
 	float Distance = 0.0f;
@@ -408,14 +410,14 @@ void WorldManager::addChunk(const IntVector3& chunkPosition)
 	//locker.~lock_guard();
 	//std::cout << "Chunks in queue: " << chunksAdded - chunksRemoved << std::endl;
 
-	static bool firstChunk = true;
+	//static bool firstChunk = true;
 	
-	if (firstChunk) 
-	{
+	//if (firstChunk) 
+	//{
 		(*m_chunks)[chunkPosition] = new Chunk(chunkPosition, &worldGeneration);
-		firstChunk = false;
-	}
-	else
+	//	firstChunk = false;
+	//
+	/*else
 	{
 		Chunk* temp;
 
@@ -431,7 +433,7 @@ void WorldManager::addChunk(const IntVector3& chunkPosition)
 			(*m_chunks)[chunkPosition] = temp;
 			++chunksRemoved;
 		}
-	}
+	}*/
 
 	if (m_chunks->find(IntVector3(chunkPosition.x - 1, chunkPosition.y, chunkPosition.z)) != m_chunks->end())
 	{

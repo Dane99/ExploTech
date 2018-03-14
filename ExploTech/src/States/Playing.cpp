@@ -36,8 +36,8 @@ namespace State {
 
 		srand(time(NULL));
 		m_quad.position.z  = -3;
-		//Text_Manager::get().addText("Hello World!", 100, 50, 1, 1, Vector3(0.5, 0.5, 0.5));
-		//textManager.addText("Random Number Alert: ", 10, Display::HEIGHT - 20, 0.5f, 0.5f, Vector3(1.0, 0.5, 0.5));
+		Text_Manager::get().addText("Hello World!", 100, 50, 1, 1, Vector3(0.5, 0.5, 0.5));
+		Text_Manager::get().addText("Random Number Alert: ", 10, Display::HEIGHT - 20, 0.5f, 0.5f, Vector3(1.0, 0.5, 0.5));
 
 		Input_Manager::addKeyPressCallback(GLFW_KEY_H, printHello);
 	}
@@ -57,12 +57,12 @@ namespace State {
 		m_quad.position.z += static_cast<float>(cos(generalClock.getElapsedTime().asSeconds()) * dt * 0.8);
 
 
-		//textManager.changeTextPositionY(sin(generalClock.getElapsedTime().asSeconds()) * 300 + 300, 0);
-		//textManager.changeScaleX(cos(generalClock.getElapsedTime().asSeconds())/2 + 1, 0);
-		//textManager.changeScaleY(cos(generalClock.getElapsedTime().asSeconds())/2 + 1, 0);
-		//textManager.changeColor(Vector3(sin(generalClock.getElapsedTime().asSeconds() + 0),
-		//								sin(generalClock.getElapsedTime().asSeconds() + 2),
-		//								sin(generalClock.getElapsedTime().asSeconds() + 4)), 0);
+		Text_Manager::get().setTextPositionY(sin(generalClock.getElapsedTime().asSeconds()) * 150 + 300, 0);
+		Text_Manager::get().setScaleX(cos(generalClock.getElapsedTime().asSeconds())/2 + 1, 0);
+		Text_Manager::get().setScaleY(cos(generalClock.getElapsedTime().asSeconds())/2 + 1, 0);
+		Text_Manager::get().setColor(Vector3(sin(generalClock.getElapsedTime().asSeconds() + 0),
+									sin(generalClock.getElapsedTime().asSeconds() + 2),
+									sin(generalClock.getElapsedTime().asSeconds() + 4)), 0);
 
 
 		//Application::get().getCamera().position.x / 16
@@ -90,7 +90,7 @@ namespace State {
 		if (randClock.getElapsedTime().asSeconds() > 5 || first)
 		{
 			int number = rand() % 100 + 1;
-		//	textManager.changeTextContent("Random Number Alert: " + std::to_string(number), 1);
+			Text_Manager::get().setTextContent("Random Number Alert: " + std::to_string(number), 1);
 			randClock.restart();
 			first = false;
 		}

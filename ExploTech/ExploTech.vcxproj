@@ -176,8 +176,8 @@
     <ClCompile Include="src\Texture\TextureArray2D.cpp" />
     <ClCompile Include="src\Texture\TextureManager.cpp" />
     <ClCompile Include="src\Texture\Texture_Atlas.cpp" />
+    <ClCompile Include="src\Text\Sentence.cpp" />
     <ClCompile Include="src\Text\Text_Manager.cpp" />
-    <ClCompile Include="src\Text\TextModel.cpp" />
     <ClCompile Include="src\World\Block\BlockTypes\BlockType.cpp" />
     <ClCompile Include="src\World\Block\BlockTypes\Data\BlockData.cpp" />
     <ClCompile Include="src\World\Block\Block_Database.cpp" />
@@ -223,11 +223,12 @@
     <ClInclude Include="src\States\Playing.h" />
     <ClInclude Include="src\Temp\Quad.h" />
     <ClInclude Include="src\Texture\Texture.h" />
+    <ClInclude Include="src\Text\Sentence.h" />
     <ClInclude Include="src\Text\Text_Manager.h" />
-    <ClInclude Include="src\Text\TextModel.h" />
     <ClInclude Include="src\Util\Multithreaded\atomicops.h" />
     <ClInclude Include="src\Util\Multithreaded\concurrentqueue.h" />
     <ClInclude Include="src\Util\Multithreaded\readerwriterqueue.h" />
+    <ClInclude Include="src\Util\PointerVector.h" />
     <ClInclude Include="src\Util\Singleton.h" />
     <ClInclude Include="src\World\Block\BlockChange.h" />
     <ClInclude Include="src\World\Block\BlockTypes\BlockType.h" />

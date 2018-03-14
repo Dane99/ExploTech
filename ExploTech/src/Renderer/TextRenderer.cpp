@@ -11,19 +11,19 @@ void Renderer::Text_Renderer::update()
 	m_shader.bind();
 	m_shader.setProjMatrix(glm::ortho(0.0f, static_cast<GLfloat>(Display::WIDTH), 0.0f, static_cast<GLfloat>(Display::HEIGHT)));
 
+	// Update any changes in size, scale, or color.
+	m_textManager->update();
+	auto* Sentences = m_textManager->getSentences();
 
-	for(auto &textData : m_textManager->getTextData())
-	{
-		if(textData.second.changed == true)
-		{
-			m_textManager->recreate(textData.first);
-		}
+	int length = Sentences->getSize();
 
-		m_shader.setColorVector(textData.second.color);
+	for (int i = 0; i < length; i++) {
+		DisplaySentence* p = Sentences->getPointerWithOffset(i);
 
-		textData.second.textModel->bind();
-		glDrawArrays(GL_TRIANGLES, 0, textData.second.textModel->getVerticesCount());
-		textData.second.textModel->unbind();
+		m_shader.setColorVector(p->getColor());
+		p->sentence.bind();
+		glDrawArrays(GL_TRIANGLES, 0, p->sentence.getVerticesCount());
+		p->sentence.unbind();
 	}
 
 	m_textManager = nullptr;
