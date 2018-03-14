@@ -9,6 +9,7 @@
 #include "../Util/Singleton.h"
 #include "../Input/Input_Manager.h"
 #include "../Networking/ConnectionManager.h"
+#include "../Util/PointerVector.h"
 
 
 
@@ -59,14 +60,13 @@ namespace
 
 		bool shouldBeDeleted()
 		{
-			if (isActive == false)
+			if (isActive == false && existenceClock.getElapsedTime().asSeconds() > 5)
 			{
-				if (existenceClock.getElapsedTime().asSeconds() > 5)
-				{
-					return true;
-				}
+				return true;
 			}
-			return false;
+			else {
+				return false;
+			}
 		}
 
 	};
@@ -97,7 +97,7 @@ private:
 
 	bool m_isCommandWindowOpen = false;
 
-	std::vector<TextElement*> m_textElements;
+	PointerVector<TextElement> _textElements;
 
 	bool m_isRunning = true;
 };

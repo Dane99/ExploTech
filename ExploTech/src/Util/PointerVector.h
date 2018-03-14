@@ -1,5 +1,7 @@
+#pragma once
 #include <iostream>
 #include <vector>
+
 
 template <class T>
 struct PointerAndID
@@ -38,7 +40,7 @@ public:
 
 	// Returns the last pointer that was added.
 	T* getLastPointer() const {
-		int offset = pointerWrapper.size() - 1;
+		int offset = this->getSize() - 1;
 		return pointerWrapper.at(offset).pointer;
 	}
 
@@ -46,6 +48,11 @@ public:
 	int push_back(T* item) {
 		pointerWrapper.emplace_back(item, currentId);
 		return currentId++;
+	}
+
+	void pop() {
+		int offset = this->getSize() - 1;
+		eraseWithOffset(offset);
 	}
 
 	// Removes a pointer if it has a matching item id. Also deletes the resources that it is holding.
@@ -59,7 +66,7 @@ public:
 	}
 
 	// Returns the size/length of the pointerVector.
-	int getSize() {
+	int getSize() const {
 		return pointerWrapper.size();
 	}
 

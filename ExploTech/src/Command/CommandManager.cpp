@@ -8,11 +8,6 @@ CommandManager::CommandManager()
 
 CommandManager::~CommandManager()
 {
-	for (auto& element : m_textElements)
-	{
-		delete element;
-	}
-	m_textElements.clear();
 }
 
 void CommandManager::sendToInterpreter(std::string data)
@@ -72,18 +67,9 @@ void CommandManager::sendToInterpreter(std::string data)
 
 void CommandManager::CheckforElementsThatShouldBeDeleted()
 {
-	auto i = m_textElements.begin();
-
-	while (i != m_textElements.end())
-	{
-		if ((*i)->shouldBeDeleted())
-		{
-			delete *i;
-			i = m_textElements.erase(i);
-		}
-		else
-		{
-			++i;
+	for (int i = 0; i < _textElements.getSize(); i++) {
+		if (_textElements.getPointerWithOffset(i)->shouldBeDeleted()) {
+			_textElements.eraseWithOffset(i);
 		}
 	}
 }
@@ -106,11 +92,9 @@ void CommandManager::closeCommandWindow()
 
 bool CommandManager::isCommandWindowOpen()
 {
-	if(m_textElements.size() != 0)
+	if (_textElements.getSize() > 0 && _textElements.getLastPointer()->isActive)
 	{
-		if (m_textElements.back()->isActive) {
-			return true;
-		}
+		return true;
 	}
 	return false;
 }
@@ -127,22 +111,23 @@ void CommandManager::keyPressed(unsigned int keyID)
 
 		if (keyID == GLFW_KEY_SLASH && !Input_Manager::keys[GLFW_KEY_RIGHT_SHIFT])
 		{
-			if (m_textElements.size() == 0)
+			// If there are no text elements present, create one
+			if (_textElements.getSize() == 0)
 			{
 				TextElement* tmp = new TextElement(s);
-				m_textElements.emplace_back(tmp);
+				_textElements.push_back(tmp);
 			}
 			else
 			{
-				if (m_textElements.back()->isActive)
+				// If there are text elements check whether the textElement has been sent.
+				if (_textElements.getLastPointer()->isActive)
 				{
-					delete m_textElements.back();
-					m_textElements.pop_back();
+					_textElements.pop();
 				}
 				else
 				{
 					TextElement* tmp = new TextElement(s);
-					m_textElements.emplace_back(tmp);
+					_textElements.push_back(tmp);
 				}
 			}
 		}
@@ -150,14 +135,14 @@ void CommandManager::keyPressed(unsigned int keyID)
 		{
 			if (isCommandWindowOpen())
 			{
-				m_textElements.back()->add("?");
+				_textElements.getLastPointer()->add("?");
 			}
 		}
 		else
 		{
 			if (isCommandWindowOpen())
 			{
-					m_textElements.back()->add(s);
+					_textElements.getLastPointer()->add(s);
 		
 			}
 		}
@@ -167,7 +152,7 @@ void CommandManager::keyPressed(unsigned int keyID)
 	{
 		if (isCommandWindowOpen())
 		{
-			m_textElements.back()->backSpace();
+			_textElements.getLastPointer()->backSpace();
 		}
 	}
 
@@ -175,21 +160,20 @@ void CommandManager::keyPressed(unsigned int keyID)
 	{
 		if (isCommandWindowOpen())
 		{
-			sendToInterpreter(Text_Manager::get().getTextString(m_textElements.back()->id));
+			sendToInterpreter(Text_Manager::get().getTextString(_textElements.getLastPointer()->id));
 
-			for (auto& element : m_textElements)
-			{
-				element->moveUp(25.0f);
+			for (int i = 0; i < _textElements.getSize(); i++) {
+				_textElements.getPointerWithOffset(i)->moveUp(25.0f);
 			}
+
 			TextElement* tmp = new TextElement("");
-			m_textElements.emplace_back(tmp);
+			_textElements.push_back(tmp);
 		}
 	}
 
 	if (keyID == GLFW_KEY_ESCAPE && isCommandWindowOpen())
 	{
-		delete m_textElements.back();
-		m_textElements.pop_back();
+		_textElements.pop();
 	}		
 }
 
