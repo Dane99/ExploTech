@@ -10,6 +10,13 @@
 #include "../Generation/WorldGeneration.h"
 
 #include <set>
+#include <atomic>
+
+
+#define CHUNK_INITIALIZING 0;
+#define CHUNK_DONE_INITIALIZING 1;
+#define CHUNK_MESH_GENERATED 2;
+#define CHUNK_MESH_BUFFERED 3;
 
 struct Block_Array
 {
@@ -49,6 +56,8 @@ struct Block_Array
 };
 
 
+
+
 class Chunk{
 	public:
 		Chunk(const IntVector3 position, WorldGeneration* worldGeneration);
@@ -70,8 +79,12 @@ class Chunk{
 
 		void setChanged(bool value);
 
+		void buffer();
+
 		// Whether or not the chunk has changed and needs to be regenerated.
-		bool changed = true;
+		std::atomic<bool> changed = true;
+
+		int state = CHUNK_INITIALIZING;
 
 		// Lets chunk rebuild if it has changed.
 		void checkForRebuild();

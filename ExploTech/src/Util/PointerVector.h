@@ -13,7 +13,7 @@ struct PointerAndID
 };
 
 
-// Class wrapper for C++ standard library for std::vector. This class adds functionality for deleting the memory pointers hold.
+// Class template for C++ standard library (std::vector). This class adds functionality for deleting and assigning identification to heap memory pointers.
 // Note offset is the number for addressing it in an array. E.g. array[5]. ID is the PointerAndID defined id.
 template <class T>
 class PointerVector

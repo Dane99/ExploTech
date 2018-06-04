@@ -45,7 +45,7 @@ namespace Display {
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 			glDepthFunc(GL_LESS);
-			glfwSwapInterval(0); //vsync off (on by default).
+			//glfwSwapInterval(0); //vsync off (on by default).
 		}
 	}
 

@@ -87,6 +87,8 @@ Chunk::Chunk(const IntVector3 positon, WorldGeneration* worldGeneration)
 
 	// creates block generation
 	generateBlockTypes();
+
+	state = CHUNK_DONE_INITIALIZING;
 	
 	//typesOfBlocksInChunk = new std::set<uint8_t>{ m_blocks, m_blocks + CHUNK_VOLUME };
 
@@ -168,8 +170,8 @@ void Chunk::generate()
 			}
 		}
 	}
-
-	mesh.buffer();
+	state = CHUNK_MESH_GENERATED;
+	//mesh.buffer();
 
 	changed = false;
 }
@@ -222,6 +224,12 @@ uint8_t Chunk::getBlock(uint32_t x, uint32_t y, uint32_t z) const
 void Chunk::setChanged(bool value)
 {
 	changed = value;
+}
+
+void Chunk::buffer()
+{
+	mesh.buffer();
+	state = CHUNK_MESH_BUFFERED;
 }
 
 void Chunk::checkForRebuild()

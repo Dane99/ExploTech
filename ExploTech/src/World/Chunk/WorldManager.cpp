@@ -28,15 +28,6 @@ WorldManager::WorldManager()
 			loadChunks();
 		});
 	}
-
-	for (int i = 0; i < 0; i++)
-	{
-		std::this_thread::sleep_for(std::chrono::milliseconds(50));
-		m_chunkLoadThreads.emplace_back([&]()
-		{
-			rebuildChunks();
-		});
-	}
 	
 	
 	/*
@@ -96,44 +87,29 @@ WorldManager::~WorldManager()
 
 void WorldManager::loadChunks()
 {
-	/*
+	
 	while (m_isRunning)
 	{
-		if (m_generatedChunks.size_approx() < 1000)
+		std::unique_lock<std::mutex> lck(updatingChunksMutex);
+		if (m_updatingChunks.size() > 0)
 		{
-			auto temp = new Chunk(IntVector3(0, 0, 0), &worldGeneration);
-			temp->generate();
-			m_generatedChunks.enqueue(temp);
-			++chunksAdded;
+			for (int i = 0; i < m_updatingChunks.size(); i++) {
+				m_updatingChunks[i]->generate();
+				//NOT SAFE
+				(*m_chunks)[m_updatingChunks[i]->getPosition()] = m_updatingChunks[i];
+			}
+			m_updatingChunks.clear();
 		}
 		else
 		{
+			lck.unlock();
 			std::this_thread::sleep_for(std::chrono::milliseconds(100));
 		}
 			//std::cout << "chunk added" << std::endl;
 	}
-	*/
+
 }
 
-void WorldManager::rebuildChunks()
-{
-	/*
-	while (m_isRunning)
-	{
-		Chunk* it = nullptr;
-
-		if (m_rebuildChunks.try_dequeue(it))
-		{
-			it->generate();
-			m_rebuiltChunks.enqueue(it);
-		}
-		else
-		{
-			std::this_thread::sleep_for(std::chrono::milliseconds(50));
-		}
-	}
-	*/
-}
 
 void WorldManager::checkIfNewChunksShouldBeAdded(Vector3 cameraPosition)
 {
@@ -153,7 +129,6 @@ void WorldManager::checkIfNewChunksShouldBeAdded(Vector3 cameraPosition)
 		// If it is we delete the chunk
 		if (Distance > REMOVAL_DISTANCE) {
 			// delete chunk 
-			// TODO add chunk deletion for iterators
 			if (it->second->left != nullptr) { it->second->left->changed = true;  it->second->left->right = nullptr; }
 			if (it->second->right != nullptr) { it->second->right->changed = true;  it->second->right->left = nullptr; }
 
@@ -257,18 +232,29 @@ void WorldManager::update(Vector3& cameraPosition)
 {
 	//realizeServerBlockChangeList();
 
-	checkIfNewChunksShouldBeAdded(cameraPosition);
+	//checkIfNewChunksShouldBeAdded(cameraPosition);
 
-	int totalRebuilt = 0;
-
-	for (auto& chunk : *m_chunks)
+	std::unordered_map<IntVector3, Chunk*, KeyHasher>::iterator it = m_chunks->begin();
+	while (it != m_chunks->end())
 	{
-		if (chunk.second->changed && totalRebuilt < 1)
-		{
-			chunk.second->generate();
-			++totalRebuilt;
+		if (it->second->state == 2) {
+			it->second->buffer();
 		}
+		++it;
 	}
+	//int totalRebuilt = 0;
+
+	////m_updatingChunks.push_back(chunkThatNeedsToBeRebuit);
+
+
+	//for (auto& chunk : *m_chunks)
+	//{
+	//	if (chunk.second->changed && totalRebuilt < 5)
+	//	{
+	//		chunk.second->generate();
+	//		++totalRebuilt;
+	//	}
+	//}
 
 	/*for (auto it = m_chunks->begin(); it != m_chunks->end();) 
 	{
@@ -392,50 +378,15 @@ void WorldManager::addChunk(const IntVector3& chunkPosition)
 		return;
 	}
 
-	//std::lock_guard<std::mutex> locker(chunkLoading);
-	/*std::cout << "Size is " << m_generatedChunks.size() << std::endl;
-	if (m_areChunksBeingLoaded.load() == false && m_generatedChunks.size() > 0) {
-		m_areChunksBeingLoaded.store(true);
-		std::cout << "Success!!!" << std::endl;
-		(*m_chunks)[chunkPosition] = m_generatedChunks.back();
-		(*m_chunks)[chunkPosition]->setPosition(chunkPosition);
-		m_generatedChunks.pop_back();
-		m_areChunksBeingLoaded.store(false);
-	}
-	else 
-	{
-		std::cout << "Failed" << std::endl;*/
-													//(*m_chunks)[chunkPosition] = new Chunk(chunkPosition);
-	//}
-	//locker.~lock_guard();
-	//std::cout << "Chunks in queue: " << chunksAdded - chunksRemoved << std::endl;
-
-	//static bool firstChunk = true;
 	
-	//if (firstChunk) 
-	//{
-		(*m_chunks)[chunkPosition] = new Chunk(chunkPosition, &worldGeneration);
-	//	firstChunk = false;
-	//
-	/*else
-	{
-		Chunk* temp;
+	//(*m_chunks)[chunkPosition] = new Chunk(chunkPosition, &worldGeneration);
+	Chunk* newChunk = new Chunk(chunkPosition, &worldGeneration);
+	newChunk->changed = true;
+	std::unique_lock<std::mutex> lck(updatingChunksMutex);
+	m_updatingChunks.push_back(newChunk);
 
-		if (m_generatedChunks.try_dequeue(temp) == false)
-		{
-			(*m_chunks)[chunkPosition] = new Chunk(chunkPosition, &worldGeneration);
-			std::cout << "Chunk was not found in creation." << std::endl;
-		}
-		else
-		{
-			//std::cout << "Success!!!" << std::endl;
-			temp->setPosition(chunkPosition);
-			(*m_chunks)[chunkPosition] = temp;
-			++chunksRemoved;
-		}
-	}*/
-
-	if (m_chunks->find(IntVector3(chunkPosition.x - 1, chunkPosition.y, chunkPosition.z)) != m_chunks->end())
+	// cant do this while chunk data is in another thread.
+	/*if (m_chunks->find(IntVector3(chunkPosition.x - 1, chunkPosition.y, chunkPosition.z)) != m_chunks->end())
 	{
 		(*m_chunks)[chunkPosition]->left = (*m_chunks)[IntVector3(chunkPosition.x - 1, chunkPosition.y, chunkPosition.z)];
 		(*m_chunks)[IntVector3(chunkPosition.x - 1, chunkPosition.y, chunkPosition.z)]->right = (*m_chunks)[chunkPosition];
@@ -471,7 +422,13 @@ void WorldManager::addChunk(const IntVector3& chunkPosition)
 		(*m_chunks)[IntVector3(chunkPosition.x, chunkPosition.y, chunkPosition.z + 1)]->front = (*m_chunks)[chunkPosition];
 		(*m_chunks)[IntVector3(chunkPosition.x, chunkPosition.y, chunkPosition.z + 1)]->changed = true;
 	}
-	(*m_chunks)[chunkPosition]->changed = true;
+*/
+	/*Chunk* chunkThatNeedsToBeRebuit = (*m_chunks)[chunkPosition];
+	chunkThatNeedsToBeRebuit->changed = true;	
+
+	std::unique_lock<std::mutex> lck(updatingChunksMutex);
+	m_updatingChunks.push_back(chunkThatNeedsToBeRebuit);*/
+
 
 }
 

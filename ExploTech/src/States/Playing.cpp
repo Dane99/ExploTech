@@ -33,6 +33,8 @@ namespace State {
 		EntityManager::get().moveToPosition(Vector3(-10, -10, -10), 15.0f, generalClock.getElapsedTime().asSeconds(), 0);
 
 		worldManager.addChunk(IntVector3(0, 0, 0));
+		worldManager.addChunk(IntVector3(1, 0, 0));
+		worldManager.addChunk(IntVector3(-1,0, 0));
 
 		srand(time(NULL));
 		m_quad.position.z  = -3;

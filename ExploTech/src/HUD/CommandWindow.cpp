@@ -12,7 +12,7 @@ namespace {
 	std::vector<GLfloat> vertices =
 	{
 		WIDTH - horizontalBuffer,  HeightDelta + verticalBuffer, 0.0f,  // Top Right
-		WIDTH - horizontalBuffer          ,  verticalBuffer			   , 0.0f,  // Bottom Right
+		WIDTH - horizontalBuffer,  verticalBuffer			   , 0.0f,  // Bottom Right
 
 		horizontalBuffer,  verticalBuffer, 0.0f,  // Bottom Left
 		horizontalBuffer,  HeightDelta + verticalBuffer, 0.0f   // Top Left 

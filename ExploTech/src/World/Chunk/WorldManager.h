@@ -15,7 +15,10 @@
 #include "../Block/BlockChange.h"
 #include "../../Networking/ConnectionManager.h"
 #include "../../Camera.h"
-#include "../../Util/Multithreaded/concurrentqueue.h"
+#define CHUNK_INITIALIZING 0;
+#define CHUNK_DONE_INITIALIZING 1;
+#define CHUNK_MESH_GENERATED 2;
+#define CHUNK_MESH_BUFFERED 3;
 
 struct KeyHasher
 {
@@ -89,7 +92,8 @@ class WorldManager
 
 		std::vector<std::thread> m_chunkLoadThreads;
 
-		moodycamel::ConcurrentQueue<Chunk*> m_generatedChunks;
+		Chunk* m_generatedChunks;
+		std::vector<Chunk*> m_updatingChunks;
 		//moodycamel::ConcurrentQueue<Chunk*> m_rebuildChunks;
 		//moodycamel::ConcurrentQueue<Chunk*> m_rebuiltChunks;
 		//std::vector<Chunk*> m_generatedChunks;
@@ -98,6 +102,8 @@ class WorldManager
 
 		int chunksAdded = 0;
 		int chunksRemoved = 0;
+
+		std::mutex updatingChunksMutex;
 
 		// Hasher for the map below
 		std::unordered_map<IntVector3, Chunk*, KeyHasher>* m_chunks;
