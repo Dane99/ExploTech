@@ -1,4 +1,5 @@
 #include "Sentence.h"
+#include <stdio.h>
 #include <iostream>
 
 Sentence::Sentence()
@@ -20,8 +21,8 @@ Sentence::Sentence()
 	FT_Set_Pixel_Sizes(face, 0, 48);
 
 	FT_GlyphSlot g = face->glyph;
-	int w = 0;
-	int h = 0;
+	unsigned int w = 0;
+	unsigned int h = 0;
 
 	for (int i = 32; i < 128; i++) {
 		if (FT_Load_Char(face, i, FT_LOAD_RENDER)) {

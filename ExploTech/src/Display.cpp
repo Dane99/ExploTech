@@ -16,6 +16,7 @@ namespace Display {
 		// Ensure we can only create one window
 		if (window == nullptr) 
 		{
+			glewExperimental = GL_TRUE;
 			if (!glfwInit())
 			{
 				fprintf(stderr, "Failed to initialize GLFW\n");

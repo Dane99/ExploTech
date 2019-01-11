@@ -6,8 +6,8 @@
 #include <map>
 #include <algorithm>
 #include "../Glm_Common.h"
-#include <ft2build.h>
-#include <freetype/ftglyph.h>
+#include "ft2build.h"
+#include "freetype/ftglyph.h"
 #include FT_FREETYPE_H
 
 namespace
