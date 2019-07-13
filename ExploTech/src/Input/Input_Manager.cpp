@@ -37,7 +37,7 @@ void Input_Manager::addKeyPressCallback(unsigned int keyID, std::function<void(v
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS && !CommandManager::get().isCommandWindowOpen())
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 	{
 		Display::close();
 	}
@@ -45,7 +45,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	{
 		if (action == GLFW_PRESS)
 		{
-			CommandManager::get().keyPressed(key);
 
 			auto it = Input_Manager::keyCallbacks.find(key);
 			if (it != Input_Manager::keyCallbacks.end())

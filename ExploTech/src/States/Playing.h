@@ -1,19 +1,8 @@
 #pragma once
 
-#include "Game_State.h"
 
-#include "../Model.h"
-#include "../Shaders/Simple_Shader.h"
-#include "../Texture/Texture_Atlas.h"
 
-#include "../World/Chunk/Chunk.h"
-#include "../Temp/Quad.h"
-
-#include "../World/Chunk/WorldManager.h"
-
-#include "../HUD/HUD.h"
-#include "../Text/Text_Manager.h"
-#include "../Command/CommandManager.h"
+#include "../Application.h"
 
 namespace State 
 {
@@ -30,16 +19,8 @@ namespace State
 			void updateKeyboardInput(float dt) override;
 
 		private:
-			//Shader::Simple_Shader m_shader;
-
-			Quad m_quad;
-
 			HUD hud;
-
 			WorldManager worldManager;
-
 			static constexpr bool raycasting = true;
 	};
-
-
 }

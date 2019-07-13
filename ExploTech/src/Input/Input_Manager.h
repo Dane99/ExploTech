@@ -6,7 +6,6 @@
 #include <vector>
 #include <map>
 #include "../Application.h"
-#include "../Command/CommandManager.h"
 
 class Input_Manager {
 	public:

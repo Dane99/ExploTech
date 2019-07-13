@@ -1,7 +1,5 @@
 #include "Display.h"
 
-#include <memory>
-#include <SFML/Graphics.hpp>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <stdexcept>
@@ -20,7 +18,6 @@ namespace Display {
 			if (!glfwInit())
 			{
 				fprintf(stderr, "Failed to initialize GLFW\n");
-				getchar();
 				throw std::runtime_error("Error initializing GLFW.");
 			}
 

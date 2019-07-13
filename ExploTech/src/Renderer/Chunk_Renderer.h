@@ -1,8 +1,6 @@
 #pragma once
 
-#include <vector>
 #include <SFML/System/Clock.hpp>
-
 #include "../Shaders/Simple_Shader.h"
 #include "../World/Chunk/WorldManager.h"
 

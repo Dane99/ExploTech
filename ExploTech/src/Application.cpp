@@ -26,14 +26,11 @@ void Application::runMainGameLoop()
 {
 	sf::Clock clock;
 
-	// we might want to update the camera and state once those things
-	// start to change a bit.
 	while (Display::isOpen()) 
 	{
 		auto dt = clock.restart().asSeconds();
 
 		m_renderer.clear();
-
 
 		m_states.top()->input();
 
@@ -46,7 +43,6 @@ void Application::runMainGameLoop()
 		m_renderer.update(camera);
 
 		if(frames % 60 == 0) std::cout << "FPS: " << floor(1.0f / (float)dt) << "\n";
-
 		++frames;
 	}
 }

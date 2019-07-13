@@ -6,9 +6,7 @@ class TextureManager
 {
 public:
 	static TextureManager& get();
-
 	TextureManager();
-
 	TextureArray2D* getPtrTextureArray();
 
 private:

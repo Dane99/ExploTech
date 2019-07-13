@@ -12,9 +12,6 @@ namespace Renderer
 
 	void Master::update(const Camera& camera)
 	{
-		
-
-		m_simpleRenderer.update(camera);
 		m_chunkRenderer.update(camera);
 		m_HudRenderer.update();
 		m_TextRenderer.update();
@@ -35,10 +32,5 @@ namespace Renderer
 	void Master::addToMasterRenderList(Text_Manager& textManager)
 	{
 		m_TextRenderer.addToTextRenderList(textManager);
-	}
-
-	void Master::addToMasterRenderList(EntityManager& entityManager)
-	{
-		m_simpleRenderer.addToSimpleRenderList(entityManager);
 	}
 }

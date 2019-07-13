@@ -12,12 +12,10 @@ namespace Texture
 	{
 		public:
 			Atlas(const std::string& textureName, GLuint size, GLuint textureSize);
-
 			std::vector<GLfloat> getTextureCoords(const Vector2& location) const;
 
 		private:
 			GLuint m_size;
-
 			GLuint m_textureSize;
 	};
 }

@@ -5,14 +5,13 @@
 
 #include "Display.h"
 
-#include "Input/Input_Manager.h"
 #include <GL/GLEW.h>
 #include <GLFW/glfw3.h>
 
 #include "Math/Matrix.h"
 
-#include "Command\CommandManager.h"
 #include <iostream>
+#include "Input/Input_Manager.h"
 
 #include "Application.h"
 // pitch is rotation.x
@@ -35,52 +34,51 @@ void Camera::updateViewMatrix()
 void Camera::keyboardInput(float dt)
 {
 	// If the command window is open, we do not want to be able to move.
-	if (!CommandManager::get().isCommandWindowOpen())
+	
+	Vector3 change;
+	float speed = 6.0f;
+
+	Vector3 frontDirection = glm::normalize(glm::vec3(m_front.x, 0.0f, m_front.z));
+	Vector3 rightDirection = glm::normalize(glm::vec3(m_right.x, 0.0f, m_right.z));
+
+	if (Input_Manager::keys[GLFW_KEY_W])
 	{
-		Vector3 change;
-		float speed = 6.0f;
-
-		Vector3 frontDirection = glm::normalize(glm::vec3(m_front.x, 0.0f, m_front.z));
-		Vector3 rightDirection = glm::normalize(glm::vec3(m_right.x, 0.0f, m_right.z));
-
-		if (Input_Manager::keys[GLFW_KEY_W])
-		{
-			change += frontDirection * speed;
-		}
-
-		if (Input_Manager::keys[GLFW_KEY_S])
-		{
-			change -= frontDirection * speed;
-		}
-
-		if (Input_Manager::keys[GLFW_KEY_A])
-		{
-			change -= rightDirection * speed;
-		}
-
-		if (Input_Manager::keys[GLFW_KEY_D])
-		{
-			change += rightDirection * speed;
-		}
-
-		if (Input_Manager::keys[GLFW_KEY_SPACE])
-		{
-			change += m_worldUp * speed * 2.0f;
-		}
-
-		if (Input_Manager::keys[GLFW_KEY_LEFT_CONTROL])
-		{
-			change -= m_worldUp * speed;
-		}
-
-		float sprint = 1.0f;
-		if(Input_Manager::keys[GLFW_KEY_LEFT_SHIFT])
-		{
-			sprint = 30.0f;
-		}
-
-		position += change * dt * sprint;
+		change += frontDirection * speed;
 	}
+
+	if (Input_Manager::keys[GLFW_KEY_S])
+	{
+		change -= frontDirection * speed;
+	}
+
+	if (Input_Manager::keys[GLFW_KEY_A])
+	{
+		change -= rightDirection * speed;
+	}
+
+	if (Input_Manager::keys[GLFW_KEY_D])
+	{
+		change += rightDirection * speed;
+	}
+
+	if (Input_Manager::keys[GLFW_KEY_SPACE])
+	{
+		change += m_worldUp * speed * 2.0f;
+	}
+
+	if (Input_Manager::keys[GLFW_KEY_LEFT_CONTROL])
+	{
+		change -= m_worldUp * speed;
+	}
+
+	float sprint = 1.0f;
+	if(Input_Manager::keys[GLFW_KEY_LEFT_SHIFT])
+	{
+		sprint = 30.0f;
+	}
+
+	position += change * dt * sprint;
+	
 }
 
 void Camera::mouseInput(double xpos, double ypos)

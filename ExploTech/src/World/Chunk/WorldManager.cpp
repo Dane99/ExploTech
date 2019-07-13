@@ -19,70 +19,10 @@ namespace {
 WorldManager::WorldManager()
 {
 	m_chunks = new std::unordered_map<IntVector3, Chunk*, KeyHasher>;
-
-	for (int i = 0; i < 1; i++)
-	{
-		std::this_thread::sleep_for(std::chrono::milliseconds(50));
-		m_chunkLoadThreads.emplace_back([&]()
-		{
-			loadChunks();
-		});
-	}
-
-	for (int i = 0; i < 0; i++)
-	{
-		std::this_thread::sleep_for(std::chrono::milliseconds(50));
-		m_chunkLoadThreads.emplace_back([&]()
-		{
-			rebuildChunks();
-		});
-	}
-	
-	
-	/*
-	for (int x = 0; x < m_worldSizeX; ++x)
-	{
-		for (int y = 0; y < m_worldSizeY; ++y)
-		{
-			for (int z = 0; z < m_worldSizeZ; ++z)
-			{
-
-				(*m_chunks)[IntVector3(x, y, z)] = new Chunk(IntVector3(x, y, z));
-
-				//std::cout << "Test" << m_chunks.size() << std::endl;
-			}
-		}
-	}
-
-	// Sets pointers to each surrounding chunck, if they exist.
-	for (int x = 0; x < m_worldSizeX; x++) {
-		for (int y = 0; y < m_worldSizeY; y++) {
-			for (int z = 0; z < m_worldSizeZ; z++) {
-				if (x > 0)
-					(*m_chunks)[IntVector3(x, y, z)]->left = (*m_chunks)[IntVector3(x - 1, y, z)];
-				if (x < m_worldSizeX - 1)
-					(*m_chunks)[IntVector3(x, y, z)]->right = (*m_chunks)[IntVector3(x + 1, y, z)];
-				if (y > 0)
-					(*m_chunks)[IntVector3(x, y, z)]->below = (*m_chunks)[IntVector3(x, y - 1, z)];
-				if (y < m_worldSizeY - 1)
-					(*m_chunks)[IntVector3(x, y, z)]->above = (*m_chunks)[IntVector3(x, y + 1, z)];
-				if (z > 0)
-					(*m_chunks)[IntVector3(x, y, z)]->front = (*m_chunks)[IntVector3(x, y, z - 1)];
-				if (z < m_worldSizeZ - 1)
-					(*m_chunks)[IntVector3(x, y, z)]->back = (*m_chunks)[IntVector3(x, y, z + 1)];
-			}
-		}
-	} */
 }
 
 WorldManager::~WorldManager()
 {
-	m_isRunning = false;
-	for (auto& thread : m_chunkLoadThreads)
-	{
-		thread.join();
-	}
-
 	// Delete all chunks
 	auto it = m_chunks->begin();
 	while (it != m_chunks->end())
@@ -92,47 +32,6 @@ WorldManager::~WorldManager()
 	}
 	delete m_chunks;
 
-}
-
-void WorldManager::loadChunks()
-{
-	/*
-	while (m_isRunning)
-	{
-		if (m_generatedChunks.size_approx() < 1000)
-		{
-			auto temp = new Chunk(IntVector3(0, 0, 0), &worldGeneration);
-			temp->generate();
-			m_generatedChunks.enqueue(temp);
-			++chunksAdded;
-		}
-		else
-		{
-			std::this_thread::sleep_for(std::chrono::milliseconds(100));
-		}
-			//std::cout << "chunk added" << std::endl;
-	}
-	*/
-}
-
-void WorldManager::rebuildChunks()
-{
-	/*
-	while (m_isRunning)
-	{
-		Chunk* it = nullptr;
-
-		if (m_rebuildChunks.try_dequeue(it))
-		{
-			it->generate();
-			m_rebuiltChunks.enqueue(it);
-		}
-		else
-		{
-			std::this_thread::sleep_for(std::chrono::milliseconds(50));
-		}
-	}
-	*/
 }
 
 void WorldManager::checkIfNewChunksShouldBeAdded(Vector3 cameraPosition)
@@ -230,33 +129,8 @@ bool WorldManager::doesChunkExist(IntVector3 ChunkPosition)
 	}
 }
 
-void WorldManager::addThreadSafeServerBlockChangesToTheList(Vector3 worldPosition, Block::ID type, bool isFromServer)
-{
-	blockChangesMutex.lock();
-
-	// Construct a new blockChanges structure
-	BlockChange change(worldPosition, type);
-	blockChanges.push(change);
-
-	blockChangesMutex.unlock();
-}
-
-void WorldManager::realizeServerBlockChangeList()
-{
-	blockChangesMutex.lock();
-
-	while (!blockChanges.empty())
-	{
-		setBlock(blockChanges.front().worldPosition, static_cast<Block::ID>(blockChanges.front().type), true);
-		blockChanges.pop();
-	}
-	blockChangesMutex.unlock();
-}
-
 void WorldManager::update(Vector3& cameraPosition)
 {
-	//realizeServerBlockChangeList();
-
 	checkIfNewChunksShouldBeAdded(cameraPosition);
 
 	int totalRebuilt = 0;
@@ -269,38 +143,6 @@ void WorldManager::update(Vector3& cameraPosition)
 			++totalRebuilt;
 		}
 	}
-
-	/*for (auto it = m_chunks->begin(); it != m_chunks->end();) 
-	{
-			// check if any chunks need to regenerate.
-		if (it->second->changed)
-		{
-			Chunk* temp = it->second;
-
-			m_rebuildChunks.enqueue(temp);
-
-			it = m_chunks->erase(it);
-		}
-		else
-		{
-			++it;
-		}
-	}
-	
-
-	Chunk* rebuiltChunk = nullptr;
-
-	if (m_rebuiltChunks.try_dequeue(rebuiltChunk))
-	{
-		(*m_chunks)[rebuiltChunk->getPosition()] = rebuiltChunk;
-	}
-
-	*/
-
-	//size_t elementsRemoved = m_rebuiltChunks.try_dequeue_bulk(chunkIt, 64);
-
-	//std::cout << "Elements Removed: " << elementsRemoved << std::endl;
-	
 }
 
 Chunk* WorldManager::getChunkWithWorldPosition(Vector3 WorldPosition)
@@ -323,15 +165,8 @@ Chunk* WorldManager::getChunkWithWorldPosition(Vector3 WorldPosition)
 	return nullptr;
 }
 
-void WorldManager::setBlock(Vector3 WorldPosition, Block::ID type, bool isFromServer)
+void WorldManager::setBlock(Vector3 WorldPosition, Block::ID type)
 {
-	if (!isFromServer)
-	{
-		BlockChange blockChange(WorldPosition, type);
-		// TODO
-		ConnectionManager::get().sendMessageToServer(50000, "127.0.0.1", blockChange);
-	}
-
 	Chunk* chunk = getChunkWithWorldPosition(WorldPosition);
 	//std::cout << "Called setBlock: X:" << WorldPosition.x << " Y: " << WorldPosition.y << " Z: " << WorldPosition.z <<  '\n';
 	// make sure it is range.
@@ -392,48 +227,8 @@ void WorldManager::addChunk(const IntVector3& chunkPosition)
 		return;
 	}
 
-	//std::lock_guard<std::mutex> locker(chunkLoading);
-	/*std::cout << "Size is " << m_generatedChunks.size() << std::endl;
-	if (m_areChunksBeingLoaded.load() == false && m_generatedChunks.size() > 0) {
-		m_areChunksBeingLoaded.store(true);
-		std::cout << "Success!!!" << std::endl;
-		(*m_chunks)[chunkPosition] = m_generatedChunks.back();
-		(*m_chunks)[chunkPosition]->setPosition(chunkPosition);
-		m_generatedChunks.pop_back();
-		m_areChunksBeingLoaded.store(false);
-	}
-	else 
-	{
-		std::cout << "Failed" << std::endl;*/
-													//(*m_chunks)[chunkPosition] = new Chunk(chunkPosition);
-	//}
-	//locker.~lock_guard();
-	//std::cout << "Chunks in queue: " << chunksAdded - chunksRemoved << std::endl;
+	(*m_chunks)[chunkPosition] = new Chunk(chunkPosition, &worldGeneration);
 
-	//static bool firstChunk = true;
-	
-	//if (firstChunk) 
-	//{
-		(*m_chunks)[chunkPosition] = new Chunk(chunkPosition, &worldGeneration);
-	//	firstChunk = false;
-	//
-	/*else
-	{
-		Chunk* temp;
-
-		if (m_generatedChunks.try_dequeue(temp) == false)
-		{
-			(*m_chunks)[chunkPosition] = new Chunk(chunkPosition, &worldGeneration);
-			std::cout << "Chunk was not found in creation." << std::endl;
-		}
-		else
-		{
-			//std::cout << "Success!!!" << std::endl;
-			temp->setPosition(chunkPosition);
-			(*m_chunks)[chunkPosition] = temp;
-			++chunksRemoved;
-		}
-	}*/
 
 	if (m_chunks->find(IntVector3(chunkPosition.x - 1, chunkPosition.y, chunkPosition.z)) != m_chunks->end())
 	{
