@@ -1,8 +1,6 @@
 #include "Master_Renderer.h"
 #include "../Display.h"
 
-#include "../World/Block/Block_Database.h"
-
 namespace Renderer 
 {
 	void Master::clear()

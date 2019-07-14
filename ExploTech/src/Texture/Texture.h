@@ -8,7 +8,6 @@ namespace Texture
 	{
 		public:
 			void load(const std::string& fileName);
-
 			void bind() const;
 			void unbind() const;
 

@@ -76,7 +76,7 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 	//Input_Manager* inputManager = static_cast<Input_Manager*>(glfwGetWindowUserPointer(window));
 
 	bool leftMouseButtonPressed = false
-		, rightMouseButtonPressed = false;
+		,rightMouseButtonPressed = false;
 
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
 		leftMouseButtonPressed = true;
@@ -86,6 +86,5 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 	}
 
 	//std::cout << "Left: " << (int)leftMouseButtonPressed << " Right: " << (int)rightMouseButtonPressed << '\n';
-
 	Application::get().getCurrentGameStatePtr()->updateMouseClickInput(leftMouseButtonPressed, rightMouseButtonPressed);
 }

@@ -37,7 +37,5 @@ namespace Renderer
 		m_shader.unbind();
 
 		glEnable(GL_DEPTH_TEST);
-
-	
 	}
 }

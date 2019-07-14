@@ -9,13 +9,10 @@ class Crosshair
 {
 public:
 	Crosshair();
-
 	const Model& getModel() const;
-
 	const Texture::Basic_Texture& getTexture() const;
 
 private:
-
 	Model m_model;
 	Texture::Basic_Texture m_texture;
 };

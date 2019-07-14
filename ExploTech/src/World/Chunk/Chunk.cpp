@@ -3,9 +3,6 @@
 #include <GL/glew.h>
 
 #include "../WorldConstants.h"
-#include "../Block/Block_Database.h"
-#include "PositionTypes.h"
-
 #include <iostream>
 
 
@@ -87,13 +84,6 @@ Chunk::Chunk(const IntVector3 positon, WorldGeneration* worldGeneration)
 
 	// creates block generation
 	generateBlockTypes();
-	
-	//typesOfBlocksInChunk = new std::set<uint8_t>{ m_blocks, m_blocks + CHUNK_VOLUME };
-
-	// Test printing of the set typesOfBlocksInChunk
-	//for (auto& each : (*typesOfBlocksInChunk)) {
-	//	std::cout << static_cast<int>(each) << std::endl;
-	//}
 }
 
 Chunk::~Chunk()
@@ -103,9 +93,6 @@ Chunk::~Chunk()
 void Chunk::generate()
 {
 	mesh.reset();
-
-	//auto& atlas = Block::Database::get().textures;
-
 
 	for (int x = 0; x < CHUNK_SIZE_X; ++x)
 	{

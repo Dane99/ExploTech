@@ -9,9 +9,6 @@
 #include "Entity.h"
 #include "Camera.h"
 
-
-//#include "Util\Singleton.h"
-
 class Application{
 	public:
 

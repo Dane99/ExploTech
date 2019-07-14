@@ -12,7 +12,6 @@ namespace Renderer
 	{
 	public:
 		void addToChunkRenderList(WorldManager& world);
-
 		void update(const Camera& camera);
 
 	private:
@@ -20,9 +19,7 @@ namespace Renderer
 
 	private:
 		WorldManager* world;
-
 		Shader::Simple_Shader m_shader;
-
 		sf::Clock m_clock;
 	};
 }

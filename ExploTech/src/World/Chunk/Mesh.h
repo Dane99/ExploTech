@@ -7,7 +7,6 @@
 #include <SFML/System/Vector2.hpp>
 
 #include "../../Model.h"
-#include "PositionTypes.h"
 
 #include "../../Glm_Common.h"
 

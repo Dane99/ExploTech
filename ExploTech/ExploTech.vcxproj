@@ -168,12 +168,10 @@
     <ClCompile Include="src\Texture\Texture.cpp" />
     <ClCompile Include="src\Texture\TextureArray2D.cpp" />
     <ClCompile Include="src\Texture\TextureManager.cpp" />
-    <ClCompile Include="src\Texture\Texture_Atlas.cpp" />
     <ClCompile Include="src\Text\Sentence.cpp" />
     <ClCompile Include="src\Text\Text_Manager.cpp" />
     <ClCompile Include="src\World\Block\BlockTypes\BlockType.cpp" />
     <ClCompile Include="src\World\Block\BlockTypes\Data\BlockData.cpp" />
-    <ClCompile Include="src\World\Block\Block_Database.cpp" />
     <ClCompile Include="src\World\Block\BlockTypes\Air.cpp" />
     <ClCompile Include="src\World\Block\BlockTypes\Grass.cpp" />
     <ClCompile Include="src\World\Chunk\Chunk.cpp" />
@@ -194,7 +192,6 @@
     <ClInclude Include="src\Shaders\Text_Shader.h" />
     <ClInclude Include="src\Texture\TextureArray2D.h" />
     <ClInclude Include="src\Texture\TextureManager.h" />
-    <ClInclude Include="src\Texture\Texture_Atlas.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Math\Matrix.h" />
     <ClInclude Include="src\Application.h" />
@@ -215,15 +212,12 @@
     <ClInclude Include="src\Util\Multithreaded\readerwriterqueue.h" />
     <ClInclude Include="src\Util\PointerVector.h" />
     <ClInclude Include="src\Util\Singleton.h" />
-    <ClInclude Include="src\World\Block\BlockChange.h" />
     <ClInclude Include="src\World\Block\BlockTypes\BlockType.h" />
     <ClInclude Include="src\World\Block\BlockTypes\Data\BlockData.h" />
-    <ClInclude Include="src\World\Block\Block_Database.h" />
     <ClInclude Include="src\World\Block\Block_ID.h" />
     <ClInclude Include="src\World\Block\BlockTypes\Air.h" />
     <ClInclude Include="src\World\Block\BlockTypes\Grass.h" />
     <ClInclude Include="src\World\Chunk\Chunk.h" />
-    <ClInclude Include="src\World\Chunk\PositionTypes.h" />
     <ClInclude Include="src\World\Chunk\Mesh.h" />
     <ClInclude Include="src\World\Chunk\WorldManager.h" />
     <ClInclude Include="src\World\Generation\FastNoise\FastNoise.h" />

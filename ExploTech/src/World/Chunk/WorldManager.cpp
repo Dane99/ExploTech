@@ -16,6 +16,7 @@ namespace {
 		return ret;
 	}
 }
+
 WorldManager::WorldManager()
 {
 	m_chunks = new std::unordered_map<IntVector3, Chunk*, KeyHasher>;

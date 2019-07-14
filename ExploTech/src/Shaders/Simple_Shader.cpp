@@ -37,5 +37,4 @@ namespace Shader
 		m_locationModelMatrix = glGetUniformLocation(getID(), "modelMatrix");
 		m_locationProjMatrix =  glGetUniformLocation(getID(), "projMatrix");
 	}
-
 }

@@ -1,5 +1,5 @@
 #pragma once
-
+#include <stdint.h>
 namespace Block
 {
 	enum class ID: uint8_t

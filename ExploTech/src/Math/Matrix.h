@@ -11,5 +11,4 @@ namespace Math
 	Matrix4 createModelMatrix(const Entity& entity);
 	Matrix4 createModelMatrix(const Vector3& position);
 	Matrix4 createProjMatrix();
-
 }

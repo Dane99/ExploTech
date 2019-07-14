@@ -20,6 +20,5 @@ namespace State
 			virtual void updateMouseClickInput (bool left, bool right) = 0;
 			virtual void updateKeyboardInput   (float dt) = 0;
 			virtual void draw			       (Renderer::Master& renderer) = 0;
-
 	};
 }

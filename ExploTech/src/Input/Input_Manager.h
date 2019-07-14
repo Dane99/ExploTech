@@ -17,6 +17,5 @@ class Input_Manager {
 		static std::map<unsigned int, std::vector<std::function<void(void)>>> keyCallbacks;
 	private:
 		Input_Manager();
-
 		static Input_Manager inputManager;
 };

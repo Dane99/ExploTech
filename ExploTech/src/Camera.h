@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Glm_Common.h"
-
 #include "Entity.h"
 
 class Camera : public Entity
@@ -38,5 +37,4 @@ class Camera : public Entity
 
 		double lastX = 0.0;
 		double lastY = 0.0;
-
 };

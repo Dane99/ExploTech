@@ -8,9 +8,7 @@ namespace Shader
 	{
 	public:
 		Text_Shader();
-
 		void setProjMatrix(const Matrix4& matrix);
-
 		void setColorVector(const Vector3& vector);
 
 	private:

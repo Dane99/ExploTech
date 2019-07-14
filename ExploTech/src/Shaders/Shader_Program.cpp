@@ -7,7 +7,6 @@ namespace Shader
 	Shader_Program::Shader_Program(const std::string& vertexShaderFile, const std::string& fragmentShaderFile)
 		: m_programID(loadShader(vertexShaderFile, fragmentShaderFile))
 	{
-
 	}
 
 	Shader_Program::~Shader_Program()
@@ -54,5 +53,4 @@ namespace Shader
 	{
 		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 	}
-
 }

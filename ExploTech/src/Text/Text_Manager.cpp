@@ -145,6 +145,4 @@ void Text_Manager::update()
 
 		p->setChanged(false);
 	}
-
-	
 }
