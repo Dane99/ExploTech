@@ -28,7 +28,7 @@ namespace Shader
 	}
 
 	std::string getSource(const std::string& sourceFile) {
-		std::ifstream inFile("Data/Shaders/" + sourceFile + ".glsl");
+		std::ifstream inFile("../Data/Shaders/" + sourceFile + ".glsl");
 		std::string source;
 		std::stringstream stringStream;
 

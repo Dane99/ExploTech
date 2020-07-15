@@ -8,7 +8,7 @@ namespace Block
 	{
 		std::ifstream inFile;
 
-		inFile.open("Data/Blocks/" + fileName + ".block");
+		inFile.open("../Data/Blocks/" + fileName + ".block");
 
 		std::string title;
 

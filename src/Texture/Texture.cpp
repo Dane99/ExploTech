@@ -7,7 +7,7 @@ namespace Texture
 {
 	void Basic_Texture::load(const std::string& fileName)
 	{
-		std::string filePath = "Data/Textures/" + fileName + ".png";
+		std::string filePath = "../Data/Textures/" + fileName + ".png";
 
 		sf::Image image;
 		image.loadFromFile(filePath);

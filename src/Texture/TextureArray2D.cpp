@@ -2,7 +2,7 @@
 
 TextureArray2D::TextureArray2D(const std::string& fileName, int widthOfSubtexture, int heightOfSubtexture, int layerCount)
 {
-	std::string filePath = "Data/Textures/" + fileName + ".png";
+	std::string filePath = "../Data/Textures/" + fileName + ".png";
 
 	sf::Image image;
 	image.loadFromFile(filePath);

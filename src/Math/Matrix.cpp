@@ -13,7 +13,7 @@ namespace Math
 	
 	Matrix4 createModelMatrix(const Entity& entity)
 	{
-		Matrix4 matrix;
+		Matrix4 matrix(1.0f);
 
 		matrix = glm::translate(matrix, entity.position);
 
@@ -26,7 +26,7 @@ namespace Math
 
 	Matrix4 createModelMatrix(const Vector3& position)
 	{
-		Matrix4 matrix;
+		Matrix4 matrix(1.0f);
 
 		matrix = glm::translate(matrix, position);
 

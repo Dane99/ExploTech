@@ -5,7 +5,7 @@
 
 #include "Display.h"
 
-#include <GL/GLEW.h>
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 #include "Math/Matrix.h"
@@ -35,7 +35,7 @@ void Camera::keyboardInput(float dt)
 {
 	// If the command window is open, we do not want to be able to move.
 	
-	Vector3 change;
+	Vector3 change = Vector3(0.0f);
 	float speed = 6.0f;
 
 	Vector3 frontDirection = glm::normalize(glm::vec3(m_front.x, 0.0f, m_front.z));

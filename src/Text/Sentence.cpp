@@ -31,7 +31,7 @@ Sentence::Sentence()
 		}
 
 		w += g->bitmap.width + m_fontPadding;
-		h = std::max((int)h, g->bitmap.rows);	
+		h = std::max(h, g->bitmap.rows);	
 	}
 
 	/* you might as well save this value as it is needed later on */
