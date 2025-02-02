@@ -1,0 +1,7 @@
+{
+  "cmake.sourceDirectory": "C:/Data/ExploTech/src",
+  "cmake.useCMakePresets": "never",
+  "files.associations": {
+    "stdexcept": "cpp"
+  }
+}

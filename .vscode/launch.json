@@ -1,0 +1,13 @@
+{
+  "configurations": [
+    {
+      "cwd": "${workspaceRoot}/src",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "name": "Launch ExploTech",
+      "program": "${workspaceFolder}/build/Debug/ExploTech.exe",
+      "preLaunchTask": "build",
+      "console": "externalTerminal"
+    }
+  ]
+}

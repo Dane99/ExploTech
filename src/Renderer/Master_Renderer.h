@@ -15,17 +15,17 @@ namespace Renderer
 {
 	class Master
 	{
-		public:
-			void clear();
+	public:
+		void clear();
 
-			void update(const Camera& camera);
-			void addToMasterRenderList(WorldManager& worldManager);
-			void addToMasterRenderList(HUD& hud);
-			void addToMasterRenderList(Text_Manager& textManager);
-		
-		private:
-			ChunkRenderer m_chunkRenderer;
-		    HUD_Renderer m_HudRenderer;
-			Text_Renderer m_TextRenderer;
+		void update(const Camera &camera);
+		void addToMasterRenderList(WorldManager &worldManager);
+		void addToMasterRenderList(HUD &hud);
+		void addToMasterRenderList(Text_Manager &textManager);
+
+	private:
+		ChunkRenderer m_chunkRenderer;
+		HUD_Renderer m_HudRenderer;
+		Text_Renderer m_TextRenderer;
 	};
 }

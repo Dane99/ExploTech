@@ -11,14 +11,14 @@ namespace Renderer
 	class ChunkRenderer
 	{
 	public:
-		void addToChunkRenderList(WorldManager& world);
-		void update(const Camera& camera);
+		void addToChunkRenderList(WorldManager &world);
+		void update(const Camera &camera);
 
 	private:
-		void prepare(const Chunk& section);
+		void prepare(const Chunk &section);
 
 	private:
-		WorldManager* world;
+		WorldManager *world;
 		Shader::Simple_Shader m_shader;
 		sf::Clock m_clock;
 	};

@@ -10,7 +10,7 @@ namespace Shader
 		HUD_Shader();
 
 		void setTime(float time);
-		void setProjMatrix(const Matrix4& matrix);
+		void setProjMatrix(const Matrix4 &matrix);
 
 	private:
 		void getUniformLocations() override;

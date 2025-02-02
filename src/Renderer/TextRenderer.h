@@ -9,14 +9,12 @@ namespace Renderer
 	class Text_Renderer
 	{
 	public:
-
-		void addToTextRenderList(Text_Manager& textManager);
+		void addToTextRenderList(Text_Manager &textManager);
 
 		void update();
 
 	private:
-
 		Shader::Text_Shader m_shader;
-		Text_Manager* m_textManager;
+		Text_Manager *m_textManager;
 	};
 }

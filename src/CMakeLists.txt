@@ -1,6 +1,9 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.31)
 
 set(CMAKE_TOOLCHAIN_FILE "./vcpkg/scripts/buildsystems/vcpkg.cmake")
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(ExploTech)
 
@@ -18,7 +21,11 @@ find_package(glfw3 CONFIG REQUIRED)
 target_link_libraries(ExploTech PRIVATE glfw)
 
 find_package(SFML 2 COMPONENTS graphics audio network REQUIRED)
-target_link_libraries(ExploTech PRIVATE sfml-graphics sfml-audio sfml-network FLAC OpenAL OpenGL Vorbis)
+target_link_libraries(ExploTech PRIVATE
+    sfml-graphics 
+    sfml-audio 
+    sfml-network
+)
 
 find_package(glm CONFIG REQUIRED)
-target_link_libraries(ExploTech PRIVATE glm) 
+target_include_directories(ExploTech PRIVATE ${GLM_INCLUDE_DIRS})

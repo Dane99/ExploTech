@@ -9,7 +9,7 @@ namespace Shader
 	public:
 		HUD_ShaderSimple();
 
-		void setProjMatrix(const Matrix4& matrix);
+		void setProjMatrix(const Matrix4 &matrix);
 
 	private:
 		void getUniformLocations() override;

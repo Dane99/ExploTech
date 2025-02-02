@@ -8,7 +8,7 @@
 namespace Renderer
 {
 
-	void HUD_Renderer::addToHudRenderList(HUD& hud)
+	void HUD_Renderer::addToHudRenderList(HUD &hud)
 	{
 		this->m_hud = &hud;
 	}
@@ -26,9 +26,9 @@ namespace Renderer
 		glDisable(GL_DEPTH_TEST);
 
 		glDrawElements(GL_TRIANGLES,
-			m_hud->crosshair.getModel().getIndicesCount(),
-			GL_UNSIGNED_INT,
-			nullptr);
+					   m_hud->crosshair.getModel().getIndicesCount(),
+					   GL_UNSIGNED_INT,
+					   nullptr);
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);

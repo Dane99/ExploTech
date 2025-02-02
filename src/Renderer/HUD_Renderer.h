@@ -11,12 +11,12 @@ namespace Renderer
 	class HUD_Renderer
 	{
 	public:
-		void addToHudRenderList(HUD& hud);
+		void addToHudRenderList(HUD &hud);
 		void update();
 
 	private:
 		Shader::HUD_Shader m_shader;
-		HUD* m_hud;
+		HUD *m_hud;
 		sf::Clock m_clock;
 	};
 }
